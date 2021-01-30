@@ -39,7 +39,7 @@
 % Document
 %------------------------------------------------------------------------------
 \begin{document}
-\maketitle	 
+\maketitle   
 \newpage
 \tableofcontents
 \newpage
@@ -83,9 +83,9 @@ widgets }
 This document will elucidate the requirements necessary to create Boardzilla. Some system requirements have been gathered from the project outline and others have been generated to create an acceptable final result. Additionally, this document will contain an explanation of the project and its constraints, the stakeholders of the project, as well as a quantitative measure of the desired finished product. The intended audience for this document include the team members who are developing the product, the Professor, Dr. Khedri, as well as any teaching assistants who will be grading this document.
 
 % \begin{enumerate}[a)]
-% 	\item Delineate the purpose of the SRS
-% 	\item Specify the intended audience for the SRS 
-% 	- team members, prof, TAs
+%   \item Delineate the purpose of the SRS
+%   \item Specify the intended audience for the SRS 
+%   - team members, prof, TAs
 % \end{enumerate}
 % End SubSection
 
@@ -94,10 +94,10 @@ This document will elucidate the requirements necessary to create Boardzilla. So
 % Begin SubSection
 The product being developed is called Boardzilla, an online web app that will serve as a dashboard for a variety of pertinent information. Each user can have a unique dashboard containing their desired widgets from the available options. These options include: a weather widget, a sticky notes widget, a calendar widget, a news widget, and an widget showing live stock prices. This application will serve as a daily briefing to users, presenting live, relevant, and customizable information that is all aggregated on a single page. 
 % \begin{enumerate}[a)]
-% 	\item Identify the software product(s) to be produced by name (e.g., Host DBMS, Report Generator, etc.)
-% 	\item Explain what the software product(s) will, and, if necessary, will not do
-% 	\item Describe the application of the software being specified, including relevant benefits, objectives, and goals
-% 	\item Be consistent with similar statements in higher-level specifications (e.g., the system requirements specification), if they exist
+%   \item Identify the software product(s) to be produced by name (e.g., Host DBMS, Report Generator, etc.)
+%   \item Explain what the software product(s) will, and, if necessary, will not do
+%   \item Describe the application of the software being specified, including relevant benefits, objectives, and goals
+%   \item Be consistent with similar statements in higher-level specifications (e.g., the system requirements specification), if they exist
 % \end{enumerate}
 
 % End SubSection
@@ -106,11 +106,11 @@ The product being developed is called Boardzilla, an online web app that will se
 \label{sub:definitions_acronyms_and_abbreviations}
 % Begin SubSection
 \begin{itemize}
-% 	\item Provide the definitions of all terms, acronyms, and abbreviations required to properly interpret the SRS
-	\item \textbf{Dashboard}: a user interface or web page that gives a current summary, usually in graphic, easy-to-read form, of key information relating to progress and performance, especially of a business or website. \url{https://www.dictionary.com/browse/dashboard}
-	
-	\item \textbf{Application Programming Interface (API)}: a set of programming code that enables data transmission between one software product and another. \url{https://www.altexsoft.com/blog/engineering/what-is-api-definition-types-specifications-documentation/}
-	
+%   \item Provide the definitions of all terms, acronyms, and abbreviations required to properly interpret the SRS
+  \item \textbf{Dashboard}: a user interface or web page that gives a current summary, usually in graphic, easy-to-read form, of key information relating to progress and performance, especially of a business or website. \url{https://www.dictionary.com/browse/dashboard}
+  
+  \item \textbf{Application Programming Interface (API)}: a set of programming code that enables data transmission between one software product and another. \url{https://www.altexsoft.com/blog/engineering/what-is-api-definition-types-specifications-documentation/}
+  
     \item \textbf{Widget}: an element of a user interface that displays information or provides a specific way for a user to interact with an application. \url{https://whatis.techtarget.com/definition/widget}
 \end{itemize}
 % End SubSection
@@ -119,9 +119,9 @@ The product being developed is called Boardzilla, an online web app that will se
 \label{sub:references}
 % Begin SubSection
 \begin{enumerate}[a)]
-	\item Provide a complete list of all documents referenced elsewhere in the SRS
-	\item Identify each document by title, report number (if applicable), date, and publishing organization
-	\item Specify the sources from which the references can be obtained
+  \item Provide a complete list of all documents referenced elsewhere in the SRS
+  \item Identify each document by title, report number (if applicable), date, and publishing organization
+  \item Specify the sources from which the references can be obtained
 \end{enumerate}
 % End SubSection
 
@@ -130,8 +130,8 @@ The product being developed is called Boardzilla, an online web app that will se
 % Begin SubSection
 The remainder of this document will provide an overall description of our product, a use case diagram depicting the business events, the functional and non-functional requirements, and the division of labour. 
 \begin{enumerate}[a)]
-% 	\item Describe what the rest of the SRS contains
-% 	\item Explain how the SRS is organized
+%   \item Describe what the rest of the SRS contains
+%   \item Explain how the SRS is organized
 
 \end{enumerate}
 % End SubSection
@@ -149,11 +149,11 @@ The remainder of this document will provide an overall description of our produc
 % Begin SubSection
 Our system will provide users with a large variety of widgets to customize their dashboard. Similar dashboard applications are focused on relaying analytical information such as team or product statistics. Boardzilla's widgets provide users with options relevant to broader demographics rather than individual businesses. These widgets can then be combined and configured by the user, providing them with a dashboard that is unique to them. The standalone versions of the widgets such as Google News or The Weather Network provide the same information but are lacking in convenience due to being largely isolated applications. \url{https://medium.com/theymakedesign/best-web-design-inspiration-dashboards-d87015ffb711} In addition, our dashboard's ability to be customized does not sacrifice any functionality or usability to the overall application.
 \begin{enumerate}[a)]
-% 	\item Put the product into perspective with other related products, i.e., context
-% 	\item If the product is independent and totally self-contained, it should be stated here
-% 	\item If the SRS defines a product that is a component of a larger system, as frequently occurs, then this subsection should relate the requirements of that larger system to functionality of the software and should identify interfaces between that system and the software
-% 	\item A block diagram showing the major components of the larger system, interconnections, and external interfaces can be helpful
-	
+%   \item Put the product into perspective with other related products, i.e., context
+%   \item If the product is independent and totally self-contained, it should be stated here
+%   \item If the SRS defines a product that is a component of a larger system, as frequently occurs, then this subsection should relate the requirements of that larger system to functionality of the software and should identify interfaces between that system and the software
+%   \item A block diagram showing the major components of the larger system, interconnections, and external interfaces can be helpful
+  
 \end{enumerate}
 
 % End SubSection
@@ -175,15 +175,15 @@ When a user navigates to Boardzilla's web app, they will be presented with a log
     %     \item Users will be able to log in to their account to display their dashboard on different machines.
     % \end{itemize}
 
-	\item Provide a summary of the major functions that the software will perform. 
-	\begin{itemize}
-		\item \textbf{Example}: A SRS for an accounting program may use this part to address customer account maintenance, customer statement, and invoice preparation without mentioning the vast amount of detail that each of those functions requires.
-	\end{itemize}
-	\item Functions should be organized in a way that makes the list of functions understandable to the customer or to anyone else reading the document for the first time
-	\item Textual or graphical methods can be used to show the different functions and their relationships
-	\begin{itemize}
-		\item Such a diagram is not intended to show a design of a product, but simply shows the logical relationships among variables
-	\end{itemize} 
+  \item Provide a summary of the major functions that the software will perform. 
+  \begin{itemize}
+    \item \textbf{Example}: A SRS for an accounting program may use this part to address customer account maintenance, customer statement, and invoice preparation without mentioning the vast amount of detail that each of those functions requires.
+  \end{itemize}
+  \item Functions should be organized in a way that makes the list of functions understandable to the customer or to anyone else reading the document for the first time
+  \item Textual or graphical methods can be used to show the different functions and their relationships
+  \begin{itemize}
+    \item Such a diagram is not intended to show a design of a product, but simply shows the logical relationships among variables
+  \end{itemize} 
 \end{enumerate}
 % End SubSection
 
@@ -193,8 +193,8 @@ When a user navigates to Boardzilla's web app, they will be presented with a log
 Boardzilla will be designed to appeal to everyone, the only requisite knowledge being how to use a computer and web browser. To that end, intended users of Boardzilla will not be required to have any other technical background or education. Additionally, prior experience with our application will not be required because all relevant information will be provided to the user upon registration. 
 % The users will choose widgets by clicking and dragging icons according to their own need and point of interest in a way that Boardzilla could serve them the best.
 % \begin{enumerate}[a)]
-% 	\item Describe those general characteristics of the intended users of the product including educational level, experience, and technical expertise
-% 	\item Do not state specific requirements, but rather provide the reasons why certain specific requirements are later specified
+%   \item Describe those general characteristics of the intended users of the product including educational level, experience, and technical expertise
+%   \item Do not state specific requirements, but rather provide the reasons why certain specific requirements are later specified
 % \end{enumerate}
 % End SubSection
 
@@ -210,7 +210,7 @@ Boardzilla will be designed to appeal to everyone, the only requisite knowledge 
     \item The design and development of the application completed at a cost of under five dollars.
 \end{itemize}
 % \begin{enumerate}[a)]
-% 	\item Provide a general description of any other items that will limit the developer's options
+%   \item Provide a general description of any other items that will limit the developer's options
 % \end{enumerate}
 % End SubSection
 
@@ -230,11 +230,11 @@ Dependencies:
     \item The software will be dependent on existing languages, frameworks, and technologies.
 \end{itemize}
 \begin{enumerate}[a)]
-	\item List each of the factors that affect the requirements stated in the SRS
-	\item These factors are not design constraints on the software but are, rather, any changes to them that can affect the requirements in the SRS
-	\begin{itemize}
-		\item \textbf{Example}: An assumption may be that a specific operating system will be available on the hardware designated for the software product. If, in fact, the operating system is not available, the SRS would then have to change accordingly.
-	\end{itemize}
+  \item List each of the factors that affect the requirements stated in the SRS
+  \item These factors are not design constraints on the software but are, rather, any changes to them that can affect the requirements in the SRS
+  \begin{itemize}
+    \item \textbf{Example}: An assumption may be that a specific operating system will be available on the hardware designated for the software product. If, in fact, the operating system is not available, the SRS would then have to change accordingly.
+  \end{itemize}
 \end{enumerate}
 % End SubSection
 
@@ -251,7 +251,7 @@ In future versions we will:
     \item Allow users to save and access multiple layout configurations.
 \end{itemize}
 % \begin{enumerate}[a)]
-% 	\item Identify requirements that may be delayed until future versions of the system
+%   \item Identify requirements that may be delayed until future versions of the system
 % \end{enumerate}
 % End SubSection
 
@@ -262,7 +262,7 @@ In future versions we will:
 % Begin Section
 This section should provide a use case diagram for your application. 
 \begin{enumerate}[a)]
-	\item Each use case appearing in the diagram should be accompanied by a text description. 
+  \item Each use case appearing in the diagram should be accompanied by a text description. 
 \end{enumerate}
 % End Section
 
@@ -273,8 +273,8 @@ This section of the SRS should contain all of the software requirements to a lev
 
 You normally have two options for organizing your functional requirements:
 \begin{enumerate}
-	\item Organize first by \emph{business events}, then by \emph{viewpoints}
-	\item Organize first by \emph{viewpoints}, then by \emph{business events}
+  \item Organize first by \emph{business events}, then by \emph{viewpoints}
+  \item Organize first by \emph{viewpoints}, then by \emph{business events}
 \end{enumerate}
 Choose the one which makes the most sense.
 
@@ -282,138 +282,154 @@ business events: user wants to register, user wants to add a widget, user wants 
 
 For example, if you wish to organization by business events:
 \begin{enumerate}[{BE}1.]
-	\item Navigate to Boardzilla web page
-	\begin{enumerate}[{VP1}.1]
-		\item User
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Legal
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
-	\item Click login
-	\begin{enumerate}[{VP2}.1]
-		\item Viewpoint
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Viewpoint
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
-	\item Click register
-	\begin{enumerate}[{VP1}.1]
-		\item User
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Legal
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
-	\item Click add widget
-	\begin{enumerate}[{VP1}.1]
-		\item User
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Legal
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
-	\item Click delete widget
-	\begin{enumerate}[{VP1}.1]
-		\item User
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Legal
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
-		\item Navigate to Boardzilla web page
-	\begin{enumerate}[{VP1}.1]
-		\item User
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item Legal
-			\begin{enumerate}
-				\item Requirement
-				\item Requirement
-				\item \dots
-			\end{enumerate}
-		\item \dots
-	\end{enumerate}
+  \item Navigate to Boardzilla web page
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+  \item Click login
+  \begin{enumerate}[{VP2}.1]
+    \item Viewpoint
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Viewpoint
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+  \item Click register
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+  \item Click add widget
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+  \item Click delete widget
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+    \item Logout
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
+  \item Help?
+  \begin{enumerate}[{VP1}.1]
+    \item User
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item Legal
+      \begin{enumerate}
+        \item Requirement
+        \item Requirement
+        \item \dots
+      \end{enumerate}
+    \item \dots
+  \end{enumerate}
 \end{enumerate}
 
 % \underline{OR}, if you wish to organization by viewpoints:
 % \begin{enumerate}[{VP}1.]
-% 	\item Viewpoint 
-% 	\begin{enumerate}[{BE1}.1]
-% 		\item Business Event
-% 		\begin{enumerate}
-% 			\item Requirement
-% 			\item Requirement
-% 			\item \dots
-% 		\end{enumerate}
-% 		\item Business Event
-% 		\begin{enumerate}
-% 			\item Requirement
-% 			\item Requirement
-% 			\item \dots
-% 		\end{enumerate}
-% 		\item \dots
-% 	\end{enumerate}
-% 	\item Viewpoint
-% 	\begin{enumerate}[{BE2}.1]
-% 		\item Business Event
-% 		\begin{enumerate}
-% 			\item Requirement
-% 			\item Requirement
-% 			\item \dots
-% 		\end{enumerate}
-% 		\item Business Event
-% 		\begin{enumerate}
-% 			\item Requirement
-% 			\item Requirement
-% 			\item \dots
-% 		\end{enumerate}
-% 		\item \dots
-% 	\end{enumerate}
+%   \item Viewpoint 
+%   \begin{enumerate}[{BE1}.1]
+%     \item Business Event
+%     \begin{enumerate}
+%       \item Requirement
+%       \item Requirement
+%       \item \dots
+%     \end{enumerate}
+%     \item Business Event
+%     \begin{enumerate}
+%       \item Requirement
+%       \item Requirement
+%       \item \dots
+%     \end{enumerate}
+%     \item \dots
+%   \end{enumerate}
+%   \item Viewpoint
+%   \begin{enumerate}[{BE2}.1]
+%     \item Business Event
+%     \begin{enumerate}
+%       \item Requirement
+%       \item Requirement
+%       \item \dots
+%     \end{enumerate}
+%     \item Business Event
+%     \begin{enumerate}
+%       \item Requirement
+%       \item Requirement
+%       \item \dots
+%     \end{enumerate}
+%     \item \dots
+%   \end{enumerate}
 % \end{enumerate}
 
 % End Section
@@ -429,8 +445,8 @@ For example, if you wish to organization by business events:
 \label{ssub:appearance_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{LF}1. ]
-	\item The user interface will be aesthetic.
-	\item The text size and front will be readable.
+  \item The system should show widgets on a dashboard after greeting page.
+  \item The widget should expand if clicked.
 \end{enumerate}
 % End SubSubSection
 
@@ -438,7 +454,8 @@ For example, if you wish to organization by business events:
 \label{ssub:style_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{LF}1. ]
-	\item The icons must be appropriate to all demographics. 
+  \item The icons must be inoffensive.
+  \item The text size and font will be readable at a normal computer viewing distance.
 \end{enumerate}
 % End SubSubSection
 
@@ -452,8 +469,9 @@ For example, if you wish to organization by business events:
 \label{ssub:ease_of_use_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{UH}1. ]
-    \item The button will be large enough to be easily located using a mouse.
-	\item The users will be able to access more information of Boardzilla in the user's manual. 
+    \item The buttons will be large enough to be easily located and pressed using a typical cursor or a finger on touch screen devices.
+  \item The users will be able to access more information by hovering over the associated icons.
+  \item The users will be presented with general instructions when logging in for the first time.
 \end{enumerate}
 % End SubSubSection
 
@@ -461,7 +479,7 @@ For example, if you wish to organization by business events:
 \label{ssub:personalization_and_internationalization_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{UH}1. ]
-	\item Boardzilla will allow users to adjust the positioning and layering of the widgets on their personal dashboard.
+  \item Boardzilla will allow users to adjust the positioning and layering of the widgets on their personal dashboard.
 \end{enumerate}
 % End SubSubSection
 
@@ -469,8 +487,8 @@ For example, if you wish to organization by business events:
 \label{ssub:learning_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{UH}1. ]
-	\item Boardzilla will include a user manual.
-	\item Boardzilla's will require minimum learning.
+  \item Boardzilla will include a user manual.
+  \item Boardzilla will require minimum learning.
 \end{enumerate}
 % End SubSubSection
 
@@ -478,7 +496,8 @@ For example, if you wish to organization by business events:
 \label{ssub:understandability_and_politeness_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{UH}1. ]
-	\item Boardzilla's operations will align with human intuition
+  \item The user interface will be intuitive to users.
+  \item The icons must convey the appropriate meaning to users.
 \end{enumerate}
 % End SubSubSection
 
@@ -486,9 +505,9 @@ For example, if you wish to organization by business events:
 \label{ssub:accessibility_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{UH}1. ]
-	\item The user must have accessibility to network. 
-	\item The user must have accessibility to a safe browser. 
-	\item The color combination will consider accessibility issue including color blind.
+%   \item The user must have accessibility to network. 
+%   \item The user must have accessibility to a safe browser. 
+  \item The color combination will consider accessibility issue including color blind.
 \end{enumerate}
 % End SubSubSection
 
@@ -502,7 +521,9 @@ For example, if you wish to organization by business events:
 \label{ssub:speed_and_latency_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item Boardzilla shall respond to network requests with the necessary information in less than 3 seconds.
+  \item A request to fetch user data from the external APIs must be sent in under 5 seconds.
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -510,7 +531,7 @@ For example, if you wish to organization by business events:
 \label{ssub:safety_critical_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item The users must obey the service and use of the API in different countries. 
 \end{enumerate}
 % End SubSubSection
 
@@ -518,7 +539,7 @@ For example, if you wish to organization by business events:
 \label{ssub:precision_or_accuracy_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item The system must fetch data within one hour from release.
 \end{enumerate}
 % End SubSubSection
 
@@ -526,7 +547,8 @@ For example, if you wish to organization by business events:
 \label{ssub:reliability_and_availability_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item Boardzilla shall be available for use all the time.
+  \item The website shall require internet access
 \end{enumerate}
 % End SubSubSection
 
@@ -534,7 +556,8 @@ For example, if you wish to organization by business events:
 \label{ssub:robustness_or_fault_tolerance_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item Boardzilla should display the same output for the same user in different browser. 
+  \item Boardzilla should be stable. 
 \end{enumerate}
 % End SubSubSection
 
@@ -542,7 +565,7 @@ For example, if you wish to organization by business events:
 \label{ssub:capacity_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item The system shall be able to handle up to 100 users concurrently.
 \end{enumerate}
 % End SubSubSection
 
@@ -550,7 +573,7 @@ For example, if you wish to organization by business events:
 \label{ssub:scalability_or_extensibility_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item The system shall be designed such that a wider variety of widgets can be added in future versions
 \end{enumerate}
 % End SubSubSection
 
@@ -558,7 +581,7 @@ For example, if you wish to organization by business events:
 \label{ssub:longevity_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{PR}1. ]
-	\item 
+  \item The system shall last as long as the APIs that provide the data as well as the database used to store user data are not depreciated.
 \end{enumerate}
 % End SubSubSection
 
@@ -572,7 +595,7 @@ For example, if you wish to organization by business events:
 \label{ssub:expected_physical_environment}
 % Begin SubSubSection
 \begin{enumerate}[{OE}1. ]
-	\item 
+  \item Boardzilla could be run on different operating system such as Mac OS, Windows and mobile. 
 \end{enumerate}
 % End SubSubSection
 
@@ -580,7 +603,7 @@ For example, if you wish to organization by business events:
 \label{ssub:requirements_for_interfacing_with_adjacent_systems}
 % Begin SubSubSection
 \begin{enumerate}[{OE}1. ]
-	\item 
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -588,7 +611,7 @@ For example, if you wish to organization by business events:
 \label{ssub:productization_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{OE}1. ]
-	\item 
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -596,7 +619,7 @@ For example, if you wish to organization by business events:
 \label{ssub:release_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{OE}1. ]
-	\item 
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -610,7 +633,7 @@ For example, if you wish to organization by business events:
 \label{ssub:maintenance_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{MS}1. ]
-	\item Boardzilla should be 
+  \item Boardzilla should be implemented in such a way that it is easy for developers to update and maintain the system. 
 \end{enumerate}
 % End SubSubSection
 
@@ -618,7 +641,7 @@ For example, if you wish to organization by business events:
 \label{ssub:supportability_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{MS}1. ]
-	\item 
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -626,7 +649,7 @@ For example, if you wish to organization by business events:
 \label{ssub:adaptability_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{MS}1. ]
-	\item 
+  \item 
 \end{enumerate}
 % End SubSubSection
 
@@ -640,7 +663,7 @@ For example, if you wish to organization by business events:
 \label{ssub:access_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{SR}1. ]
-	\item 
+  \item The system will only allow access if correct username and passwords are entered.
 \end{enumerate}
 % End SubSubSection
 
@@ -648,7 +671,7 @@ For example, if you wish to organization by business events:
 \label{ssub:integrity_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{SR}1. ]
-	\item 
+  \item The system will not allow users to modify API's.
 \end{enumerate}
 % End SubSubSection
 
@@ -656,7 +679,7 @@ For example, if you wish to organization by business events:
 \label{ssub:privacy_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{SR}1. ]
-	\item 
+  \item The system will not release user information to any third party.
 \end{enumerate}
 % End SubSubSection
 
@@ -664,7 +687,7 @@ For example, if you wish to organization by business events:
 \label{ssub:audit_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{SR}1. ]
-	\item 
+  \item N/A
 \end{enumerate}
 % End SubSubSection
 
@@ -672,7 +695,7 @@ For example, if you wish to organization by business events:
 \label{ssub:immunity_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{SR}1. ]
-	\item 
+  \item N/A
 \end{enumerate}
 % End SubSubSection
 
@@ -686,7 +709,7 @@ For example, if you wish to organization by business events:
 \label{ssub:cultural_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{CP}1. ]
-	\item 
+  \item The iconography and language contained within Boardzilla will be inoffensive to all western cultures.
 \end{enumerate}
 % End SubSubSection
 
@@ -694,7 +717,7 @@ For example, if you wish to organization by business events:
 \label{ssub:political_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{CP}1. ]
-	\item 
+  \item The information presented will be collected from unbiased organizations whenever possible.
 \end{enumerate}
 % End SubSubSection
 
@@ -708,7 +731,7 @@ For example, if you wish to organization by business events:
 \label{ssub:compliance_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{LR}1. ]
-	\item 
+  \item The system must comply with any laws and regulations that apply.
 \end{enumerate}
 % End SubSubSection
 
@@ -716,7 +739,7 @@ For example, if you wish to organization by business events:
 \label{ssub:standards_requirements}
 % Begin SubSubSection
 \begin{enumerate}[{LR}1. ]
-	\item 
+  \item N/A
 \end{enumerate}
 % End SubSubSection
 
@@ -732,50 +755,50 @@ For example, if you wish to organization by business events:
 % Include a Division of Labour sheet which indicates the contributions of each team member. This sheet must be signed by all team members.
 
 \begin{longtable}{| p{.30\textwidth} | p{.70\textwidth} |}
-			\hline
-			\textbf {Team Member} & \textbf{Contributions}\\ 
-			\hline
-			Matthew Paulin &  Add contributions here\\
-			\hline
-			Hargun Bedi & Add contributions here\\
-			\hline
-			Dylan Smith & Add contributions here \\ 
-			\hline
-			Chenwei Song & Add contributions here\\
-			\hline
-			Tianzheng Mai & Add contributions here\\
-			\hline
-			
-			\caption{Division of Labour}
-		\end{longtable}
-	\subsection{Signatures}
-	\vspace{10ex}
-	\begin{center}
-	\noindent\begin{tabular}{ll}\\ 
-	\makebox[3.5in]{\hrulefill} & \makebox[2in]	\hrulefill \\
-	Matthew Paulin & Date\\[15ex]
-	\makebox[3.5in]{\hrulefill} & \makebox[2in]	\hrulefill \\		
-	Hargun Bedi & Date\\[15ex]
-	\makebox[3.5in]{\hrulefill} & \makebox[2in]	\hrulefill \\		
-	Dylan Smith & Date\\[15ex]
-	\makebox[3.5in]{\hrulefill} & \makebox[2in]	\hrulefill \\		
-	Chenwei Song & Date\\[15ex]
-	\makebox[3.5in]{\hrulefill} & \makebox[2in]	\hrulefill \\
-	Tianzheng Mai & Date\\
-	\end{tabular}
-	\end{center}
+      \hline
+      \textbf {Team Member} & \textbf{Contributions}\\ 
+      \hline
+      Matthew Paulin &  Add contributions here\\
+      \hline
+      Hargun Bedi & Add contributions here\\
+      \hline
+      Dylan Smith & Add contributions here \\ 
+      \hline
+      Chenwei Song & Add contributions here\\
+      \hline
+      Tianzheng Mai & Add contributions here\\
+      \hline
+      
+      \caption{Division of Labour}
+    \end{longtable}
+  \subsection{Signatures}
+  \vspace{10ex}
+  \begin{center}
+  \noindent\begin{tabular}{ll}\\ 
+  \makebox[3.5in]{\hrulefill} & \makebox[2in] \hrulefill \\
+  Matthew Paulin & Date\\[15ex]
+  \makebox[3.5in]{\hrulefill} & \makebox[2in] \hrulefill \\   
+  Hargun Bedi & Date\\[15ex]
+  \makebox[3.5in]{\hrulefill} & \makebox[2in] \hrulefill \\   
+  Dylan Smith & Date\\[15ex]
+  \makebox[3.5in]{\hrulefill} & \makebox[2in] \hrulefill \\   
+  Chenwei Song & Date\\[15ex]
+  \makebox[3.5in]{\hrulefill} & \makebox[2in] \hrulefill \\
+  Tianzheng Mai & Date\\
+  \end{tabular}
+  \end{center}
 % End Section
 
 \newpage
 \section*{IMPORTANT NOTES}
 \begin{itemize}
-	\item Be sure to include all sections of the template in your document regardless whether you have something to write for each or not
-	\begin{itemize}
-		\item If you do not have anything to write in a section, indicate this by the \emph{N/A}, \emph{void}, \emph{none}, etc.
-	\end{itemize}
-	\item Uniquely number each of your requirements for easy identification and cross-referencing
-	\item Highlight terms that are defined in Section~1.3 (\textbf{Definitions, Acronyms, and Abbreviations}) with \textbf{bold}, \emph{italic} or \underline{underline}
-	\item For Deliverable 1, please highlight, in some fashion, all (you may have more than one) creative and innovative features. Your creative and innovative features will generally be described in Section~2.2 (\textbf{Product Functions}), but it will depend on the type of creative or innovative features you are including.
+  \item Be sure to include all sections of the template in your document regardless whether you have something to write for each or not
+  \begin{itemize}
+    \item If you do not have anything to write in a section, indicate this by the \emph{N/A}, \emph{void}, \emph{none}, etc.
+  \end{itemize}
+  \item Uniquely number each of your requirements for easy identification and cross-referencing
+  \item Highlight terms that are defined in Section~1.3 (\textbf{Definitions, Acronyms, and Abbreviations}) with \textbf{bold}, \emph{italic} or \underline{underline}
+  \item For Deliverable 1, please highlight, in some fashion, all (you may have more than one) creative and innovative features. Your creative and innovative features will generally be described in Section~2.2 (\textbf{Product Functions}), but it will depend on the type of creative or innovative features you are including.
 \end{itemize}
 
 
