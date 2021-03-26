@@ -1,13 +1,11 @@
-import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
-import { Resizable, ResizableBox } from "react-resizable";
+import React, { useState, useCallback } from "react";
+import { ResizableBox } from "react-resizable";
 
 export const Widget = (props) => {
   return (
-    //<div style={{ position: "relative", width: "auto", height: "auto"}}>
-
     <ResizableBox
-      width={500}
-      height={500}
+      width={150}
+      height={150}
       style={{
         display: "inline-block",
         left: `${0}px`,
@@ -15,17 +13,8 @@ export const Widget = (props) => {
         backgroundColor: `${props.color}`,
       }}
     >
-      {/* <div style={{
-      position: "relative",
-      width: `${width}px`,
-      height: `${height}px`,
-      zIndex: z,
-    }}
-    onMouseDown={() => setMouseDown(true)}>
-    Contents
-  </div> */}
+      <div>Contents</div>
     </ResizableBox>
-    //</div>
   );
 };
 

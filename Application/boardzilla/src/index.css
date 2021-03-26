@@ -26,6 +26,7 @@ code {
   background-position: bottom right;
   padding: 0 3px 3px 0;
   z-index: 10;
+  transform: scale(2);
 }
 .react-resizable-handle-sw {
   bottom: 0;
@@ -37,6 +38,7 @@ code {
   bottom: 0;
   right: 0;
   cursor: se-resize;
+  
 }
 .react-resizable-handle-nw {
   top: 0;
