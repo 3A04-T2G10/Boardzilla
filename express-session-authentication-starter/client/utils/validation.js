@@ -20,7 +20,7 @@ export const validateUsername = (username) => {
   return { valid, message };
 };
 
-export const validatePassword = (username, password, confirmPassword) => {
+export const validatePassword = (username, password) => {
   let valid = true;
   let message = "Password valid";
 

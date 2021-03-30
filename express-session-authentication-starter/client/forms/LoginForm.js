@@ -6,13 +6,6 @@ import R from "ramda";
 import { faUser } from "@fortawesome/free-solid-svg-icons/faUser";
 import { faLock } from "@fortawesome/free-solid-svg-icons/faLock";
 
-import Box from "react-bulma-companion/lib/Box";
-import Block from "react-bulma-companion/lib/Block";
-import Title from "react-bulma-companion/lib/Title";
-import Control from "react-bulma-companion/lib/Control";
-import Button from "react-bulma-companion/lib/Button";
-import Checkbox from "react-bulma-companion/lib/Checkbox";
-
 import useKeyPress from "_hooks/useKeyPress";
 import { attemptLogin } from "_thunks/auth";
 import FormInput from "_components/FormInput";
@@ -53,13 +46,15 @@ export default function LoginForm() {
   const updatePassword = (e) => setPassword(e.target.value);
 
   return (
-    <Box className="login">
-      <Title size="3">Login</Title>
+    <div className="login box">
+      <h1 className="has-text-centered has-text-weight-semibold is-size-3">
+        Login
+      </h1>
       <hr className="separator" />
-      <Block>
+      <div className="block">
         Not Registered Yet?&nbsp;
         <Link to="/register">Create an account.</Link>
-      </Block>
+      </div>
       <FormInput
         onChange={updateUsername}
         placeholder="Username"
@@ -73,19 +68,23 @@ export default function LoginForm() {
         leftIcon={faLock}
         type="password"
       />
-      <Block>
+      <div className="block">
         <Link to="/recovery">Forgot your password?</Link>
-      </Block>
+      </div>
       <hr className="separator" />
-      <Control className="is-clearfix">
-        <Button className="is-pulled-right" color="success" onClick={login}>
+      <div className="control is-clearfix">
+        <button
+          className="button is-pulled-right is-info"
+          color="success"
+          onClick={login}
+        >
           Login
-        </Button>
-        <Checkbox>
+        </button>
+        <label className="checkbox">
           <input type="checkbox" onChange={rememberMe} checked={remember} />
           <span>&nbsp; Remember me</span>
-        </Checkbox>
-      </Control>
-    </Box>
+        </label>
+      </div>
+    </div>
   );
 }

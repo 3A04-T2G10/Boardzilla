@@ -7,16 +7,6 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCheck } from "@fortawesome/free-solid-svg-icons/faCheck";
 import { faExclamationTriangle } from "@fortawesome/free-solid-svg-icons/faExclamationTriangle";
 
-import Box from "react-bulma-companion/lib/Box";
-import Button from "react-bulma-companion/lib/Button";
-import Title from "react-bulma-companion/lib/Title";
-import Field from "react-bulma-companion/lib/Field";
-import Control from "react-bulma-companion/lib/Control";
-import Icon from "react-bulma-companion/lib/Icon";
-import Input from "react-bulma-companion/lib/Input";
-import Label from "react-bulma-companion/lib/Label";
-import Help from "react-bulma-companion/lib/Help";
-
 import useKeyPress from "_hooks/useKeyPress";
 import { postCheckUsername } from "_api/CheckUsers";
 import {
@@ -83,7 +73,8 @@ export default function RegisterForm() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    checkPassword(username, e.target.value, confirmPassword);
+    checkPassword(username, e.target.value);
+    checkPasswordMatch(e.target.value, confirmPassword);
   };
   const handleConfirmPasswordChange = (e) => {
     setConfirmPassword(e.target.value);
@@ -104,119 +95,146 @@ export default function RegisterForm() {
   useKeyPress("Enter", register);
 
   return (
-    <Box className="register">
-      <Title size="3">Sign Up</Title>
+    <div className="register box">
+      <h1 className="has-text-centered has-text-weight-semibold is-size-3">
+        Sign Up
+      </h1>
       <hr className="separator" />
       <p className="has-space-below">
         Already a member?&nbsp;
         <Link to="/login">Login</Link>
       </p>
-      <Field>
-        <Label htmlFor="username">Username</Label>
-        <Control iconsRight>
-          <Input
+      <div className="field">
+        <label className="label" htmlFor="username">
+          Username
+        </label>
+        <div className="control has-icons-right">
+          <input
+            className={`input ${
+              username
+                ? usernameAvailable
+                  ? "is-success"
+                  : "is-danger"
+                : undefined
+            }`}
             id="username"
             placeholder="Username"
-            color={
-              username ? (usernameAvailable ? "success" : "danger") : undefined
-            }
             value={username}
             onChange={handleUsernameChange}
           />
           {username && (
-            <Icon
-              size="small"
-              align="right"
-              color={usernameAvailable ? "success" : "danger"}
+            <span
+              className={`icon is-small is-right ${
+                usernameAvailable ? "has-text-success" : "has-text-danger"
+              }`}
             >
               <FontAwesomeIcon
                 icon={usernameAvailable ? faCheck : faExclamationTriangle}
               />
-            </Icon>
+            </span>
           )}
-        </Control>
+        </div>
         {username && (
-          <Help color={usernameAvailable ? "success" : "danger"}>
+          <p
+            className={`help ${usernameAvailable ? "is-success" : "is-danger"}`}
+          >
             {usernameMessage}
-          </Help>
+          </p>
         )}
-      </Field>
-      <Field>
-        <Label htmlFor="password">Password</Label>
-        <Control iconsRight>
-          <Input
+      </div>
+      <div className="field">
+        <label className="label" htmlFor="password">
+          Password
+        </label>
+        <div className="control has-icons-right">
+          <input
+            className={`input ${
+              password
+                ? passwordValid
+                  ? "is-success"
+                  : "is-danger"
+                : undefined
+            }`}
             id="password"
             placeholder="Password"
             type="password"
-            color={
-              password ? (passwordValid ? "success" : "danger") : undefined
-            }
             value={password}
             onChange={handlePasswordChange}
           />
           {password && (
-            <Icon
-              size="small"
-              align="right"
-              color={passwordValid ? "success" : "danger"}
+            <span
+              className={`icon is-small is-right ${
+                passwordValid ? "has-text-success" : "has-text-danger"
+              }`}
             >
               <FontAwesomeIcon
                 icon={passwordValid ? faCheck : faExclamationTriangle}
               />
-            </Icon>
+            </span>
           )}
-        </Control>
+        </div>
         {password && (
-          <Help color={passwordValid ? "success" : "danger"}>
+          <p
+            className={`help ${
+              passwordValid ? "has-text-success" : "has-text-danger"
+            }`}
+          >
             {passwordMessage}
-          </Help>
+          </p>
         )}
-      </Field>
-      <Field>
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Control iconsRight>
-          <Input
+      </div>
+      <div className="field">
+        <label className="label" htmlFor="confirmPassword">
+          Confirm Password
+        </label>
+        <div className="control has-icons-right">
+          <input
+            className={`input ${
+              confirmPassword
+                ? passwordMatch
+                  ? "is-success"
+                  : "is-danger"
+                : undefined
+            }`}
             id="confirmPassword"
             placeholder="Password"
             type="password"
-            color={
-              confirmPassword
-                ? passwordMatch
-                  ? "success"
-                  : "danger"
-                : undefined
-            }
             value={confirmPassword}
             onChange={handleConfirmPasswordChange}
           />
           {confirmPassword && (
-            <Icon
-              size="small"
-              align="right"
-              color={passwordMatch ? "success" : "danger"}
+            <span
+              className={`icon is-small is-right ${
+                passwordMatch ? "has-text-success" : "has-text-danger"
+              }`}
             >
               <FontAwesomeIcon
                 icon={passwordMatch ? faCheck : faExclamationTriangle}
               />
-            </Icon>
+            </span>
           )}
-        </Control>
+        </div>
         {confirmPassword && (
-          <Help color={passwordMatch ? "success" : "danger"}>
+          <p
+            className={`help ${
+              passwordMatch ? "has-text-success" : "has-text-danger"
+            }`}
+          >
             {confirmMessage}
-          </Help>
+          </p>
         )}
-      </Field>
+      </div>
       <hr className="separator" />
       <div className="has-text-right">
-        <Button
+        <button
+          className="button is-info"
           color="success"
           onClick={register}
           disabled={!passwordValid || !usernameAvailable || !passwordMatch}
         >
           Create Account
-        </Button>
+        </button>
       </div>
-    </Box>
+    </div>
   );
 }

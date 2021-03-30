@@ -2,11 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-import Field from "react-bulma-companion/lib/Field";
-import Control from "react-bulma-companion/lib/Control";
-import Input from "react-bulma-companion/lib/Input";
-import Icon from "react-bulma-companion/lib/Icon";
-
 export default function FormInput({
   className,
   onChange,
@@ -17,26 +12,31 @@ export default function FormInput({
   rightIcon,
 }) {
   return (
-    <Field className={className}>
-      <Control iconsLeft={!!leftIcon} iconsRight={!!rightIcon}>
-        <Input
+    <div className={`field ${className}`}>
+      <div
+        className={`control ${!!leftIcon ? "has-icons-left" : ""} ${
+          !!rightIcon ? "has-icons-right" : ""
+        }`}
+      >
+        <input
+          className="input"
           type={type}
           placeholder={placeholder}
           onChange={onChange}
           value={value}
         />
         {leftIcon && (
-          <Icon size="small" align="left">
+          <span className="icon is-small is-left">
             <FontAwesomeIcon icon={leftIcon} />
-          </Icon>
+          </span>
         )}
         {rightIcon && (
-          <Icon size="small" align="left">
+          <span className="icon is-small is-right">
             <FontAwesomeIcon icon={rightIcon} />
-          </Icon>
+          </span>
         )}
-      </Control>
-    </Field>
+      </div>
+    </div>
   );
 }
 
