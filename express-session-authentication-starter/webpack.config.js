@@ -28,7 +28,11 @@ const CleanWebpackPluginConfig = new CleanWebpackPlugin({
 
 module.exports = {
   devtool: "source-map",
-  entry: ["./client/index.js"],
+  entry: [
+    "./client/styles/index.scss",
+    "./client/assets/index.js",
+    "./client/index.js",
+  ],
   output: {
     filename: isDev ? "[name].js" : "[name].[hash].js",
     path: resolve("dist"),

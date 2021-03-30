@@ -19,7 +19,11 @@ import Help from "react-bulma-companion/lib/Help";
 
 import useKeyPress from "_hooks/useKeyPress";
 import { postCheckUsername } from "_api/CheckUsers";
-import { validateUsername, validatePassword } from "_utils/validation";
+import {
+  validateUsername,
+  validatePassword,
+  validatePasswordMatch,
+} from "_utils/validation";
 import { attemptRegister } from "_thunks/auth";
 
 export default function RegisterForm() {
@@ -28,9 +32,12 @@ export default function RegisterForm() {
   const [username, setUsername] = useState("");
   const [usernameMessage, setUsernameMessage] = useState("");
   const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
   const [passwordMessage, setPasswordMessage] = useState("");
+  const [confirmMessage, setConfirmMessage] = useState("");
   const [usernameAvailable, setUsernameAvailable] = useState(false);
   const [passwordValid, setPasswordValid] = useState(false);
+  const [passwordMatch, setPasswordMatch] = useState(false);
 
   const checkPassword = (newUsername, newPassword) => {
     const { valid, message } = validatePassword(newUsername, newPassword);
@@ -39,6 +46,12 @@ export default function RegisterForm() {
     setPasswordMessage(message);
   };
 
+  const checkPasswordMatch = (password, confirmPassword) => {
+    const { valid, message } = validatePasswordMatch(password, confirmPassword);
+
+    setPasswordMatch(valid);
+    setConfirmMessage(message);
+  };
   const checkUsername = (newUsername) => {
     const { valid, message } = validateUsername(newUsername);
 
@@ -70,7 +83,11 @@ export default function RegisterForm() {
 
   const handlePasswordChange = (e) => {
     setPassword(e.target.value);
-    checkPassword(username, e.target.value);
+    checkPassword(username, e.target.value, confirmPassword);
+  };
+  const handleConfirmPasswordChange = (e) => {
+    setConfirmPassword(e.target.value);
+    checkPasswordMatch(password, e.target.value);
   };
 
   const register = () => {
@@ -155,12 +172,47 @@ export default function RegisterForm() {
           </Help>
         )}
       </Field>
+      <Field>
+        <Label htmlFor="confirmPassword">Confirm Password</Label>
+        <Control iconsRight>
+          <Input
+            id="confirmPassword"
+            placeholder="Password"
+            type="password"
+            color={
+              confirmPassword
+                ? passwordMatch
+                  ? "success"
+                  : "danger"
+                : undefined
+            }
+            value={confirmPassword}
+            onChange={handleConfirmPasswordChange}
+          />
+          {confirmPassword && (
+            <Icon
+              size="small"
+              align="right"
+              color={passwordMatch ? "success" : "danger"}
+            >
+              <FontAwesomeIcon
+                icon={passwordMatch ? faCheck : faExclamationTriangle}
+              />
+            </Icon>
+          )}
+        </Control>
+        {confirmPassword && (
+          <Help color={passwordMatch ? "success" : "danger"}>
+            {confirmMessage}
+          </Help>
+        )}
+      </Field>
       <hr className="separator" />
       <div className="has-text-right">
         <Button
           color="success"
           onClick={register}
-          disabled={!passwordValid || !usernameAvailable}
+          disabled={!passwordValid || !usernameAvailable || !passwordMatch}
         >
           Create Account
         </Button>
