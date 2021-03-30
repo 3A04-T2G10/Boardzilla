@@ -15,8 +15,7 @@ import Home from "_pages/Home";
 // import TodoPage from "_pages/TodoPage";
 // import SettingsPage from "_pages/SettingsPage";
 // import LostPage from "_pages/LostPage";
-
-import Navigation from "_components/Navigation";
+import Navbar from "_components/Navbar/Navbar";
 import Footer from "_components/Footer";
 
 function App({ location }) {
@@ -37,7 +36,8 @@ function App({ location }) {
     !loading && (
       <div>
         <ReactNotification />
-        <Navigation pathname={location.pathname} />
+        {/* <Navigation pathname={location.pathname} /> */}
+        <Navbar pathname={location.pathname} />
         <div className="main">
           <Switch>
             <Route exact path="/" component={Home} />
