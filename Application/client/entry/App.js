@@ -11,7 +11,7 @@ import { attemptGetUser } from "_thunks/user";
 // import WelcomePage from "_pages/WelcomePage";
 import Login from "_pages/Login";
 import Register from "_pages/Register";
-import Home from "_pages/Home";
+import Dashboard from "_pages/Dashboard";
 // import TodoPage from "_pages/TodoPage";
 // import SettingsPage from "_pages/SettingsPage";
 // import LostPage from "_pages/LostPage";
@@ -40,7 +40,7 @@ function App({ location }) {
         <Navbar pathname={location.pathname} />
         <div className="main">
           <Switch>
-            <Route exact path="/" component={Home} />
+            <Route exact path="/" component={Dashboard} />
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             {/* <Route path="/home" component={Home} /> */}

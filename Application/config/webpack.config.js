@@ -52,6 +52,7 @@ module.exports = {
       _reducers: resolve("./client/store/reducers/"),
       _thunks: resolve("./client/store/thunks/"),
       _components: resolve("./client/components/"),
+      _widgets: resolve("./client/widgets/"),
       _entry: resolve("./client/entry/"),
       _forms: resolve("./client/forms/"),
     },
