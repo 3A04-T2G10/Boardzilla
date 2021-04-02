@@ -2,3 +2,12 @@
   margin: 0;
   padding: 0;
 }
+.news{
+  width:500px;
+  padding:20px;
+  border:1px solid;
+  margin-bottom:20px;
+}
+.news .news_picture{
+  width:400px;
+}

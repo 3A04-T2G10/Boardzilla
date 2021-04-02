@@ -1,11 +1,15 @@
 // import "./App.css";
 import Widget from "./Components/Widget";
+import React, { createContext, useEffect, useState } from "react";
+import axios from "axios";
+import NewsAPI from "./Components/NewsAPI";
 
 function App() {
   return (
     <div className="App">
       <Widget color={"green"}/>
       <Widget color={"red"}/>
+      <NewsAPI/>
     </div>
   );
 }
