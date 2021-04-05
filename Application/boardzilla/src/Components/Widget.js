@@ -1,60 +1,47 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Resizable, ResizableBox } from 'react-resizable';
+import "../widgetList.css"
+import styled from "styled-components";
+import {Draggable} from 'react-beautiful-dnd';
 
 
 
-export const Widget = (props) => {
-  //pass props telling us the window size
-  const [x, setX] = useState(0);
-  const [y, setY] = useState(0);
-  const [z, setZ] = useState(0);
-  const [width, setWidth] = useState(500);
-  const [height, setHeight] = useState(500);
-  const [mouseDown, setMouseDown] = useState(false);
-  
-  useEffect(() => {
-    const handleMouseUp = () => setMouseDown(false);
-    window.addEventListener("mouseup", handleMouseUp);
-    return () => {
-      window.addEventListener("mouseup", handleMouseUp);
-    };
-  }, []);
+export class Widget extends React.Component {
 
-  useEffect(() => {
-    const handleMove = (event) => {
-      setX((x) => x + event.movementX);
-      setY((y) => y + event.movementY);
-    };
-    if (mouseDown) {
-      console.log("Clicked")
-      window.addEventListener("mousemove", handleMove);
-    }
-    return () => {
-      window.removeEventListener("mousemove", handleMove);
-    };
-  
-  }, [mouseDown]);
+  constructor(props) {
+    super(props);
+  }
+
+  onResize = (event, {element, size, handle}) => {
+    this.props.getSize(this.props.index, size.width, size.height);
+  };
+
+  remove = () => {
+    this.props.remove(this.props.index)
+  }
+  render() {
   return (
-    //<div style={{ position: "relative", width: "auto", height: "auto"}}>
-    
-    <ResizableBox width={500} height={500} style={{
+    <Draggable key={this.props.id} draggableId={this.props.id} index={this.props.index}>
+    {(provided) => {
+      const style = {
       display: "inline-block",
-      left: `${x}px`,
-      top: `${y}px`,
-      backgroundColor: `${props.color}`
-    }}>
-    <div style={{
-      position: "relative",
-      width: `${width}px`,
-      height: `${height}px`,
-      zIndex: z,
+      backgroundColor: `${this.props.colour}`,
+      ...provided.draggableProps.style
+      };
+      return (
+      <ResizableBox minConstraints={[350, 350]} width={this.props.width} height={this.props.height} onResize={this.onResize} {...provided.draggableProps} className="widget-box"  style={style}>
+    <div ref={provided.innerRef} {...provided.dragHandleProps} className="title"> 
+    <span className="delete" onClick={this.remove}></span>
+    {this.props.content}
+    {this.props.index}
+    </div>
+
+  </ResizableBox>);
     }}
-    onMouseDown={() => setMouseDown(true)}>
-    Contents
-  </div>
-  </ResizableBox>
-  //</div>
+    
+  </Draggable>
   );
+  }
 };
 
 export default Widget;
