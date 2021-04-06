@@ -38,7 +38,8 @@ export const attemptAddSticky = (text) => (dispatch) =>
         ["Id"],
         R.assoc("id", data.sticky._id, snakeToCamelCase(data.sticky))
       );
-      console.log("data", data);
+      console.log(sticky);
+
       dispatch(addSticky(sticky));
       return data.user;
     })

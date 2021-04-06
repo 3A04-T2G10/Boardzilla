@@ -13,7 +13,7 @@ import { LOGOUT_USER } from "_actions/user";
 export function sticky(state, action) {
   switch (action.type) {
     case ADD_STICKY:
-      console.log("in red");
+      console.log("in red", action.id, action.text, state);
       return update(state, {
         id: { $set: action.id },
         text: { $set: action.text },
