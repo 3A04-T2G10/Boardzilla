@@ -1,6 +1,5 @@
 import React, { useEffect, useState, useRef, useLayoutEffect } from "react";
 import { Resizable, ResizableBox } from "react-resizable";
-import "../widgetList.css";
 import { Draggable } from "react-beautiful-dnd";
 
 export class Widget extends React.Component {

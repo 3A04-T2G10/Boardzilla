@@ -1,12 +1,11 @@
 import React from "react";
 import Widget from "./Widget";
-import "../widgetList.css";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 
 import { useSelector } from "react-redux";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
-import AddSticky from "./StickyNotes/AddSticky";
+import AddSticky from "_widgets/StickyNotes/AddSticky";
 class WidgetList extends React.Component {
   constructor(props) {
     super(props);
@@ -112,6 +111,7 @@ class WidgetList extends React.Component {
                   return (
                     <Widget
                       id={widget.id}
+                      key={widget.id}
                       remove={this.remove}
                       colour={widget.colour}
                       content={widget.content}

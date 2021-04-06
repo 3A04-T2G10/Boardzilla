@@ -4,7 +4,7 @@ import { push } from "connected-react-router";
 import R from "ramda";
 
 import { attemptGetStickies } from "_thunks/stickies";
-import Widgets from "_components/WidgetList";
+import WidgetList from "_components/WidgetList";
 
 export default function Dasboard() {
   const dispatch = useDispatch();
