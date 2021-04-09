@@ -66,7 +66,7 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
               <span>Save</span>
             </button>
             <button
-              className="button is-danger has-text-centered"
+              className="button is-warning has-text-centered"
               onClick={cancelEdit}
               onKeyPress={cancelEdit}
             >
