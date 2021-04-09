@@ -1,12 +1,11 @@
 import update from "immutability-helper";
 import R from "ramda";
-
 import {
   SET_STICKIES,
   ADD_STICKY,
   UPDATE_STICKY,
   REMOVE_STICKY,
-} from "_actions/stickies";
+} from "_actions/types";
 
 import { LOGOUT_USER } from "_actions/user";
 

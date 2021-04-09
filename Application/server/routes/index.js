@@ -26,7 +26,6 @@ router.get("/api/tags", (req, res) => {
     "Fontawesome",
     "Ramda",
     "ESLint",
-    "Jest",
     "Enzyme",
   ]);
 });

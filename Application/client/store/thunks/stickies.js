@@ -1,4 +1,4 @@
-import { snakeToCamelCase } from "json-style-converter/es5";
+import { snakeToCamelCase } from "_utils/snakeToCC";
 import R from "ramda";
 
 import {
@@ -8,12 +8,7 @@ import {
   deleteSticky,
 } from "_api/stickies";
 
-import {
-  setStickies,
-  addSticky,
-  updateSticky,
-  removeSticky,
-} from "_actions/stickies";
+import { setStickies, addSticky } from "_actions/stickies";
 
 import { dispatchError } from "_utils/api";
 
