@@ -37,7 +37,7 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
 
   const deleteSticky = () => dispatch(attemptDeleteSticky(id));
   return (
-    <div className={`card`}>
+    <div className={`card mb-3`}>
       <div className="card-content">
         <div className="content">
           {edit ? (
@@ -51,11 +51,12 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
           )}
         </div>
       </div>
-      <footer className="card-footer">
+      <hr />
+      <div className="has-text-centered">
         {edit ? (
           <>
             <button
-              className="button is-success"
+              className="button is-success "
               onClick={handleUpdateSticky}
               onKeyPress={handleUpdateSticky}
             >
@@ -65,7 +66,7 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
               <span>Save</span>
             </button>
             <button
-              className="button is-danger"
+              className="button is-danger has-text-centered"
               onClick={cancelEdit}
               onKeyPress={cancelEdit}
             >
@@ -77,7 +78,7 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
           </>
         ) : (
           <button
-            className="button is-light"
+            className="button is-light has-text-centered"
             onClick={editSticky}
             onKeyPress={editSticky}
           >
@@ -87,9 +88,9 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
             <span>Edit</span>
           </button>
         )}
-        {canDelete ? (
+        {!canDelete ? (
           <button
-            className="button is-danger is-outlined"
+            className="button is-danger is-outlined has-text-centered"
             onClick={openModal}
             onKeyPress={openModal}
           >
@@ -99,14 +100,17 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
             </span>
           </button>
         ) : (
-          <button className="button is-danger is-outlined" disabled>
+          <button
+            className="button is-danger is-outlined has-text-centered"
+            disabled
+          >
             <span>Delete</span>
             <span className="icon is-small">
               <FontAwesomeIcon icon={faTimes} />
             </span>
           </button>
         )}
-      </footer>
+      </div>
       <ConfirmModal
         confirm={confirm}
         closeModal={closeModal}

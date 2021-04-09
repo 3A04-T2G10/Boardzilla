@@ -16,14 +16,13 @@ export const addSticky = ({ id, text }) => ({
   text,
 });
 
-// export const updateSticky = ({ id, text }) => ({
-//   type: UPDATE_STICKY,
-//   updatedAt,
-//   id,
-//   text,
-// });
+export const updateSticky = ({ id, text }) => ({
+  type: UPDATE_STICKY,
+  id,
+  text,
+});
 
-// export const removeSticky = (id) => ({
-//   type: REMOVE_STICKY,
-//   id,
-// });
+export const removeSticky = (id) => ({
+  type: REMOVE_STICKY,
+  id,
+});

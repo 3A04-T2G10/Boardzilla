@@ -8,7 +8,12 @@ import {
   deleteSticky,
 } from "_api/stickies";
 
-import { setStickies, addSticky } from "_actions/stickies";
+import {
+  setStickies,
+  addSticky,
+  updateSticky,
+  removeSticky,
+} from "_actions/stickies";
 
 import { dispatchError } from "_utils/api";
 
@@ -20,7 +25,6 @@ export const attemptGetStickies = () => (dispatch) =>
           R.omit(["Id"], R.assoc("id", sticky._id, snakeToCamelCase(sticky))),
         data.stickies
       );
-
       dispatch(setStickies(stickies));
       return data.stickies;
     })
@@ -33,8 +37,6 @@ export const attemptAddSticky = (text) => (dispatch) =>
         ["Id"],
         R.assoc("id", data.sticky._id, snakeToCamelCase(data.sticky))
       );
-      console.log(sticky);
-
       dispatch(addSticky(sticky));
       return data.user;
     })
