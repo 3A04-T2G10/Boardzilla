@@ -30,8 +30,8 @@ export const attemptGetStickies = () => (dispatch) =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptAddSticky = (text) => (dispatch) =>
-  postSticky({ text })
+export const attemptAddSticky = (text, color, textColor) => (dispatch) =>
+  postSticky({ text, color, textColor })
     .then((data) => {
       const sticky = R.omit(
         ["Id"],

@@ -15,6 +15,8 @@ export function sticky(state = {}, action) {
       return update(state, {
         id: { $set: action.id },
         text: { $set: action.text },
+        color: { $set: action.color },
+        textColor: { $set: action.textColor },
       });
     case UPDATE_STICKY:
       return update(state, {

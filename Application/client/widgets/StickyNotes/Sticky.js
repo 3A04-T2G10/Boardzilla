@@ -12,7 +12,7 @@ import { attemptUpdateSticky, attemptDeleteSticky } from "_thunks/stickies"; //
 
 import ConfirmModal from "./ConfirmModal";
 
-export default function Sticky({ id, text, width, height, color, canDelete }) {
+export default function Sticky({ id, text, width, height, color, textColor }) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -38,7 +38,10 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
   const deleteSticky = () => dispatch(attemptDeleteSticky(id));
   return (
     <div className={`card mb-3`}>
-      <div className="card-content">
+      <div
+        className="card-content"
+        style={{ backgroundColor: color, color: textColor }}
+      >
         <div className="content">
           {edit ? (
             <textarea
@@ -51,12 +54,11 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
           )}
         </div>
       </div>
-      <hr />
-      <div className="has-text-centered">
+      <div className="has-text-centered mt-1">
         {edit ? (
           <>
             <button
-              className="button is-success "
+              className="button is-success"
               onClick={handleUpdateSticky}
               onKeyPress={handleUpdateSticky}
             >
@@ -88,28 +90,17 @@ export default function Sticky({ id, text, width, height, color, canDelete }) {
             <span>Edit</span>
           </button>
         )}
-        {!canDelete ? (
-          <button
-            className="button is-danger is-outlined has-text-centered"
-            onClick={openModal}
-            onKeyPress={openModal}
-          >
-            <span>Delete</span>
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faTimes} />
-            </span>
-          </button>
-        ) : (
-          <button
-            className="button is-danger is-outlined has-text-centered"
-            disabled
-          >
-            <span>Delete</span>
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faTimes} />
-            </span>
-          </button>
-        )}
+
+        <button
+          className="button is-danger is-outlined has-text-centered"
+          onClick={openModal}
+          onKeyPress={openModal}
+        >
+          <span>Delete</span>
+          <span className="icon is-small">
+            <FontAwesomeIcon icon={faTimes} />
+          </span>
+        </button>
       </div>
       <ConfirmModal
         confirm={confirm}

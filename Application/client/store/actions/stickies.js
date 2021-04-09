@@ -10,10 +10,12 @@ export const setStickies = (stickies) => ({
   stickies,
 });
 
-export const addSticky = ({ id, text }) => ({
+export const addSticky = ({ id, text, color, textColor }) => ({
   type: ADD_STICKY,
   id,
   text,
+  color,
+  textColor,
 });
 
 export const updateSticky = ({ id, text }) => ({

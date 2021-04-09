@@ -1,11 +1,9 @@
 import React from "react";
 import Widget from "./Widget";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 
-import { useSelector } from "react-redux";
-import R from "ramda";
-import Sticky from "_widgets/StickyNotes/Sticky";
-import AddSticky from "_widgets/StickyNotes/AddSticky";
 class WidgetList extends React.Component {
   constructor(props) {
     super(props);
@@ -27,10 +25,9 @@ class WidgetList extends React.Component {
           height: 350,
         },
       ],
+      newWidgetType: "Sticky",
     };
   }
-
-  //const { stickies } = useSelector(R.pick(["stickies"]));
 
   onDragEnd = (result) => {
     const { destination, source, draggableId } = result;
@@ -71,11 +68,18 @@ class WidgetList extends React.Component {
     });
   };
 
+  selectType = (e) => {
+    this.setState({
+      newWidgetType: e.target.value,
+    });
+  };
+
   add = () => {
+    if (this.state.newWidgetType === "") return;
     const newWidget = {
       id: this.state.list.length.toString(),
       colour: "aqua",
-      content: "New Widget",
+      content: "New Widget: " + this.state.newWidgetType,
       width: 350,
       height: 350,
     };
@@ -95,9 +99,65 @@ class WidgetList extends React.Component {
             height: `50px`,
           }}
         >
-          <span className="add" onClick={this.add}>
+          {/* <!-- Main container --> */}
+          <div className="level px-5">
+            {/* <!-- Left side --> 
+    use these links to filter only a specific type of widget
+  
+  */}
+            <div className="level-left">
+              <p className="level-item">
+                <strong>
+                  <a>All</a>
+                </strong>
+              </p>
+              <p className="level-item">
+                <a>Stickies</a>
+              </p>
+              <p className="level-item">
+                <a>News</a>
+              </p>
+              <p className="level-item">
+                <a>Weather</a>
+              </p>
+              <p className="level-item">
+                <a>Stocks</a>
+              </p>
+              <p className="level-item">
+                <a>Calendars</a>
+              </p>
+            </div>
+
+            {/* <!-- Right side --> */}
+            <div className="level-right">
+              <div className="control has-icons-left mr-2">
+                <div className="select">
+                  <select
+                    onChange={this.selectType}
+                    value={this.state.newWidgetType}
+                  >
+                    <option value="Sticky">Sticky</option>
+                    <option value="News">News</option>
+                    <option value="Weather">Weather</option>
+                    <option value="Stock">Stock</option>
+                    <option value="Calendar">Calendar</option>
+                  </select>
+                </div>
+                <span className="icon is-left">
+                  <FontAwesomeIcon icon={faPlus} />
+                </span>
+              </div>
+
+              <p className="level-item">
+                <a className="button is-success" onClick={this.add}>
+                  Create
+                </a>
+              </p>
+            </div>
+          </div>
+          {/* <span className="add" onClick={this.add}>
             Add
-          </span>
+          </span> */}
         </div>
         <DragDropContext onDragEnd={this.onDragEnd}>
           <Droppable droppableId={"00"} direction="horizontal">
@@ -120,14 +180,6 @@ class WidgetList extends React.Component {
                       index={index}
                       getSize={this.getSize}
                     />
-                    //             <>
-                    //   <AddSticky />
-                    //   <ul className="sticky-list">
-                    //     {stickies.map((sticky) => (
-                    //       <Sticky key={sticky.id} {...sticky} />
-                    //     ))}
-                    //   </ul>
-                    // </>
                   );
                 })}
                 {provided.placeholder}

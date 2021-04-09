@@ -17,6 +17,12 @@ router.get("/", requireAuth, (req, res) => {
 
 router.post("/", requireAuth, (req, res) => {
   req.body.user = req.user.id;
+  req.body.width = req.body.width || 100;
+  req.body.height = req.body.height || 100;
+  req.body.order = req.body.order || 100;
+  req.body.text = req.body.text || "";
+  req.body.color = req.body.color || "#ffffff";
+  req.body.textColor = req.body.textColor || "#000000";
   const newSticky = Sticky(req.body);
 
   newSticky.save((err, savedSticky) => {
@@ -40,7 +46,8 @@ router.put("/", requireAuth, (req, res) => {
       widget.height = req.body.height || 100;
       widget.order = req.body.order || 100;
       widget.text = req.body.text || "";
-      widget.color = req.body.color || "default";
+      widget.color = req.body.color || "#ffffff";
+      widget.textColor = req.body.textColor || "#000000";
 
       widget.save((err, savedWidget) => {
         if (err) {
