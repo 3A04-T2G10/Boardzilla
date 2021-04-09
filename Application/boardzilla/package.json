@@ -7,14 +7,18 @@
     "@testing-library/react": "^11.1.0",
     "@testing-library/user-event": "^12.1.10",
     "axios": "^0.21.1",
+    "bootstrap": "^4.6.0",
+    "plotly.js": "^1.58.4",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^17.0.2",
     "react-draggable": "^4.4.3",
+    "react-plotly.js": "^2.5.1",
     "react-resizable": "^1.11.1",
     "react-resize-detector": "^6.6.4",
     "react-rnd": "^10.2.4",
     "react-scripts": "4.0.3",
+    "weather-icons": "github:erikflowers/weather-icons",
     "web-vitals": "^1.0.1"
   },
   "scripts": {
