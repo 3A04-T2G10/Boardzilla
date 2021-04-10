@@ -13,6 +13,9 @@ import Login from "_pages/Login";
 import Register from "_pages/Register";
 import Dashboard from "_pages/Dashboard";
 import Stickies from "_components/Stickies";
+import Weather from "_pages/Weather";
+import News from "_pages/News";
+import Stock from "_pages/Stock";
 // import TodoPage from "_pages/TodoPage";
 // import SettingsPage from "_pages/SettingsPage";
 // import LostPage from "_pages/LostPage";
@@ -44,6 +47,9 @@ function App({ location }) {
             <Route path="/login" component={Login} />
             <Route path="/register" component={Register} />
             <Route path="/stickies" component={Stickies} />
+            <Route path="/weather" component={Weather} />
+            <Route path="/stock" component={Stock} />
+            <Route path="/news" component={News} />
             {/* <Route path="/home" component={Home} /> */}
             {/* <Route path="/todo" component={TodoPage} /> */}
             {/* <Route path="/settings" component={SettingsPage} />

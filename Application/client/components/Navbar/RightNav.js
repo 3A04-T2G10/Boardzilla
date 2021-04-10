@@ -90,6 +90,34 @@ export default function RightNav({ open, setOpen, pathname }) {
       >
         Stickies
       </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/stock" : "/"))}
+      >
+        Stock
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/weather" : "/"))}
+      >
+        Weather
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/news" : "/"))}
+      >
+        News
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push("/"))}
+      >
+        Home
+      </li>
       {/*
       <li
         // className={`${display === "cases" && user ? "active" : ""} ${
