@@ -149,7 +149,7 @@ class WidgetList extends React.Component {
 
             {/* <!-- Right side --> */}
             <div className="level-right">
-              <div className="control has-icons-left mr-2">
+              <div className="control mr-2">
                 <div className="select">
                   <select
                     onChange={this.selectType}
@@ -162,16 +162,17 @@ class WidgetList extends React.Component {
                     <option value="Calendar">Calendar</option>
                   </select>
                 </div>
-                <span className="icon is-left">
-                  <FontAwesomeIcon icon={faPlus} />
-                </span>
               </div>
 
               <p className="level-item">
-                {/* <a className="button is-success" onClick={this.add}> */}
-                <a className="button is-success" onClick={this.add}>
-                  Create
-                </a>
+                <button
+                  className="button is-link is-rounded"
+                  onClick={this.add}
+                >
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </span>
+                </button>
               </p>
             </div>
           </div>
