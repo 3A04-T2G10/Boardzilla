@@ -23,6 +23,7 @@ router.post("/", requireAuth, (req, res) => {
   req.body.text = req.body.text || "";
   req.body.color = req.body.color || "#ffffff";
   req.body.textColor = req.body.textColor || "#000000";
+  req.body.type = "sticky";
   const newSticky = Sticky(req.body);
 
   newSticky.save((err, savedSticky) => {
