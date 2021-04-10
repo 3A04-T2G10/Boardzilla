@@ -26,7 +26,8 @@ export default function AddSticky({ closeModal }) {
   const updateTextColor = (e) => setTextColor(e.target.value);
 
   return (
-    <div className="card p-2">
+    <div className="card p-2 has-text-centered has-text-weight-semibold">
+      <h1 className="title">New Sticky Note</h1>
       <div className="has-text-centered mx-5">
         <div className="field">
           <label className="label">Text</label>
