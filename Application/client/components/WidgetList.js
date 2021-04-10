@@ -79,7 +79,6 @@ class WidgetList extends React.Component {
   add = () => {
     switch (this.state.newWidgetType) {
       case "Sticky":
-        console.log("adding sticky");
         this.setState({
           addStickyWidget: true,
         });
@@ -102,7 +101,6 @@ class WidgetList extends React.Component {
     // });
   };
   closeModal = () => {
-    console.log("closing");
     this.setState({
       addStickyWidget: false,
     });
