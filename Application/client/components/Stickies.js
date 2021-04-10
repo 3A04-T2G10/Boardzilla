@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
-import AddSticky from "_widgets/StickyNotes/AddSticky";
+// import AddSticky from "_widgets/StickyNotes/AddSticky";
 import { attemptGetStickies } from "_thunks/stickies";
 
 export const Stickies = () => {
@@ -23,7 +23,7 @@ export const Stickies = () => {
     !loading && (
       <div>
         <>
-          <AddSticky />
+          {/* <AddSticky /> */}
           <ul className="sticky-list">
             {stickies.map((sticky) => (
               <Sticky key={sticky.id} {...sticky} />

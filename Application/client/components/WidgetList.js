@@ -3,6 +3,7 @@ import Widget from "./Widget";
 import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
 
 class WidgetList extends React.Component {
   constructor(props) {
@@ -26,6 +27,7 @@ class WidgetList extends React.Component {
         },
       ],
       newWidgetType: "Sticky",
+      addStickyWidget: false,
     };
   }
 
@@ -75,24 +77,43 @@ class WidgetList extends React.Component {
   };
 
   add = () => {
-    if (this.state.newWidgetType === "") return;
-    const newWidget = {
-      id: this.state.list.length.toString(),
-      colour: "aqua",
-      content: "New Widget: " + this.state.newWidgetType,
-      width: 350,
-      height: 350,
-    };
-    const newList = Array.from(this.state.list);
-    newList.push(newWidget);
+    switch (this.state.newWidgetType) {
+      case "Sticky":
+        console.log("adding sticky");
+        this.setState({
+          addStickyWidget: true,
+        });
+        break;
+      default:
+        return;
+    }
+
+    // const newWidget = {
+    //   id: this.state.list.length.toString(),
+    //   colour: "aqua",
+    //   content: "New Widget: " + this.state.newWidgetType,
+    //   width: 350,
+    //   height: 350,
+    // };
+    // const newList = Array.from(this.state.list);
+    // newList.push(newWidget);
+    // this.setState({
+    //   list: newList,
+    // });
+  };
+  closeModal = () => {
+    console.log("closing");
     this.setState({
-      list: newList,
+      addStickyWidget: false,
     });
   };
-
   render() {
     return (
       <>
+        <AddStickyModal
+          open={this.state.addStickyWidget}
+          closeModal={this.closeModal}
+        />
         <div
           style={{
             width: `100%`,
@@ -149,6 +170,7 @@ class WidgetList extends React.Component {
               </div>
 
               <p className="level-item">
+                {/* <a className="button is-success" onClick={this.add}> */}
                 <a className="button is-success" onClick={this.add}>
                   Create
                 </a>
