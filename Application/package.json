@@ -54,6 +54,7 @@
     "react": "^16.14.0",
     "react-beautiful-dnd": "^13.1.0",
     "react-dom": "^16.14.0",
+    "react-grid-layout": "^1.2.4",
     "react-notifications-component": "^2.4.1",
     "react-redux": "^7.2.2",
     "react-resizable": "^1.11.1",

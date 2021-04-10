@@ -1,7 +1,7 @@
 import React from "react";
-import Widget from "./Widget";
-import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import {Responsive, WidthProvider } from 'react-grid-layout';
 
+const ResponsiveReactGridLayout = WidthProvider(Responsive);
 import { useSelector } from "react-redux";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
@@ -10,81 +10,36 @@ class WidgetList extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      list: [
-        {
-          id: "0",
-          colour: "green",
-          content: "Weather",
-          width: 350,
-          height: 350,
-        },
-        { id: "1", colour: "red", content: "Sticky", width: 350, height: 350 },
-        {
-          id: "2",
-          colour: "grey",
-          content: "Calendar",
-          width: 350,
-          height: 350,
-        },
-      ],
+      // layouts array storing the data about location and size of each widget
+      layouts:  [
+        {i: "1", x: 0, y: 0, w: 3, h: 2},
+        {i: "2", x: 3, y: 0, w: 3, h: 2},
+        {i: "3", x: 6, y: 0, w: 3, h: 2}
+      ], 
+      widgetCounter: 3 // counting number of widgets
     };
   }
-
-  //const { stickies } = useSelector(R.pick(["stickies"]));
-
-  onDragEnd = (result) => {
-    const { destination, source, draggableId } = result;
-
-    if (!destination) {
-      return;
-    }
-
-    if (
-      destination.droppableId === source.droppableId &&
-      destination.index === source.index
-    ) {
-      return;
-    }
-
-    const newList = this.state.list;
-    var tmp = newList[source.index];
-    newList[source.index] = newList[destination.index];
-    newList[destination.index] = tmp;
-
-    console.log(newList);
-    this.setState({
-      list: newList,
-    });
-  };
-
-  getSize = (index, width, height) => {
-    this.state.list[index].width = width;
-    this.state.list[index].height = height;
-  };
-
-  remove = (index) => {
-    const newList = Array.from(this.state.list);
-    newList.splice(index, 1);
-    console.log(newList);
-    this.setState({
-      list: newList,
-    });
-  };
+    //const { stickies } = useSelector(R.pick(["stickies"]));
 
   add = () => {
+    const newId = this.state.widgetCounter + 1;
     const newWidget = {
-      id: this.state.list.length.toString(),
-      colour: "aqua",
-      content: "New Widget",
-      width: 350,
-      height: 350,
+        i: newId.toString(),
+        x: (this.state.layouts.length * 3) % 12, // 3 is the multiplier
+        y: Infinity, // puts it at the bottom
+        w: 3,
+        h: 2
     };
-    const newList = Array.from(this.state.list);
-    newList.push(newWidget);
-    this.setState({
-      list: newList,
-    });
+  this.setState( prevState => ({
+      widgetCounter: prevState.widgetCounter + 1,
+      layouts: prevState.layouts.concat(newWidget)
+    }));
+
   };
+
+  onLayoutChange = (layout) =>  {
+    this.setState({ layouts: layout })
+  }
 
   render() {
     return (
@@ -99,42 +54,13 @@ class WidgetList extends React.Component {
             Add
           </span>
         </div>
-        <DragDropContext onDragEnd={this.onDragEnd}>
-          <Droppable droppableId={"00"} direction="horizontal">
-            {(provided) => (
-              <div
-                className="layout"
-                ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
-                {this.state.list.map((widget, index) => {
-                  return (
-                    <Widget
-                      id={widget.id}
-                      key={widget.id}
-                      remove={this.remove}
-                      colour={widget.colour}
-                      content={widget.content}
-                      width={widget.width}
-                      height={widget.height}
-                      index={index}
-                      getSize={this.getSize}
-                    />
-                    //             <>
-                    //   <AddSticky />
-                    //   <ul className="sticky-list">
-                    //     {stickies.map((sticky) => (
-                    //       <Sticky key={sticky.id} {...sticky} />
-                    //     ))}
-                    //   </ul>
-                    // </>
-                  );
-                })}
-                {provided.placeholder}
-              </div>
-            )}
-          </Droppable>
-        </DragDropContext>
+        <ResponsiveReactGridLayout style={{backgroundColor: `aqua`}} className="layout" onLayoutChange={this.onLayoutChange} >
+          {this.state.layouts.map(widgetLayout => {
+            return (
+              <div style={{backgroundColor: `grey`}} key={widgetLayout.i} data-grid={widgetLayout} >Add Content</div>
+            )
+          })}
+        </ResponsiveReactGridLayout>
       </>
     );
   }
