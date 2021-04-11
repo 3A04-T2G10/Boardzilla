@@ -15,7 +15,7 @@ import Dashboard from "_pages/Dashboard";
 import Stickies from "_components/Stickies";
 import Weather from "_pages/Weather";
 import NewsPage from "_pages/NewsPage";
-import Stock from "_pages/Stock";
+import Stock from "_widgets/Stock/Stock";
 // import TodoPage from "_pages/TodoPage";
 // import SettingsPage from "_pages/SettingsPage";
 // import LostPage from "_pages/LostPage";
