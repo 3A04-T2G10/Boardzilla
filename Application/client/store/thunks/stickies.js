@@ -20,6 +20,7 @@ import { dispatchError } from "_utils/api";
 export const attemptGetStickies = () => (dispatch) =>
   getStickies()
     .then((data) => {
+      console.log(data);
       const stickies = R.map(
         (sticky) =>
           R.omit(["Id"], R.assoc("id", sticky._id, snakeToCamelCase(sticky))),

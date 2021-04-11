@@ -4,6 +4,7 @@ import { DragDropContext, Droppable } from "react-beautiful-dnd";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
+import AddNewsModal from "_widgets/News/AddNewsModal";
 
 class WidgetList extends React.Component {
   constructor(props) {
@@ -28,6 +29,7 @@ class WidgetList extends React.Component {
       ],
       newWidgetType: "Sticky",
       addStickyWidget: false,
+      addNewsWidget: false,
     };
   }
 
@@ -83,6 +85,11 @@ class WidgetList extends React.Component {
           addStickyWidget: true,
         });
         break;
+      case "News":
+        this.setState({
+          addNewsWidget: true,
+        });
+        break;
       default:
         return;
     }
@@ -103,6 +110,7 @@ class WidgetList extends React.Component {
   closeModal = () => {
     this.setState({
       addStickyWidget: false,
+      addNewsWidget: false,
     });
   };
   render() {
@@ -110,6 +118,11 @@ class WidgetList extends React.Component {
       <>
         <AddStickyModal
           open={this.state.addStickyWidget}
+          closeModal={this.closeModal}
+        />
+
+        <AddNewsModal
+          open={this.state.addNewsWidget}
           closeModal={this.closeModal}
         />
         <div
