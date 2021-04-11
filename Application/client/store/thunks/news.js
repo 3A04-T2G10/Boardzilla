@@ -1,16 +1,15 @@
 import { snakeToCamelCase } from "_utils/snakeToCC";
 import R from "ramda";
 
-import { getNews, postNews } from "_api/news";
+import { getNews, postNews, deleteNews, putNews } from "_api/news";
 
-import { setNews, addNews } from "_actions/news";
+import { setNews, addNews, removeNews, updateNews } from "_actions/news";
 
 import { dispatchError } from "_utils/api";
 
 export const attemptGetNews = () => (dispatch) =>
   getNews()
     .then((data) => {
-      console.log(data);
       const news = R.map(
         (article) =>
           R.omit(["Id"], R.assoc("id", article._id, snakeToCamelCase(article))),
@@ -24,28 +23,28 @@ export const attemptGetNews = () => (dispatch) =>
 export const attemptAddNews = (topic) => (dispatch) =>
   postNews({ topic })
     .then((data) => {
-      console.log("data here", data);
       const item = R.omit(
         ["Id"],
-        R.assoc("id", data.article._id, snakeToCamelCase(data.article))
+        R.assoc("id", data.newsItem._id, snakeToCamelCase(data.newsItem))
       );
       dispatch(addNews(item));
-      return data.user;
+      return data;
     })
     .catch(dispatchError(dispatch));
 
-// export const attemptUpdateSticky = (id, text) => (dispatch) =>
-//   putSticky({ id, text })
-//     .then((returnData) => {
-//       dispatch(updateSticky({ id, text }));
-//       return returnData;
-//     })
-//     .catch(dispatchError(dispatch));
+export const attemptUpdateNews = (id, topic) => (dispatch) =>
+  putNews({ id, topic })
+    .then((data) => {
+      const item = { id: id, topic: topic, articles: data.widget.articles };
+      dispatch(updateNews({ ...item }));
+      return data;
+    })
+    .catch(dispatchError(dispatch));
 
-// export const attemptDeleteSticky = (id) => (dispatch) =>
-//   deleteSticky({ id })
-//     .then((data) => {
-//       dispatch(removeSticky(id));
-//       return data;
-//     })
-//     .catch(dispatchError(dispatch));
+export const attemptDeleteNews = (id) => (dispatch) =>
+  deleteNews({ id })
+    .then((data) => {
+      dispatch(removeNews(id));
+      return data;
+    })
+    .catch(dispatchError(dispatch));

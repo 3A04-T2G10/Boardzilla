@@ -1,23 +1,25 @@
-import { SET_NEWS, ADD_STICKY, UPDATE_NEWS, REMOVE_NEWS } from "./types";
+import { SET_NEWS, ADD_NEWS, UPDATE_NEWS, REMOVE_NEWS } from "./types";
 
 export const setNews = (news) => ({
   type: SET_NEWS,
   news,
 });
 
-export const addNews = ({ id, topic }) => ({
-  type: ADD_STICKY,
-  id,
-  topic,
+export const addNews = ({ id, topic, articles }) => ({
+  type: ADD_NEWS,
+  id: id,
+  topic: topic,
+  articles: articles,
 });
 
-//   export const updateSticky = ({ id, text }) => ({
-//     type: UPDATE_STICKY,
-//     id,
-//     text,
-//   });
+export const updateNews = ({ id, topic, articles }) => ({
+  type: UPDATE_NEWS,
+  id: id,
+  topic: topic,
+  articles: articles,
+});
 
-//   export const removeSticky = (id) => ({
-//     type: REMOVE_STICKY,
-//     id,
-//   });
+export const removeNews = (id) => ({
+  type: REMOVE_NEWS,
+  id,
+});

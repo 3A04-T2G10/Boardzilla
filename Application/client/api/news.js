@@ -7,16 +7,8 @@ export const postNews = (data) =>
 export const getNews = () =>
   request.get("/api/news").then(handleSuccess).catch(handleError);
 
-// export const putSticky = (data) =>
-//   request
-//     .put(`/api/stickies`)
-//     .send(data)
-//     .then(handleSuccess)
-//     .catch(handleError);
+export const putNews = (data) =>
+  request.put(`/api/news`).send(data).then(handleSuccess).catch(handleError);
 
-// export const deleteSticky = (data) =>
-//   request
-//     .delete("/api/stickies")
-//     .send(data)
-//     .then(handleSuccess)
-//     .catch(handleError);
+export const deleteNews = (data) =>
+  request.delete("/api/news").send(data).then(handleSuccess).catch(handleError);

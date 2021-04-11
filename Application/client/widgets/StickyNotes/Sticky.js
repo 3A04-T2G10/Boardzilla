@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import PropTypes from "prop-types";
 import { useDispatch } from "react-redux";
 
@@ -10,9 +10,9 @@ import { faPencilAlt } from "@fortawesome/free-solid-svg-icons/faPencilAlt";
 
 import { attemptUpdateSticky, attemptDeleteSticky } from "_thunks/stickies"; //
 
-import ConfirmModal from "./ConfirmModal";
+import ConfirmModal from "_components/ConfirmModal";
 
-export default function Sticky({ id, text, width, height, color, textColor }) {
+export default function Sticky({ id, text, color, textColor }) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -105,7 +105,7 @@ export default function Sticky({ id, text, width, height, color, textColor }) {
       <ConfirmModal
         confirm={confirm}
         closeModal={closeModal}
-        deleteSticky={deleteSticky}
+        deleteWidget={deleteSticky}
       />
     </div>
   );
@@ -113,16 +113,12 @@ export default function Sticky({ id, text, width, height, color, textColor }) {
 Sticky.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string,
-  width: PropTypes.number,
-  height: PropTypes.number,
   color: PropTypes.string,
   canDelete: PropTypes.bool,
 };
 
 Sticky.defaultProps = {
   text: "add text here...",
-  width: 100,
-  height: 100,
   color: "white",
   canDelete: false,
 };

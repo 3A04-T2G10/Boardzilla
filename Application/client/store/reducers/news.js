@@ -1,6 +1,6 @@
 import update from "immutability-helper";
 import R from "ramda";
-import { SET_NEWS, ADD_NEWS } from "_actions/types";
+import { SET_NEWS, ADD_NEWS, REMOVE_NEWS, UPDATE_NEWS } from "_actions/types";
 
 import { LOGOUT_USER } from "_actions/user";
 
@@ -12,10 +12,12 @@ export function article(state = {}, action) {
         topic: { $set: action.topic },
         articles: { $set: action.articles },
       });
-    // case UPDATE_STICKY:
-    //   return update(state, {
-    //     text: { $set: action.text },
-    //   });
+    case UPDATE_NEWS:
+      return update(state, {
+        id: { $set: action.id },
+        topic: { $set: action.topic },
+        articles: { $set: action.articles },
+      });
     default:
       return state;
   }
@@ -32,10 +34,10 @@ export default function news(state = [], action) {
       return update(state, { $set: action.news });
     case ADD_NEWS:
       return update(state, { $push: [article(undefined, action)] });
-    // case UPDATE_STICKY:
-    //   return update(state, updatedAtIndex);
-    // case REMOVE_STICKY:
-    //   return update(state, { $splice: [[index, 1]] });
+    case UPDATE_NEWS:
+      return update(state, updatedAtIndex);
+    case REMOVE_NEWS:
+      return update(state, { $splice: [[index, 1]] });
     case LOGOUT_USER:
       return [];
     default:

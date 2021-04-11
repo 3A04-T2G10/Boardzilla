@@ -43,9 +43,10 @@ router.put("/", requireAuth, (req, res) => {
     if (err) {
       res.status(400).send({ message: "Update widget failed", err });
     } else {
-      widget.width = req.body.width || 100;
-      widget.height = req.body.height || 100;
-      widget.order = req.body.order || 100;
+      if (req.body.width) widget.width = req.body.width;
+      if (req.body.height) widget.height = req.body.height;
+      if (req.body.order) widget.order = req.body.order;
+
       widget.text = req.body.text || "";
       widget.color = req.body.color || "#ffffff";
       widget.textColor = req.body.textColor || "#000000";
