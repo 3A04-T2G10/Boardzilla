@@ -5,3 +5,4 @@ process.env.PORT = process.env.PORT || 3000;
 process.env.SECRET = process.env.SECRET || "secret";
 process.env.NEWS_KEY =
   process.env.NEWS_KEY || "d4144d51be414cfbb9335f533dfa78f3";
+process.env.STOCK_KEY = process.env.STOCK_KEY || "5KO3BAP8N60LIR0T";
