@@ -2,20 +2,20 @@ import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import R from "ramda";
-import News from "_widgets/News/News";
-import { attemptGetNews } from "_thunks/news";
+import Stock from "_widgets/Stock/Stock";
+import { attemptGetStocks } from "_thunks/stocks";
 
-export const NewsPage = () => {
+export const StockPage = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(["user"]));
   const [loading, setLoading] = useState(true);
-  const { news } = useSelector(R.pick(["news"]));
+  const { stocks } = useSelector(R.pick(["stocks"]));
 
   useEffect(() => {
     if (R.isEmpty(user)) {
       dispatch(push("/login"));
     } else {
-      dispatch(attemptGetNews()).then(() => {
+      dispatch(attemptGetStocks()).then(() => {
         setLoading(false);
       });
     }
@@ -25,8 +25,8 @@ export const NewsPage = () => {
       <div>
         <>
           <ul className="sticky-list">
-            {news.map((widget) => (
-              <News key={widget.id} {...widget} />
+            {stocks.map((widget) => (
+              <Stock key={widget.id} {...widget} />
             ))}
           </ul>
         </>
@@ -34,4 +34,4 @@ export const NewsPage = () => {
     )
   );
 };
-export default NewsPage;
+export default StockPage;
