@@ -9,7 +9,16 @@ const stockSchema = new Schema({
   width: { type: Number },
   height: { type: Number },
   order: { type: Number },
-  intraDay: { type: Array },
+  intraDay: {
+    lowest: { type: Number },
+    highest: { type: Number },
+    dateTime: { type: Array },
+    open: { type: Array },
+    close: { type: Array },
+    high: { type: Array },
+    low: { type: Array },
+    volume: { type: Array },
+  },
   symbol: { type: String },
   lastUpdated: { type: Date, default: Date.now },
 });

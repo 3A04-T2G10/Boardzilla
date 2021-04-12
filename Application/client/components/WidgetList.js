@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
 import AddNewsModal from "_widgets/News/AddNewsModal";
+import AddStockModal from "_widgets/Stock/AddStockModal";
 
 class WidgetList extends React.Component {
   constructor(props) {
@@ -30,6 +31,7 @@ class WidgetList extends React.Component {
       newWidgetType: "Sticky",
       addStickyWidget: false,
       addNewsWidget: false,
+      addStockWidget: false,
     };
   }
 
@@ -90,6 +92,11 @@ class WidgetList extends React.Component {
           addNewsWidget: true,
         });
         break;
+      case "Stock":
+        this.setState({
+          addStockWidget: true,
+        });
+        break;
       default:
         return;
     }
@@ -111,6 +118,7 @@ class WidgetList extends React.Component {
     this.setState({
       addStickyWidget: false,
       addNewsWidget: false,
+      addStockWidget: false,
     });
   };
   render() {
@@ -125,12 +133,16 @@ class WidgetList extends React.Component {
           open={this.state.addNewsWidget}
           closeModal={this.closeModal}
         />
+
+        <AddStockModal
+          open={this.state.addStockWidget}
+          closeModal={this.closeModal}
+        />
         <div
           style={{
             width: `100%`,
             height: `50px`,
-          }}
-        >
+          }}>
           {/* <!-- Main container --> */}
           <div className="level px-5">
             {/* <!-- Left side --> 
@@ -166,8 +178,7 @@ class WidgetList extends React.Component {
                 <div className="select">
                   <select
                     onChange={this.selectType}
-                    value={this.state.newWidgetType}
-                  >
+                    value={this.state.newWidgetType}>
                     <option value="Sticky">Sticky</option>
                     <option value="News">News</option>
                     <option value="Weather">Weather</option>
@@ -180,8 +191,7 @@ class WidgetList extends React.Component {
               <p className="level-item">
                 <button
                   className="button is-link is-rounded"
-                  onClick={this.add}
-                >
+                  onClick={this.add}>
                   <span className="icon">
                     <FontAwesomeIcon icon={faPlus} />
                   </span>
@@ -199,8 +209,7 @@ class WidgetList extends React.Component {
               <div
                 className="layout"
                 ref={provided.innerRef}
-                {...provided.droppableProps}
-              >
+                {...provided.droppableProps}>
                 {this.state.list.map((widget, index) => {
                   return (
                     <Widget

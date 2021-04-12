@@ -23,9 +23,46 @@ router.get("/", requireAuth, (req, res) => {
               )
                 .then((res) => res.json())
                 .then((json) => {
-                  widget.intraDay = json["Time Series (15min)"];
+                  widget.intraDay = {
+                    highest: 0,
+                    lowest: Number.MAX_VALUE,
+                    dateTime: [],
+                    open: [],
+                    close: [],
+                    high: [],
+                    low: [],
+                    volume: [],
+                  };
+
+                  for (let key in json["Time Series (15min)"]) {
+                    widget.intraDay.dateTime.push(key);
+                    widget.intraDay.lowest = Math.min(
+                      widget.intraDay.lowest,
+                      json["Time Series (15min)"][key]["3. low"]
+                    );
+                    widget.intraDay.highest = Math.max(
+                      widget.intraDay.highest,
+                      json["Time Series (15min)"][key]["2. high"]
+                    );
+                    widget.intraDay.open.push(
+                      json["Time Series (15min)"][key]["1. open"]
+                    );
+                    widget.intraDay.close.push(
+                      json["Time Series (15min)"][key]["4. close"]
+                    );
+                    widget.intraDay.high.push(
+                      json["Time Series (15min)"][key]["2. high"]
+                    );
+                    widget.intraDay.low.push(
+                      json["Time Series (15min)"][key]["3. low"]
+                    );
+                    widget.intraDay.volume.push(
+                      json["Time Series (15min)"][key]["5. volume"]
+                    );
+                  }
+
                   widget.lastUpdated = new Date();
-                  stock.intraDay = json["Time Series (15min)"];
+                  stock.intraDay = widget.intraDay;
                   stock.lastUpdated = new Date();
 
                   widget.save((err) => {
@@ -71,7 +108,45 @@ router.post("/", requireAuth, (req, res) => {
         req.body.height = req.body.height || 100;
         req.body.order = req.body.order || 100;
         req.body.symbol = req.body.symbol || "";
-        req.body.intraDay = json["Time Series (15min)"];
+
+        req.body.intraDay = {
+          highest: 0,
+          lowest: Number.MAX_VALUE,
+          dateTime: [],
+          open: [],
+          close: [],
+          high: [],
+          low: [],
+          volume: [],
+        };
+
+        for (let key in json["Time Series (15min)"]) {
+          req.body.intraDay.dateTime.push(key);
+          req.body.intraDay.lowest = Math.min(
+            req.body.intraDay.lowest,
+            json["Time Series (15min)"][key]["3. low"]
+          );
+          req.body.intraDay.highest = Math.max(
+            req.body.intraDay.highest,
+            json["Time Series (15min)"][key]["2. high"]
+          );
+          req.body.intraDay.open.push(
+            json["Time Series (15min)"][key]["1. open"]
+          );
+          req.body.intraDay.close.push(
+            json["Time Series (15min)"][key]["4. close"]
+          );
+          req.body.intraDay.high.push(
+            json["Time Series (15min)"][key]["2. high"]
+          );
+          req.body.intraDay.low.push(
+            json["Time Series (15min)"][key]["3. low"]
+          );
+          req.body.intraDay.volume.push(
+            json["Time Series (15min)"][key]["5. volume"]
+          );
+        }
+
         req.body.lastUpdated = new Date();
         req.body.type = "stock";
 
@@ -79,6 +154,7 @@ router.post("/", requireAuth, (req, res) => {
 
         newStock.save((err, savedStock) => {
           if (err) {
+            console.log("error here");
             res
               .status(400)
               .send({ message: "Create stock widget failed", err });

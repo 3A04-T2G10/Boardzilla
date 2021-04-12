@@ -9,7 +9,7 @@ export default function AddStock({ closeModal }) {
   const [symbol, setSymbol] = useState("");
 
   const handleAddStock = () => {
-    if (topic) {
+    if (symbol) {
       dispatch(attemptAddStock(symbol));
       setSymbol("");
     }
