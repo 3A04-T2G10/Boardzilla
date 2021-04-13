@@ -17,6 +17,13 @@ router.get("/", requireAuth, (req, res) => {
 
 router.post("/", requireAuth, (req, res) => {
   req.body.user = req.user.id;
+  req.body.width = req.body.width || 100;
+  req.body.height = req.body.height || 100;
+  req.body.order = req.body.order || 100;
+  req.body.text = req.body.text || "";
+  req.body.color = req.body.color || "#ffffff";
+  req.body.textColor = req.body.textColor || "#000000";
+  req.body.type = "sticky";
   const newSticky = Sticky(req.body);
 
   newSticky.save((err, savedSticky) => {
@@ -36,11 +43,9 @@ router.put("/", requireAuth, (req, res) => {
     if (err) {
       res.status(400).send({ message: "Update widget failed", err });
     } else {
-      widget.width = req.body.width || 100;
-      widget.height = req.body.height || 100;
-      widget.order = req.body.order || 100;
-      widget.text = req.body.text || "";
-      widget.color = req.body.color || "default";
+      widget.text = req.body.text || widget.text;
+      widget.color = req.body.color || widget.color;
+      widget.textColor = req.body.textColor || widget.textColor;
 
       widget.save((err, savedWidget) => {
         if (err) {
@@ -48,6 +53,30 @@ router.put("/", requireAuth, (req, res) => {
         } else {
           res.send({
             message: "Updated sticky successfully",
+            widget: savedWidget.hide(),
+          });
+        }
+      });
+    }
+  });
+});
+
+router.put("/layout", requireAuth, (req, res) => {
+  Sticky.findById(req.body.id, { __v: 0, user: 0 }, (err, widget) => {
+    if (err) {
+      res.status(400).send({ message: "Update sticky failed", err });
+    } else {
+      widget.x = req.body.x || widget.x;
+      widget.y = req.body.y || widget.y;
+      widget.width = req.body.width || widget.width;
+      widget.height = req.body.height || widget.height;
+
+      widget.save((err, savedWidget) => {
+        if (err) {
+          res.status(400).send({ message: "Update sticky layout failed", err });
+        } else {
+          res.send({
+            message: "Updated sticky layout successfully",
             widget: savedWidget.hide(),
           });
         }

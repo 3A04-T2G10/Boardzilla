@@ -6,6 +6,14 @@ import { useSelector } from "react-redux";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
 import AddSticky from "_widgets/StickyNotes/AddSticky";
+import Widget from "./Widget";
+import { DragDropContext, Droppable } from "react-beautiful-dnd";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
+import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
+import AddNewsModal from "_widgets/News/AddNewsModal";
+import AddStockModal from "_widgets/Stock/AddStockModal";
+
 class WidgetList extends React.Component {
   constructor(props) {
     super(props);
@@ -21,7 +29,7 @@ class WidgetList extends React.Component {
   }
     //const { stickies } = useSelector(R.pick(["stickies"]));
 
-  add = () => {
+  addWidget = () => {
     const newId = this.state.widgetCounter + 1;
     const newWidget = {
         i: newId.toString(),
@@ -41,16 +49,129 @@ class WidgetList extends React.Component {
     this.setState({ layouts: layout })
   }
 
+
+  remove = (index) => {
+    const newList = Array.from(this.state.list);
+    newList.splice(index, 1);
+    console.log(newList);
+    this.setState({
+      list: newList,
+    });
+  };
+
+  selectType = (e) => {
+    this.setState({
+      newWidgetType: e.target.value,
+    });
+  };
+
+  add = () => {
+    switch (this.state.newWidgetType) {
+      case "Sticky":
+        this.setState({
+          addStickyWidget: true,
+        });
+        break;
+      case "News":
+        this.setState({
+          addNewsWidget: true,
+        });
+        break;
+      case "Stock":
+        this.setState({
+          addStockWidget: true,
+        });
+        break;
+      default:
+        return;
+    }
+  };
+  closeModal = () => {
+    this.setState({
+      addStickyWidget: false,
+      addNewsWidget: false,
+      addStockWidget: false,
+    });
+  };
   render() {
     return (
       <>
+        <AddStickyModal
+          open={this.state.addStickyWidget}
+          closeModal={this.closeModal}
+        />
+
+        <AddNewsModal
+          open={this.state.addNewsWidget}
+          closeModal={this.closeModal}
+        />
+
+        <AddStockModal
+          open={this.state.addStockWidget}
+          closeModal={this.closeModal}
+        />
         <div
           style={{
             width: `100%`,
             height: `50px`,
-          }}
-        >
-          <span className="add" onClick={this.add}>
+          }}>
+          {/* <!-- Main container --> */}
+          <div className="level px-5">
+            {/* <!-- Left side --> 
+    use these links to filter only a specific type of widget
+  
+  */}
+            <div className="level-left">
+              <p className="level-item">
+                <strong>
+                  <a>All</a>
+                </strong>
+              </p>
+              <p className="level-item">
+                <a>Stickies</a>
+              </p>
+              <p className="level-item">
+                <a>News</a>
+              </p>
+              <p className="level-item">
+                <a>Weather</a>
+              </p>
+              <p className="level-item">
+                <a>Stocks</a>
+              </p>
+              <p className="level-item">
+                <a>Calendars</a>
+              </p>
+            </div>
+
+            {/* <!-- Right side --> */}
+            <div className="level-right">
+              <div className="control mr-2">
+                <div className="select">
+                  <select
+                    onChange={this.selectType}
+                    value={this.state.newWidgetType}>
+                    <option value="Sticky">Sticky</option>
+                    <option value="News">News</option>
+                    <option value="Weather">Weather</option>
+                    <option value="Stock">Stock</option>
+                    <option value="Calendar">Calendar</option>
+                  </select>
+                </div>
+              </div>
+
+              <p className="level-item">
+                <button
+                  className="button is-link is-rounded"
+                  onClick={this.add}>
+                  <span className="icon">
+                    <FontAwesomeIcon icon={faPlus} />
+                  </span>
+                </button>
+              </p>
+            </div>
+          </div>
+          <span className="add" onClick={this.addWidget}>
             Add
           </span>
         </div>

@@ -18,6 +18,13 @@ export const putSticky = (data) =>
     .then(handleSuccess)
     .catch(handleError);
 
+export const putStickyLayout = (data) =>
+  request
+    .put(`/api/stickies/layout`)
+    .send(data)
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const deleteSticky = (data) =>
   request
     .delete("/api/stickies")

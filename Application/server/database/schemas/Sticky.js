@@ -8,9 +8,11 @@ const stickySchema = new Schema({
   type: { type: String },
   text: { type: String },
   color: { type: String },
+  textColor: { type: String },
   width: { type: Number },
   height: { type: Number },
-  order: { type: Number },
+  x: { type: Number },
+  y: { type: Number },
 });
 
 stickySchema.methods.hide = function () {

@@ -1,24 +1,59 @@
-export const SET_STICKIES = "SET_STICKIES";
-export const ADD_STICKY = "ADD_STICKY";
-export const UPDATE_STICKY = "UPDATE_STICKY";
-export const REMOVE_STICKY = "REMOVE_STICKY";
+import {
+  SET_STICKIES,
+  ADD_STICKY,
+  UPDATE_STICKY,
+  REMOVE_STICKY,
+} from "./types";
 
 export const setStickies = (stickies) => ({
   type: SET_STICKIES,
   stickies,
 });
 
-export const addSticky = ({ id, text }) => ({
+export const addSticky = ({
+  id,
+  text,
+  color,
+  textColor,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
   type: ADD_STICKY,
   id,
+  widgetType: type,
   text,
+  color,
+  textColor,
+  x,
+  y,
+  width,
+  height,
 });
 
-export const updateSticky = ({ id, text }) => ({
-  type: UPDATE_STICKY,
-  updatedAt,
+export const updateSticky = ({
   id,
   text,
+  color,
+  textColor,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
+  type: UPDATE_STICKY,
+  id,
+  widgetType: type,
+  text,
+  color,
+  textColor,
+  x,
+  y,
+  width,
+  height,
 });
 
 export const removeSticky = (id) => ({

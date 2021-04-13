@@ -1,4 +1,4 @@
-import { snakeToCamelCase } from "json-style-converter/es5";
+import { snakeToCamelCase } from "_utils/snakeToCC";
 import { store as RNC } from "react-notifications-component";
 
 import { getUser, putUser, putUserPassword } from "_api/user";

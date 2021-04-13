@@ -79,19 +79,46 @@ export default function RightNav({ open, setOpen, pathname }) {
   //     ? pathname === "/settings"
   //     : R.slice(0, 10, pathname) === "/settings/";
 
+  // const isS = (pathname.length === 5)
+  //   ? pathname === '/todo'
+  //   : R.slice(0, 6, pathname) === '/todo/';
   return (
     <Ul open={open} style={{ cursor: `${!user ? "not-allowed" : "pointer"}` }}>
-      {/* <li
-        // className={`${display === "" && user ? "active" : ""} ${
-        //   !user ? "disabled-link" : ""
-        // }`}
-        onClick={() => {
-          // move("");
-          setOpen(!open);
-        }}
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/stickies" : "/"))}
+      >
+        Stickies
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/stock" : "/"))}
+      >
+        Stock
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/weather" : "/"))}
+      >
+        Weather
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push(auth ? "/news" : "/"))}
+      >
+        News
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push("/"))}
       >
         Home
       </li>
+      {/*
       <li
         // className={`${display === "cases" && user ? "active" : ""} ${
         //   !user ? "disabled-link" : ""
