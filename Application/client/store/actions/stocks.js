@@ -5,18 +5,18 @@ export const setStocks = (stocks) => ({
   stocks,
 });
 
-export const addStock = ({ id, symbol, intraDay }) => ({
+export const addStock = ({ id, symbol, dailyData }) => ({
   type: ADD_STOCK,
   id: id,
   symbol: symbol,
-  intraDay: intraDay,
+  dailyData: dailyData,
 });
 
-export const updateStock = ({ id, symbol, intraDay }) => ({
+export const updateStock = ({ id, symbol, dailyData }) => ({
   type: UPDATE_STOCK,
   id: id,
   symbol: symbol,
-  intraDay: intraDay,
+  dailyData: dailyData,
 });
 
 export const removeStock = (id) => ({

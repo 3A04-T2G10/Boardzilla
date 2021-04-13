@@ -19,11 +19,11 @@ router.get("/", requireAuth, (req, res) => {
               res.status(400).send({ message: "get stock widget failed", err });
             } else {
               fetch(
-                `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${stock.symbol}&interval=15min&outputsize=full&apikey=${process.env.STOCK_KEY}`
+                `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${stock.symbol}&apikey=${process.env.STOCK_KEY}`
               )
                 .then((res) => res.json())
                 .then((json) => {
-                  widget.intraDay = {
+                  widget.dailyData = {
                     highest: 0,
                     lowest: Number.MAX_VALUE,
                     dateTime: [],
@@ -34,35 +34,35 @@ router.get("/", requireAuth, (req, res) => {
                     volume: [],
                   };
 
-                  for (let key in json["Time Series (15min)"]) {
-                    widget.intraDay.dateTime.push(key);
-                    widget.intraDay.lowest = Math.min(
-                      widget.intraDay.lowest,
-                      json["Time Series (15min)"][key]["3. low"]
+                  for (let key in json["Time Series (Daily)"]) {
+                    widget.dailyData.dateTime.push(key);
+                    widget.dailyData.lowest = Math.min(
+                      widget.dailyData.lowest,
+                      json["Time Series (Daily)"][key]["3. low"]
                     );
-                    widget.intraDay.highest = Math.max(
-                      widget.intraDay.highest,
-                      json["Time Series (15min)"][key]["2. high"]
+                    widget.dailyData.highest = Math.max(
+                      widget.dailyData.highest,
+                      json["Time Series (Daily)"][key]["2. high"]
                     );
-                    widget.intraDay.open.push(
-                      json["Time Series (15min)"][key]["1. open"]
+                    widget.dailyData.open.push(
+                      json["Time Series (Daily)"][key]["1. open"]
                     );
-                    widget.intraDay.close.push(
-                      json["Time Series (15min)"][key]["4. close"]
+                    widget.dailyData.close.push(
+                      json["Time Series (Daily)"][key]["4. close"]
                     );
-                    widget.intraDay.high.push(
-                      json["Time Series (15min)"][key]["2. high"]
+                    widget.dailyData.high.push(
+                      json["Time Series (Daily)"][key]["2. high"]
                     );
-                    widget.intraDay.low.push(
-                      json["Time Series (15min)"][key]["3. low"]
+                    widget.dailyData.low.push(
+                      json["Time Series (Daily)"][key]["3. low"]
                     );
-                    widget.intraDay.volume.push(
-                      json["Time Series (15min)"][key]["5. volume"]
+                    widget.dailyData.volume.push(
+                      json["Time Series (Daily)"][key]["5. volume"]
                     );
                   }
 
                   widget.lastUpdated = new Date();
-                  stock.intraDay = widget.intraDay;
+                  stock.dailyData = widget.dailyData;
                   stock.lastUpdated = new Date();
 
                   widget.save((err) => {
@@ -99,7 +99,7 @@ router.post("/", requireAuth, (req, res) => {
     });
   } else {
     fetch(
-      `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${req.body.symbol}&interval=15min&outputsize=full&apikey=${process.env.STOCK_KEY}`
+      `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${req.body.symbol}&apikey=${process.env.STOCK_KEY}`
     )
       .then((res) => res.json())
       .then((json) => {
@@ -109,7 +109,7 @@ router.post("/", requireAuth, (req, res) => {
         req.body.order = req.body.order || 100;
         req.body.symbol = req.body.symbol || "";
 
-        req.body.intraDay = {
+        req.body.dailyData = {
           highest: 0,
           lowest: Number.MAX_VALUE,
           dateTime: [],
@@ -120,30 +120,30 @@ router.post("/", requireAuth, (req, res) => {
           volume: [],
         };
 
-        for (let key in json["Time Series (15min)"]) {
-          req.body.intraDay.dateTime.push(key);
-          req.body.intraDay.lowest = Math.min(
-            req.body.intraDay.lowest,
-            json["Time Series (15min)"][key]["3. low"]
+        for (let key in json["Time Series (Daily)"]) {
+          req.body.dailyData.dateTime.push(key);
+          req.body.dailyData.lowest = Math.min(
+            req.body.dailyData.lowest,
+            json["Time Series (Daily)"][key]["3. low"]
           );
-          req.body.intraDay.highest = Math.max(
-            req.body.intraDay.highest,
-            json["Time Series (15min)"][key]["2. high"]
+          req.body.dailyData.highest = Math.max(
+            req.body.dailyData.highest,
+            json["Time Series (Daily)"][key]["2. high"]
           );
-          req.body.intraDay.open.push(
-            json["Time Series (15min)"][key]["1. open"]
+          req.body.dailyData.open.push(
+            json["Time Series (Daily)"][key]["1. open"]
           );
-          req.body.intraDay.close.push(
-            json["Time Series (15min)"][key]["4. close"]
+          req.body.dailyData.close.push(
+            json["Time Series (Daily)"][key]["4. close"]
           );
-          req.body.intraDay.high.push(
-            json["Time Series (15min)"][key]["2. high"]
+          req.body.dailyData.high.push(
+            json["Time Series (Daily)"][key]["2. high"]
           );
-          req.body.intraDay.low.push(
-            json["Time Series (15min)"][key]["3. low"]
+          req.body.dailyData.low.push(
+            json["Time Series (Daily)"][key]["3. low"]
           );
-          req.body.intraDay.volume.push(
-            json["Time Series (15min)"][key]["5. volume"]
+          req.body.dailyData.volume.push(
+            json["Time Series (Daily)"][key]["5. volume"]
           );
         }
 
@@ -182,7 +182,7 @@ router.put("/", requireAuth, (req, res) => {
       else {
         console.log("updating stock with symbol ", req.body.symbol);
         fetch(
-          `https://www.alphavantage.co/query?function=TIME_SERIES_INTRADAY&symbol=${req.body.symbol}&interval=15min&outputsize=full&apikey=${process.env.STOCK_KEY}`
+          `https://www.alphavantage.co/query?function=TIME_SERIES_DAILY_ADJUSTED&symbol=${req.body.symbol}&apikey=${process.env.STOCK_KEY}`
         )
           .then((res) => res.json())
           .then((json) => {
@@ -191,7 +191,7 @@ router.put("/", requireAuth, (req, res) => {
             if (req.body.order) widget.order = req.body.order;
             widget.symbol = req.body.symbol;
             widget.lastUpdated = new Date();
-            widget.intraDay = json["Time Series (15min)"];
+            widget.dailyData = json["Time Series (Daily)"];
 
             widget.save((err, savedWidget) => {
               if (err) {

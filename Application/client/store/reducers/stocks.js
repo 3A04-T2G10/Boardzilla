@@ -15,13 +15,13 @@ export function stock(state = {}, action) {
       return update(state, {
         id: { $set: action.id },
         symbol: { $set: action.symbol },
-        intraDay: { $set: action.intraDay },
+        dailyData: { $set: action.dailyData },
       });
     case UPDATE_STOCK:
       return update(state, {
         id: { $set: action.id },
         symbol: { $set: action.symbol },
-        intraDay: { $set: action.intraDay },
+        dailyData: { $set: action.dailyData },
       });
     default:
       return state;

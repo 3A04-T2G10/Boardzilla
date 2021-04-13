@@ -14,7 +14,7 @@ import { attemptDeleteStock } from "_thunks/stocks";
 import { attemptUpdateStock } from "_thunks/stocks";
 import ConfirmModal from "_components/ConfirmModal";
 
-export const Stock = ({ id, intraDay, symbol }) => {
+export const Stock = ({ id, dailyData, symbol }) => {
   const dispatch = useDispatch();
   const [currentSymbol, setCurrentSymbol] = useState(symbol);
   const [edit, setEdit] = useState(false);
@@ -37,20 +37,20 @@ export const Stock = ({ id, intraDay, symbol }) => {
     }
   };
 
-  return intraDay ? (
+  return dailyData && dailyData.dateTime.length > 1 ? (
     <div className={`card mb-3 px-2`}>
       <div className="card-content">
-        <div className="content">
+        <div className="content has-text-centered">
           <Plot
             data={[
               {
-                x: intraDay.dateTime,
-                open: intraDay.open,
-                close: intraDay.close,
+                x: dailyData.dateTime,
+                open: dailyData.open,
+                close: dailyData.close,
                 decreasing: { line: { color: "#f03434" } },
                 increasing: { line: { color: "#00b16a" } },
-                high: intraDay.high,
-                low: intraDay.low,
+                high: dailyData.high,
+                low: dailyData.low,
                 type: "candlestick",
                 xaxis: "x",
                 yaxis: "y",
@@ -58,34 +58,19 @@ export const Stock = ({ id, intraDay, symbol }) => {
             ]}
             layout={{
               dragmode: "zoom",
-              margin: {
-                r: 10,
-                t: 25,
-                b: 40,
-                l: 60,
-              },
               showlegend: false,
               xaxis: {
-                autorange: true,
-                domain: [0, 1],
                 range: [
-                  intraDay.dateTime[intraDay.dateTime.length - 1],
-                  intraDay.dateTime[0],
+                  dailyData.dateTime.length > 30
+                    ? dailyData.dateTime[30]
+                    : dailyData.dateTime[dailyData.dateTime.length - 1],
+                  dailyData.dateTime[0],
                 ],
-                rangeslider: {
-                  range: [
-                    intraDay.dateTime[intraDay.dateTime.length - 1],
-                    intraDay.dateTime[0],
-                  ],
-                },
                 title: "Date",
                 type: "date",
               },
               yaxis: {
                 autorange: true,
-                domain: [0, 1],
-                range: [intraDay.lowest, intraDay.highest],
-                type: "linear",
               },
             }}
           />
@@ -175,10 +160,10 @@ export default Stock;
 Stock.propTypes = {
   id: PropTypes.string.isRequired,
   symbol: PropTypes.string,
-  intraDay: PropTypes.object,
+  dailyData: PropTypes.object,
 };
 
 Stock.defaultProps = {
-  intraDay: {},
+  dailyData: {},
   symbol: "",
 };

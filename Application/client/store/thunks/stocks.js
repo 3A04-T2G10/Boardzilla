@@ -35,7 +35,11 @@ export const attemptAddStock = (symbol) => (dispatch) =>
 export const attemptUpdateStock = (id, symbol) => (dispatch) =>
   putStock({ id, symbol })
     .then((data) => {
-      const stock = { id: id, symbol: symbol, intraDay: data.widget.intraDay };
+      const stock = {
+        id: id,
+        symbol: symbol,
+        dailyData: data.widget.dailyData,
+      };
       dispatch(updateStock({ ...stock }));
       return data;
     })
