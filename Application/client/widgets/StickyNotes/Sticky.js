@@ -16,6 +16,9 @@ export default function Sticky({ id, text, color, textColor }) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
+  const [currentColor, setCurrentColor] = useState(color);
+  const [currentTextColor, setCurrentTextColor] = useState(textColor);
+
   const [edit, setEdit] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
@@ -27,80 +30,109 @@ export default function Sticky({ id, text, color, textColor }) {
   const cancelEdit = () => {
     setEdit(false);
     setCurrentText(text);
+    setCurrentColor(color);
+    setCurrentTextColor(textColor);
   };
 
   const handleUpdateSticky = () => {
     if (currentText) {
-      dispatch(attemptUpdateSticky(id, currentText)).then(() => setEdit(false));
+      dispatch(
+        attemptUpdateSticky(id, currentText, currentColor, currentTextColor)
+      ).then(() => setEdit(false));
     }
   };
 
   const deleteSticky = () => dispatch(attemptDeleteSticky(id));
+  const updateColor = (e) => setCurrentColor(e.target.value);
+  const updateTextColor = (e) => setCurrentTextColor(e.target.value);
   return (
-    <div className={`card mb-3`}>
+    <div className={`card mb-3 px-2`}>
       <div
         className="card-content"
-        style={{ backgroundColor: color, color: textColor }}
-      >
+        style={{ backgroundColor: currentColor, color: currentTextColor }}>
         <div className="content">
           {edit ? (
-            <textarea
-              className="textarea"
-              value={currentText}
-              onChange={updateText}
-            />
+            <>
+              <textarea
+                className="textarea"
+                value={currentText}
+                onChange={updateText}
+              />
+
+              <div className="field is-grouped is-grouped-centered pt-2">
+                <label className="label">Text Color</label>
+                <div className="control pl-2">
+                  <input
+                    type="color"
+                    value={currentTextColor}
+                    onChange={updateTextColor}
+                  />
+                </div>
+                <label className="label">Background Color </label>
+                <div className="control pl-2">
+                  <input
+                    type="color"
+                    value={currentColor}
+                    onChange={updateColor}
+                  />
+                </div>
+              </div>
+            </>
           ) : (
             <p>{text}</p>
           )}
         </div>
       </div>
-      <div className="has-text-centered mt-1">
-        {edit ? (
-          <>
-            <button
-              className="button is-success"
-              onClick={handleUpdateSticky}
-              onKeyPress={handleUpdateSticky}
-            >
-              <span className="icon is-small">
-                <FontAwesomeIcon icon={faSave} />
-              </span>
-              <span>Save</span>
-            </button>
-            <button
-              className="button is-warning has-text-centered"
-              onClick={cancelEdit}
-              onKeyPress={cancelEdit}
-            >
-              <span className="icon is-small">
-                <FontAwesomeIcon icon={faBan} />
-              </span>
-              <span>Cancel</span>
-            </button>
-          </>
-        ) : (
-          <button
-            className="button is-light has-text-centered"
-            onClick={editSticky}
-            onKeyPress={editSticky}
-          >
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faPencilAlt} />
-            </span>
-            <span>Edit</span>
-          </button>
-        )}
 
-        <button
-          className="button is-danger is-outlined has-text-centered"
-          onClick={openModal}
-          onKeyPress={openModal}
-        >
-          <span>Delete</span>
-          <span className="icon is-small">
-            <FontAwesomeIcon icon={faTimes} />
-          </span>
-        </button>
+      <div className="card-footer level py-2">
+        <div className="level-left" />
+        <div className="level-right">
+          {edit ? (
+            <>
+              <p className="level-item">
+                <button
+                  className="button is-success"
+                  onClick={handleUpdateSticky}
+                  onKeyPress={handleUpdateSticky}>
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faSave} />
+                  </span>
+                </button>
+              </p>
+              <p className="level-item">
+                <button
+                  className="button is-warning has-text-centered"
+                  onClick={cancelEdit}
+                  onKeyPress={cancelEdit}>
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faBan} />
+                  </span>
+                </button>
+              </p>
+            </>
+          ) : (
+            <p className="level-item">
+              <button
+                className="button is-dark has-text-centered"
+                onClick={editSticky}
+                onKeyPress={editSticky}>
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </span>
+              </button>
+            </p>
+          )}
+          <p className="level-item">
+            <button
+              className="button is-danger is-outlined has-text-centered"
+              onClick={openModal}
+              onKeyPress={openModal}>
+              <span className="icon is-small">
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
+            </button>
+          </p>
+        </div>
       </div>
       <ConfirmModal
         confirm={confirm}
@@ -110,6 +142,7 @@ export default function Sticky({ id, text, color, textColor }) {
     </div>
   );
 }
+
 Sticky.propTypes = {
   id: PropTypes.string.isRequired,
   text: PropTypes.string,
