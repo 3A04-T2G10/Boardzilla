@@ -17,6 +17,10 @@ import NewsAPI from "./Components/NewsAPI/NewsAPI";
 //import stock
 import StockAPI from "./Components/StockAPI/StockAPI";
 
+//import calendar
+//import Calendar from "./Components/CalendarAPI/CalendarAPI";
+import CalendarAPI from "./Components/CalendarAPI/CalendarAPI";
+
 function App() {
   return (
     <div className="App">
@@ -25,6 +29,7 @@ function App() {
       <WeatherAPI/>
       <NewsAPI/>
       <StockAPI/>
+      <CalendarAPI/>
     </div>
   );
 }
