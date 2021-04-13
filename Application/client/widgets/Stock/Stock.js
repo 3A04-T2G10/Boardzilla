@@ -9,7 +9,8 @@ import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons/faPencilAlt";
 import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
 import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
-
+import { faChartBar } from "@fortawesome/free-solid-svg-icons/faChartBar";
+import { faDollarSign } from "@fortawesome/free-solid-svg-icons/faDollarSign";
 import { attemptDeleteStock } from "_thunks/stocks";
 import { attemptUpdateStock } from "_thunks/stocks";
 import ConfirmModal from "_components/ConfirmModal";
@@ -73,6 +74,52 @@ export const Stock = ({ id, dailyData, symbol }) => {
             },
           }}
         />
+        <div className="level">
+          <div className="level-item has-text-centered">
+            <div>
+              <p className="heading">
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faDollarSign} />
+                </span>
+                Current Price
+              </p>
+
+              <p className="title">
+                {dailyData.close[0]}
+                <span className="icon is-small mx-3">
+                  {dailyData.close[0] > dailyData.open[0] ? (
+                    <FontAwesomeIcon
+                      icon={faChevronUp}
+                      style={{ color: "#00b16a" }}
+                    />
+                  ) : (
+                    <FontAwesomeIcon
+                      icon={faChevronDown}
+                      style={{ color: "#f03434" }}
+                    />
+                  )}
+                </span>
+                <span className="is-size-6">
+                  {`${(
+                    (100 * (dailyData.close[0] - dailyData.open[0])) /
+                    dailyData.open[0]
+                  ).toFixed(1)}%`}
+                </span>
+              </p>
+            </div>
+          </div>
+          <div className="level-item has-text-centered">
+            <div>
+              <p className="heading">
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faChartBar} />
+                </span>
+                Volume
+              </p>
+              <p className="title">{dailyData.volume[0]}</p>
+            </div>
+          </div>
+        </div>
       </div>
       <div className="card-footer level py-2">
         <div className="level-left">
@@ -91,7 +138,7 @@ export const Stock = ({ id, dailyData, symbol }) => {
               </div>
             </div>
           ) : (
-            <p className="level-item">
+            <p className="level-item is-size-4">
               Stock:
               <span className="has-text-weight-semibold pl-2">{`${
                 symbol || ""

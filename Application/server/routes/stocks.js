@@ -57,7 +57,7 @@ router.get("/", requireAuth, (req, res) => {
                       json["Time Series (Daily)"][key]["3. low"]
                     );
                     widget.dailyData.volume.push(
-                      json["Time Series (Daily)"][key]["5. volume"]
+                      json["Time Series (Daily)"][key]["6. volume"]
                     );
                   }
 
@@ -143,7 +143,7 @@ router.post("/", requireAuth, (req, res) => {
             json["Time Series (Daily)"][key]["3. low"]
           );
           req.body.dailyData.volume.push(
-            json["Time Series (Daily)"][key]["5. volume"]
+            json["Time Series (Daily)"][key]["6. volume"]
           );
         }
 
@@ -222,7 +222,7 @@ router.put("/", requireAuth, (req, res) => {
                 json["Time Series (Daily)"][key]["3. low"]
               );
               widget.dailyData.volume.push(
-                json["Time Series (Daily)"][key]["5. volume"]
+                json["Time Series (Daily)"][key]["6. volume"]
               );
             }
 
