@@ -5,6 +5,7 @@ import user from "./user";
 import stickies from "./stickies";
 import news from "./news";
 import stocks from "./stocks";
+import weather from "./weather";
 
 const createRootReducer = (history) =>
   combineReducers({
@@ -13,6 +14,7 @@ const createRootReducer = (history) =>
     stickies,
     news,
     stocks,
+    weather,
   });
 
 export default createRootReducer;

@@ -63,6 +63,6 @@ weatherSchema.methods.hide = function () {
   return R.omit(["__v"], this.toObject());
 };
 
-const Weather = mongoose.model("Weather", stockSchema);
+const Weather = mongoose.model("Weather", weatherSchema);
 
 module.exports = Weather;

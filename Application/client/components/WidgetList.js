@@ -6,6 +6,7 @@ import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
 import AddNewsModal from "_widgets/News/AddNewsModal";
 import AddStockModal from "_widgets/Stock/AddStockModal";
+import AddWeatherModal from "_widgets/Weather/AddWeatherModal";
 
 class WidgetList extends React.Component {
   constructor(props) {
@@ -32,6 +33,7 @@ class WidgetList extends React.Component {
       addStickyWidget: false,
       addNewsWidget: false,
       addStockWidget: false,
+      addWeatherWidget: false,
     };
   }
 
@@ -97,6 +99,11 @@ class WidgetList extends React.Component {
           addStockWidget: true,
         });
         break;
+      case "Weather":
+        this.setState({
+          addWeatherWidget: true,
+        });
+        break;
       default:
         return;
     }
@@ -119,6 +126,7 @@ class WidgetList extends React.Component {
       addStickyWidget: false,
       addNewsWidget: false,
       addStockWidget: false,
+      addWeatherWidget: false,
     });
   };
   render() {
@@ -136,6 +144,11 @@ class WidgetList extends React.Component {
 
         <AddStockModal
           open={this.state.addStockWidget}
+          closeModal={this.closeModal}
+        />
+
+        <AddWeatherModal
+          open={this.state.addWeatherWidget}
           closeModal={this.closeModal}
         />
         <div

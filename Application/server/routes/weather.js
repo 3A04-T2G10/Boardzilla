@@ -70,9 +70,9 @@ router.get("/", requireAuth, (req, res) => {
                   });
 
                   widget.alert = {
-                    eventName: json.alerts[0].event,
-                    start: json.alerts[0].start,
-                    end: json.alerts[0].end,
+                    eventName: (json.alerts && json.alerts[0].event) || "",
+                    start: (json.alerts && json.alerts[0].start) || 0,
+                    end: (json.alerts && json.alerts[0].end) || 0,
                   };
 
                   widget.lastUpdated = new Date();
@@ -140,22 +140,25 @@ router.post("/", requireAuth, (req, res) => {
         req.body.lat = geo_json.results[0].geometry.lat;
         req.body.lng = geo_json.results[0].geometry.lng;
         req.body.place = geo_json.results[0].formatted;
-        return fetch( `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.lat}&lon=${req.body.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`);
-      }).then((res)=> res.json()).then(json => {
-       let newWeather = {
+        return fetch(
+          `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.lat}&lon=${req.body.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`
+        );
+      })
+      .then((res) => res.json())
+      .then((json) => {
+        let newWeather = {
           user: req.body.user,
           type: "weather",
           x: req.body.x,
-          y: req.body.y ,
+          y: req.body.y,
           width: req.body.width,
-          height: req.body.req.body.height,
+          height: req.body.height,
           lastUpdated: req.body.lastUpdated,
           place: req.body.place,
           lat: req.body.lat,
           lng: req.body.lng,
-          lastUpdated: new Date(),
-          timeOffset : json.timezone_offset,
-          current : {
+          timeOffset: json.timezone_offset,
+          current: {
             temp: json.current.temp,
             feelsLike: json.current.feels_like,
             pressure: json.current.pressure,
@@ -169,14 +172,14 @@ router.post("/", requireAuth, (req, res) => {
             icon: json.current.weather[0].icon,
             iconId: json.current.weather[0].id,
           },
-          hourly : [],
-          daily = [],
+          hourly: [],
+          daily: [],
           alert: {
-            eventName: json.alerts[0].event,
-            start: json.alerts[0].start,
-            end: json.alerts[0].end,
-          }
-        }
+            eventName: (json.alerts && json.alerts[0].event) || "",
+            start: (json.alerts && json.alerts[0].start) || 0,
+            end: (json.alerts && json.alerts[0].end) || 0,
+          },
+        };
         json.hourly.forEach((hour) => {
           newWeather.hourly.push({
             dt: hour.dt,
@@ -201,7 +204,6 @@ router.post("/", requireAuth, (req, res) => {
             iconId: day.weather[0].id,
           });
         });
-        
         const widget = Weather(newWeather);
         widget.save((err, savedWeather) => {
           if (err) {
@@ -216,11 +218,12 @@ router.post("/", requireAuth, (req, res) => {
             });
           }
         });
-      }).catch((err) => {
+      })
+      .catch((err) => {
         res.status(400).send({ message: "create weather failed", err });
       });
-}});
-
+  }
+});
 
 router.put("/", requireAuth, (req, res) => {
   Weather.findById(req.body.id, { __v: 0, user: 0 }, (err, widget) => {
@@ -236,7 +239,7 @@ router.put("/", requireAuth, (req, res) => {
         let place = encodeURIComponent(
           `${req.body.city},${req.body.state},${req.body.country}`
         );
-    
+
         fetch(
           `https://api.opencagedata.com/geocode/v1/json?q=${place}&key=${process.env.GEO_KEY}&limit=1`
         )
@@ -245,8 +248,12 @@ router.put("/", requireAuth, (req, res) => {
             widget.lat = geo_json.results[0].geometry.lat;
             widget.lng = geo_json.results[0].geometry.lng;
             widget.place = geo_json.results[0].formatted;
-            return fetch( `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.lat}&lon=${req.body.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`);
-          }).then((res)=> res.json()).then(json => {
+            return fetch(
+              `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.lat}&lon=${req.body.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`
+            );
+          })
+          .then((res) => res.json())
+          .then((json) => {
             //db
             widget.timeOffset = json.timezone_offset;
             widget.current = {
@@ -292,9 +299,9 @@ router.put("/", requireAuth, (req, res) => {
             });
 
             widget.alert = {
-              eventName: json.alerts[0].event,
-              start: json.alerts[0].start,
-              end: json.alerts[0].end,
+              eventName: (json.alerts && json.alerts[0].event) || "",
+              start: (json.alerts && json.alerts[0].start) || 0,
+              end: (json.alerts && json.alerts[0].end) || 0,
             };
 
             widget.lastUpdated = new Date();
@@ -310,12 +317,13 @@ router.put("/", requireAuth, (req, res) => {
                 });
               }
             });
-          }).catch((err) => {
-              res.status(400).send({ message: "update weather failed", err });
+          })
+          .catch((err) => {
+            res.status(400).send({ message: "update weather failed", err });
           });
       }
-    };
-  })
+    }
+  });
 });
 
 router.put("/layout", requireAuth, (req, res) => {

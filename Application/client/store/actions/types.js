@@ -12,3 +12,8 @@ export const SET_STOCKS = "SET_STOCKS";
 export const ADD_STOCK = "ADD_STOCK";
 export const UPDATE_STOCK = "UPDATE_STOCK";
 export const REMOVE_STOCK = "REMOVE_STOCK";
+
+export const SET_WEATHER = "SET_WEATHER";
+export const ADD_WEATHER = "ADD_WEATHER";
+export const UPDATE_WEATHER = "UPDATE_WEATHER";
+export const REMOVE_WEATHER = "REMOVE_WEATHER";
