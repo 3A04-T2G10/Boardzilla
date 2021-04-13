@@ -17,10 +17,23 @@ export function sticky(state = {}, action) {
         text: { $set: action.text },
         color: { $set: action.color },
         textColor: { $set: action.textColor },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.y },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     case UPDATE_STICKY:
       return update(state, {
+        id: { $set: action.id },
         text: { $set: action.text },
+        color: { $set: action.color },
+        textColor: { $set: action.textColor },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.y },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     default:
       return state;

@@ -9,13 +9,7 @@ import {
   putNewsLayout,
 } from "_api/news";
 
-import {
-  setNews,
-  addNews,
-  removeNews,
-  updateNews,
-  updateNewsLayout,
-} from "_actions/news";
+import { setNews, addNews, removeNews, updateNews } from "_actions/news";
 
 import { dispatchError } from "_utils/api";
 
@@ -51,7 +45,7 @@ export const attemptUpdateNews = (id, topic) => (dispatch) =>
         ["Id"],
         R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
       );
-      dispatch(updateNews({ item }));
+      dispatch(updateNews(item));
       return data;
     })
     .catch(dispatchError(dispatch));
@@ -61,7 +55,11 @@ export const attemptUpdateNewsLayout = (id, x, y, width, height) => (
 ) =>
   putNewsLayout({ id, x, y, width, height })
     .then((data) => {
-      dispatch(updateNewsLayout({ item }));
+      const item = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateNews(item));
       return data;
     })
     .catch(dispatchError(dispatch));

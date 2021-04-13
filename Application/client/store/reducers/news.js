@@ -13,7 +13,7 @@ export function article(state = {}, action) {
         articles: { $set: action.articles },
         widgetType: { $set: action.widgetType },
         x: { $set: action.x },
-        y: { $set: action.wiygyetType },
+        y: { $set: action.y },
         width: { $set: action.width },
         height: { $set: action.height },
       });
@@ -24,7 +24,7 @@ export function article(state = {}, action) {
         articles: { $set: action.articles },
         widgetType: { $set: action.widgetType },
         x: { $set: action.x },
-        y: { $set: action.wiygyetType },
+        y: { $set: action.y },
         width: { $set: action.width },
         height: { $set: action.height },
       });

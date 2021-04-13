@@ -6,6 +6,7 @@ import {
   postSticky,
   putSticky,
   deleteSticky,
+  putStickyLayout,
 } from "_api/stickies";
 
 import {
@@ -44,9 +45,27 @@ export const attemptAddSticky = (text, color, textColor) => (dispatch) =>
 
 export const attemptUpdateSticky = (id, text) => (dispatch) =>
   putSticky({ id, text })
-    .then((returnData) => {
-      dispatch(updateSticky({ id, text }));
-      return returnData;
+    .then((data) => {
+      const sticky = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateSticky(sticky));
+      return data;
+    })
+    .catch(dispatchError(dispatch));
+
+export const attemptUpdateStickyLayout = (id, x, y, width, height) => (
+  dispatch
+) =>
+  putStickyLayout({ id, x, y, width, height })
+    .then((data) => {
+      const sticky = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateSticky(sticky));
+      return data;
     })
     .catch(dispatchError(dispatch));
 

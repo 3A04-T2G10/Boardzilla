@@ -10,18 +10,50 @@ export const setStickies = (stickies) => ({
   stickies,
 });
 
-export const addSticky = ({ id, text, color, textColor }) => ({
-  type: ADD_STICKY,
+export const addSticky = ({
   id,
   text,
   color,
   textColor,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
+  type: ADD_STICKY,
+  id,
+  widgetType: type,
+  text,
+  color,
+  textColor,
+  x,
+  y,
+  width,
+  height,
 });
 
-export const updateSticky = ({ id, text }) => ({
-  type: UPDATE_STICKY,
+export const updateSticky = ({
   id,
   text,
+  color,
+  textColor,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
+  type: UPDATE_STICKY,
+  id,
+  widgetType: type,
+  text,
+  color,
+  textColor,
+  x,
+  y,
+  width,
+  height,
 });
 
 export const removeSticky = (id) => ({

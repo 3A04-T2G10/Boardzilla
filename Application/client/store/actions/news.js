@@ -1,10 +1,4 @@
-import {
-  SET_NEWS,
-  ADD_NEWS,
-  UPDATE_NEWS,
-  REMOVE_NEWS,
-  UPDATE_NEWS_LAYOUT,
-} from "./types";
+import { SET_NEWS, ADD_NEWS, UPDATE_NEWS, REMOVE_NEWS } from "./types";
 
 export const setNews = (news) => ({
   type: SET_NEWS,
@@ -33,27 +27,6 @@ export const addNews = ({
 });
 
 export const updateNews = ({
-  id,
-  type,
-  topic,
-  articles,
-  x,
-  y,
-  width,
-  height,
-}) => ({
-  type: UPDATE_NEWS,
-  id: id,
-  widgetType: type,
-  topic: topic,
-  articles: articles,
-  x: x,
-  y: y,
-  width: width,
-  height: height,
-});
-
-export const updateNewsLayout = ({
   id,
   type,
   topic,
