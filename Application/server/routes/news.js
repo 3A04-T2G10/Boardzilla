@@ -66,9 +66,10 @@ router.post("/", requireAuth, (req, res) => {
       .then((res) => res.json())
       .then((json) => {
         req.body.user = req.user.id;
-        req.body.width = req.body.width || 100;
-        req.body.height = req.body.height || 100;
-        req.body.order = req.body.order || 100;
+        req.body.width = req.body.width || 300;
+        req.body.height = req.body.height || 300;
+        req.body.x = req.body.x || 0;
+        req.body.y = req.body.y || 0;
         req.body.topic = req.body.topic || "";
         req.body.articles = json.articles;
         req.body.lastUpdated = new Date();
@@ -107,9 +108,6 @@ router.put("/", requireAuth, (req, res) => {
         )
           .then((res) => res.json())
           .then((json) => {
-            if (req.body.width) widget.width = req.body.width;
-            if (req.body.height) widget.height = req.body.height;
-            if (req.body.order) widget.order = req.body.order;
             widget.topic = req.body.topic;
             widget.lastUpdated = new Date();
             widget.articles = json.articles;
@@ -129,6 +127,30 @@ router.put("/", requireAuth, (req, res) => {
             res.status(400).send({ message: "Update News failed", err });
           });
       }
+    }
+  });
+});
+
+router.put("/layout", requireAuth, (req, res) => {
+  News.findById(req.body.id, { __v: 0, user: 0 }, (err, widget) => {
+    if (err) {
+      res.status(400).send({ message: "Update News failed", err });
+    } else {
+      widget.x = req.body.x || widget.x;
+      widget.y = req.body.y || widget.y;
+      widget.width = req.body.width || widget.width;
+      widget.height = req.body.height || widget.height;
+
+      widget.save((err, savedWidget) => {
+        if (err) {
+          res.status(400).send({ message: "Update News layout failed", err });
+        } else {
+          res.send({
+            message: "Updated News layout successfully",
+            widget: savedWidget.hide(),
+          });
+        }
+      });
     }
   });
 });

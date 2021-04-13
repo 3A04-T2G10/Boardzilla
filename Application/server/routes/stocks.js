@@ -104,10 +104,10 @@ router.post("/", requireAuth, (req, res) => {
       .then((res) => res.json())
       .then((json) => {
         req.body.user = req.user.id;
-        req.body.width = req.body.width || 100;
-        req.body.height = req.body.height || 100;
-        req.body.order = req.body.order || 100;
-        req.body.symbol = req.body.symbol || "";
+        req.body.width = req.body.width || 300;
+        req.body.height = req.body.height || 300;
+        req.body.x = req.body.x || 0;
+        req.body.y = req.body.y || 0;
 
         req.body.dailyData = {
           highest: 0,
@@ -186,12 +186,45 @@ router.put("/", requireAuth, (req, res) => {
         )
           .then((res) => res.json())
           .then((json) => {
-            if (req.body.width) widget.width = req.body.width;
-            if (req.body.height) widget.height = req.body.height;
-            if (req.body.order) widget.order = req.body.order;
             widget.symbol = req.body.symbol;
             widget.lastUpdated = new Date();
-            widget.dailyData = json["Time Series (Daily)"];
+            widget.dailyData = {
+              highest: 0,
+              lowest: Number.MAX_VALUE,
+              dateTime: [],
+              open: [],
+              close: [],
+              high: [],
+              low: [],
+              volume: [],
+            };
+
+            for (let key in json["Time Series (Daily)"]) {
+              widget.dailyData.dateTime.push(key);
+              widget.dailyData.lowest = Math.min(
+                widget.dailyData.lowest,
+                json["Time Series (Daily)"][key]["3. low"]
+              );
+              widget.dailyData.highest = Math.max(
+                widget.dailyData.highest,
+                json["Time Series (Daily)"][key]["2. high"]
+              );
+              widget.dailyData.open.push(
+                json["Time Series (Daily)"][key]["1. open"]
+              );
+              widget.dailyData.close.push(
+                json["Time Series (Daily)"][key]["4. close"]
+              );
+              widget.dailyData.high.push(
+                json["Time Series (Daily)"][key]["2. high"]
+              );
+              widget.dailyData.low.push(
+                json["Time Series (Daily)"][key]["3. low"]
+              );
+              widget.dailyData.volume.push(
+                json["Time Series (Daily)"][key]["5. volume"]
+              );
+            }
 
             widget.save((err, savedWidget) => {
               if (err) {
@@ -208,6 +241,30 @@ router.put("/", requireAuth, (req, res) => {
             res.status(400).send({ message: "Update Stock failed", err });
           });
       }
+    }
+  });
+});
+
+router.put("/layout", requireAuth, (req, res) => {
+  Stock.findById(req.body.id, { __v: 0, user: 0 }, (err, widget) => {
+    if (err) {
+      res.status(400).send({ message: "Update widget failed", err });
+    } else {
+      widget.x = req.body.x || widget.x;
+      widget.y = req.body.y || widget.y;
+      widget.width = req.body.width || widget.width;
+      widget.height = req.body.height || widget.height;
+
+      widget.save((err, savedWidget) => {
+        if (err) {
+          res.status(400).send({ message: "Update stock layout failed", err });
+        } else {
+          res.send({
+            message: "Updated stock layout successfully",
+            widget: savedWidget.hide(),
+          });
+        }
+      });
     }
   });
 });

@@ -10,5 +10,12 @@ export const getNews = () =>
 export const putNews = (data) =>
   request.put(`/api/news`).send(data).then(handleSuccess).catch(handleError);
 
+export const putNewsLayout = (data) =>
+  request
+    .put(`/api/news/layout`)
+    .send(data)
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const deleteNews = (data) =>
   request.delete("/api/news").send(data).then(handleSuccess).catch(handleError);

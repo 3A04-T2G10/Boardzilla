@@ -11,7 +11,8 @@ const stickySchema = new Schema({
   textColor: { type: String },
   width: { type: Number },
   height: { type: Number },
-  order: { type: Number },
+  x: { type: Number },
+  y: { type: Number },
 });
 
 stickySchema.methods.hide = function () {

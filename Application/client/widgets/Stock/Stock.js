@@ -37,44 +37,42 @@ export const Stock = ({ id, dailyData, symbol }) => {
     }
   };
 
-  return dailyData && dailyData.dateTime.length > 1 ? (
+  return dailyData && dailyData.dateTime && dailyData.dateTime.length > 1 ? (
     <div className={`card mb-3 px-2`}>
-      <div className="card-content">
-        <div className="content has-text-centered">
-          <Plot
-            data={[
-              {
-                x: dailyData.dateTime,
-                open: dailyData.open,
-                close: dailyData.close,
-                decreasing: { line: { color: "#f03434" } },
-                increasing: { line: { color: "#00b16a" } },
-                high: dailyData.high,
-                low: dailyData.low,
-                type: "candlestick",
-                xaxis: "x",
-                yaxis: "y",
-              },
-            ]}
-            layout={{
-              dragmode: "zoom",
-              showlegend: false,
-              xaxis: {
-                range: [
-                  dailyData.dateTime.length > 30
-                    ? dailyData.dateTime[30]
-                    : dailyData.dateTime[dailyData.dateTime.length - 1],
-                  dailyData.dateTime[0],
-                ],
-                title: "Date",
-                type: "date",
-              },
-              yaxis: {
-                autorange: true,
-              },
-            }}
-          />
-        </div>
+      <div className="content has-text-centered">
+        <Plot
+          data={[
+            {
+              x: dailyData.dateTime,
+              open: dailyData.open,
+              close: dailyData.close,
+              decreasing: { line: { color: "#f03434" } },
+              increasing: { line: { color: "#00b16a" } },
+              high: dailyData.high,
+              low: dailyData.low,
+              type: "candlestick",
+              xaxis: "x",
+              yaxis: "y",
+            },
+          ]}
+          layout={{
+            dragmode: "zoom",
+            showlegend: false,
+            xaxis: {
+              range: [
+                dailyData.dateTime.length > 30
+                  ? dailyData.dateTime[30]
+                  : dailyData.dateTime[dailyData.dateTime.length - 1],
+                dailyData.dateTime[0],
+              ],
+              title: "Date",
+              type: "date",
+            },
+            yaxis: {
+              autorange: true,
+            },
+          }}
+        />
       </div>
       <div className="card-footer level py-2">
         <div className="level-left">
@@ -152,7 +150,7 @@ export const Stock = ({ id, dailyData, symbol }) => {
       />
     </div>
   ) : (
-    <></>
+    <>No Data Found</>
   );
 };
 export default Stock;

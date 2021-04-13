@@ -10,6 +10,13 @@ export const getStocks = () =>
 export const putStock = (data) =>
   request.put(`/api/stocks`).send(data).then(handleSuccess).catch(handleError);
 
+export const putStockLayout = (data) =>
+  request
+    .put(`/api/stocks/layout`)
+    .send(data)
+    .then(handleSuccess)
+    .catch(handleError);
+
 export const deleteStock = (data) =>
   request
     .delete("/api/stocks")

@@ -11,12 +11,22 @@ export function article(state = {}, action) {
         id: { $set: action.id },
         topic: { $set: action.topic },
         articles: { $set: action.articles },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.wiygyetType },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     case UPDATE_NEWS:
       return update(state, {
         id: { $set: action.id },
         topic: { $set: action.topic },
         articles: { $set: action.articles },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.wiygyetType },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     default:
       return state;

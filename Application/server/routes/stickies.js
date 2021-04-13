@@ -65,6 +65,30 @@ router.put("/", requireAuth, (req, res) => {
   });
 });
 
+router.put("/layout", requireAuth, (req, res) => {
+  Sticky.findById(req.body.id, { __v: 0, user: 0 }, (err, widget) => {
+    if (err) {
+      res.status(400).send({ message: "Update sticky failed", err });
+    } else {
+      widget.x = req.body.x || widget.x;
+      widget.y = req.body.y || widget.y;
+      widget.width = req.body.width || widget.width;
+      widget.height = req.body.height || widget.height;
+
+      widget.save((err, savedWidget) => {
+        if (err) {
+          res.status(400).send({ message: "Update sticky layout failed", err });
+        } else {
+          res.send({
+            message: "Updated sticky layout successfully",
+            widget: savedWidget.hide(),
+          });
+        }
+      });
+    }
+  });
+});
+
 router.delete("/", requireAuth, (req, res) => {
   Sticky.findByIdAndRemove(req.body.id, (err) => {
     if (err) {

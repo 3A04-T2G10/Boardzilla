@@ -1,9 +1,21 @@
 import { snakeToCamelCase } from "_utils/snakeToCC";
 import R from "ramda";
 
-import { getNews, postNews, deleteNews, putNews } from "_api/news";
+import {
+  getNews,
+  postNews,
+  deleteNews,
+  putNews,
+  putNewsLayout,
+} from "_api/news";
 
-import { setNews, addNews, removeNews, updateNews } from "_actions/news";
+import {
+  setNews,
+  addNews,
+  removeNews,
+  updateNews,
+  updateNewsLayout,
+} from "_actions/news";
 
 import { dispatchError } from "_utils/api";
 
@@ -35,12 +47,24 @@ export const attemptAddNews = (topic) => (dispatch) =>
 export const attemptUpdateNews = (id, topic) => (dispatch) =>
   putNews({ id, topic })
     .then((data) => {
-      const item = { id: id, topic: topic, articles: data.widget.articles };
-      dispatch(updateNews({ ...item }));
+      const item = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateNews({ item }));
       return data;
     })
     .catch(dispatchError(dispatch));
 
+export const attemptUpdateNewsLayout = (id, x, y, width, height) => (
+  dispatch
+) =>
+  putNewsLayout({ id, x, y, width, height })
+    .then((data) => {
+      dispatch(updateNewsLayout({ item }));
+      return data;
+    })
+    .catch(dispatchError(dispatch));
 export const attemptDeleteNews = (id) => (dispatch) =>
   deleteNews({ id })
     .then((data) => {
