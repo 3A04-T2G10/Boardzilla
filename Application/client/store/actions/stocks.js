@@ -5,18 +5,46 @@ export const setStocks = (stocks) => ({
   stocks,
 });
 
-export const addStock = ({ id, symbol, dailyData }) => ({
+export const addStock = ({
+  id,
+  symbol,
+  dailyData,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
   type: ADD_STOCK,
-  id: id,
-  symbol: symbol,
-  dailyData: dailyData,
+  id,
+  symbol,
+  dailyData,
+  widgetType: type,
+  x,
+  y,
+  width,
+  height,
 });
 
-export const updateStock = ({ id, symbol, dailyData }) => ({
+export const updateStock = ({
+  id,
+  symbol,
+  dailyData,
+  type,
+  x,
+  y,
+  width,
+  height,
+}) => ({
   type: UPDATE_STOCK,
-  id: id,
-  symbol: symbol,
-  dailyData: dailyData,
+  id,
+  symbol,
+  dailyData,
+  widgetType: type,
+  x,
+  y,
+  width,
+  height,
 });
 
 export const removeStock = (id) => ({

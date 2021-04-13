@@ -1,7 +1,13 @@
 import { snakeToCamelCase } from "_utils/snakeToCC";
 import R from "ramda";
 
-import { getStocks, postStock, deleteStock, putStock } from "_api/stocks";
+import {
+  getStocks,
+  postStock,
+  deleteStock,
+  putStock,
+  putStockLayout,
+} from "_api/stocks";
 
 import { setStocks, addStock, removeStock, updateStock } from "_actions/stocks";
 
@@ -35,12 +41,25 @@ export const attemptAddStock = (symbol) => (dispatch) =>
 export const attemptUpdateStock = (id, symbol) => (dispatch) =>
   putStock({ id, symbol })
     .then((data) => {
-      const stock = {
-        id: id,
-        symbol: symbol,
-        dailyData: data.widget.dailyData,
-      };
-      dispatch(updateStock({ ...stock }));
+      const stock = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateStock(stock));
+      return data;
+    })
+    .catch(dispatchError(dispatch));
+
+export const attemptUpdateStockLayout = (id, x, y, width, height) => (
+  dispatch
+) =>
+  putStockLayout({ id, x, y, width, height })
+    .then((data) => {
+      const stock = R.omit(
+        ["Id"],
+        R.assoc("id", data.widget._id, snakeToCamelCase(data.widget))
+      );
+      dispatch(updateStock(stock));
       return data;
     })
     .catch(dispatchError(dispatch));

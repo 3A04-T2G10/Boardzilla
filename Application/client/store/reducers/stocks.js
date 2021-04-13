@@ -16,12 +16,22 @@ export function stock(state = {}, action) {
         id: { $set: action.id },
         symbol: { $set: action.symbol },
         dailyData: { $set: action.dailyData },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.y },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     case UPDATE_STOCK:
       return update(state, {
         id: { $set: action.id },
         symbol: { $set: action.symbol },
         dailyData: { $set: action.dailyData },
+        widgetType: { $set: action.widgetType },
+        x: { $set: action.x },
+        y: { $set: action.y },
+        width: { $set: action.width },
+        height: { $set: action.height },
       });
     default:
       return state;
