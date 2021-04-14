@@ -6,6 +6,8 @@ import { push } from "connected-react-router";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
 import Stock from "_widgets/Stock/Stock";
+import News from "_widgets/News/News";
+import { attemptGetNews, attemptUpdateNewsLayout } from "_thunks/news";
 import { attemptGetStickies, attemptUpdateStickyLayout } from "_thunks/stickies";
 import { attemptGetStocks, attemptUpdateStockLayout } from "_thunks/stocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -29,6 +31,7 @@ export const WidgetList = () => {
   const [loading, setLoading] = useState(true);
   const { stocks } = useSelector(R.pick(["stocks"]));
   const { stickies } = useSelector(R.pick(["stickies"]));
+  const { news } = useSelector(R.pick(["news"]));
   const [difference, setDifference] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [added, setAdded] = useState(false);
@@ -58,6 +61,21 @@ export const WidgetList = () => {
       w: stock.width,
       h: stock.height,
       minH: 4,
+      minW: 8
+      };
+    
+    allLayouts.push(newWidget);
+    }
+  )
+  console.log(news);
+  news.map(news=> {
+    const newWidget = {
+      i: news.id,
+      x: news.x, // 3 is the multiplier
+      y: news.y, // puts it at the bottom
+      w: news.width,
+      h: news.height,
+      minH: 6,
       minW: 8
       };
     
@@ -96,6 +114,20 @@ export const WidgetList = () => {
         allLayouts.push(newWidget);
         setLayouts(allLayouts);
     }
+    else if (newWidgetType === "News" && news.length > 0) {
+      const newWidget = {
+        i: news[news.length-1].id,
+        x: news[news.length-1].x, // 3 is the multiplier
+        y: news[news.length-1].y, // puts it at the bottom
+        w: news[news.length-1].width,
+        h: news[news.length-1].height,
+        minH: 6,
+        minW: 8
+        };
+        const allLayouts = Array.from(layouts);
+        allLayouts.push(newWidget);
+        setLayouts(allLayouts);
+    }
   }, [added])
 
   useEffect(() => {
@@ -104,7 +136,8 @@ export const WidgetList = () => {
     } else {
       const stickyWidgets = dispatch(attemptGetStickies());
       const stocksWidgets = dispatch(attemptGetStocks());
-      Promise.allSettled([stickyWidgets, stocksWidgets]).then(() => {setAllLayouts(); setLoading(false)});
+      const newsWidgets = dispatch(attemptGetNews());
+      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets]).then(() => {setAllLayouts(); setLoading(false)});
       // dispatch(attemptGetStocks()).then(() => {console.log(stocks); setAllLayouts(); setLoading(false); });
       
     }
@@ -183,7 +216,10 @@ export const WidgetList = () => {
         dispatch(attemptUpdateStickyLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       } else if(stocks.filter(stock => newLayout.i == stock.id).length == 1) {
         dispatch(attemptUpdateStockLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      } else if(news.filter(news => newLayout.i == news.id).length == 1) {
+        dispatch(attemptUpdateNewsLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       }
+
     });
     setDifference([]);
     setDisabled(true);
@@ -223,7 +259,7 @@ export const WidgetList = () => {
         <AddNewsModal
           open={addNewsWidget}
           closeModal={closeModal}
-          widgetCount={widgetCount}
+          widgetCount={widgetCountStock}
           x={(widgetCounter * 4) % 12}
           y={Math.floor((widgetCounter * 4) / 12)}
           updateList={updateList}
@@ -325,8 +361,9 @@ export const WidgetList = () => {
           {layouts.map(widgetLayout => {
             
             const sticky = stickies.filter(sticky => sticky.id == widgetLayout.i)[0];
+            const stock = stocks.filter(stock => stock.id == widgetLayout.i)[0];
+            const newNews = news.filter(New => New.id == widgetLayout.i)[0];
             
-             const stock = stocks.filter(stock => stock.id == widgetLayout.i)[0];
             //console.log(stock);
             //console.log(sticky || stock);
             return (
@@ -338,6 +375,7 @@ export const WidgetList = () => {
             data-grid={widgetLayout}>
             {sticky && <Sticky key={sticky.id} {...sticky} />}
             {stock && <Stock key={stock.id} {...stock} />}
+            {newNews && <News key={newNews.id} {...newNews} />}
             </div>
             )
           })}

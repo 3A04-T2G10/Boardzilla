@@ -41,13 +41,14 @@ export const News = ({ id, articles, topic }) => {
   const prev = () =>
     setPageNumber((pageNumber + articles.length - 1) % articles.length);
   return articles.length ? (
-    <div className={`card mb-3 px-2`}>
+    <div className={`card mb-3 px-2 height-100`}>
+    <div className={`height-calc3`}>
       <div className="has-text-centered">
         <p className="is-size-3 has-text-weight-bold p-1">
           {articles[pageNumber].title || "Title"}
         </p>
       </div>
-      <div className="card-image">
+      <div style={{margin: `auto`, maxHeight: `85%`, maxWidth: `85%`}} className="card-image">
         <figure className="image is-16by9">
           <img
             src={
@@ -91,6 +92,7 @@ export const News = ({ id, articles, topic }) => {
             {new Date(articles[pageNumber].publishedAt).toDateString()}
           </time>
         </div>
+      </div>
       </div>
       <div className="has-text-centered pb-2">
         <button className="button is-dark is-rounded" onClick={prev}>

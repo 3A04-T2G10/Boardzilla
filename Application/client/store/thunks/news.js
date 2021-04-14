@@ -26,7 +26,7 @@ export const attemptGetNews = () => (dispatch) =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptAddNews = (topic) => (dispatch) =>
+export const attemptAddNews = (topic, x, y) => (dispatch) =>
   postNews({ topic })
     .then((data) => {
       const item = R.omit(

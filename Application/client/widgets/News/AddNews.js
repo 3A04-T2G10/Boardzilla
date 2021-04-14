@@ -4,12 +4,13 @@ import PropTypes from "prop-types";
 import { attemptAddNews } from "_thunks/news";
 import useKeyPress from "_hooks/useKeyPress";
 
-export default function AddNews({ closeModal }) {
+export default function AddNews({ closeModal, widgetCount, x, y, updateList}) {
   const dispatch = useDispatch();
   const [topic, setTopic] = useState("");
   const handleAddNews = () => {
     if (topic) {
-      dispatch(attemptAddNews(topic));
+      widgetCount();
+      dispatch(attemptAddNews(topic, x, y)).then(updateList);
       setTopic("");
     }
   };
