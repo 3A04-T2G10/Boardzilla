@@ -1,11 +1,11 @@
 import React from "react";
 import PropTypes from "prop-types";
 
-export default function ConfirmModal({ confirm, closeModal, deleteWidget }) {
+export default function ConfirmModal({ confirm, closeModal, deleteWidget}) {
   return (
-    <div className={`modal confirm-modal ${confirm ? "is-active" : ""}`}>
+    <div style={{maxWidth: `100%`}} className={`modal confirm-modal ${confirm ? "is-active" : ""}`}>
       <div className="modal-background" />
-      <div className="modal-content">
+      <div style={{width: `100%`}} className="modal-content">
         <div className="card">
           <div className="card-content has-text-centered">
             Are you sure you wanted to delete this widget?
@@ -21,7 +21,7 @@ export default function ConfirmModal({ confirm, closeModal, deleteWidget }) {
             <a
               className="card-footer-item"
               onClick={deleteWidget}
-              onKeyPress={deleteWidget}
+              onKeyPress={() => {deleteWidget; remove}}
             >
               Delete
             </a>

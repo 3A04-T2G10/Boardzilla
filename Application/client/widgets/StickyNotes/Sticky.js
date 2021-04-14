@@ -12,7 +12,7 @@ import { attemptUpdateSticky, attemptDeleteSticky } from "_thunks/stickies"; //
 
 import ConfirmModal from "_components/ConfirmModal";
 
-export default function Sticky({ id, text, color, textColor }) {
+export default function Sticky({id, text, color, textColor}) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -46,9 +46,9 @@ export default function Sticky({ id, text, color, textColor }) {
   const updateColor = (e) => setCurrentColor(e.target.value);
   const updateTextColor = (e) => setCurrentTextColor(e.target.value);
   return (
-    <div className={`card mb-3 px-2`}>
+    <div className={`card mb-3 px-2 height-100`}>
       <div
-        className="card-content"
+        className="card-content height-calc"
         style={{ backgroundColor: currentColor, color: currentTextColor }}>
         <div className="content">
           {edit ? (
