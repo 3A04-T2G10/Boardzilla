@@ -86,6 +86,9 @@ export default class CalendarAPI extends Component {
     console.log(event.target[0].value)
     console.log(event.target.elements.eventCont.value)
     console.log(event.target.eventCont.value)
+    this.setState({
+      eventText: event.target.eventCont.value,
+    });
   }
   // handleSubmit(event) {
   //   alert('An event was added: ' + this.state.value);
