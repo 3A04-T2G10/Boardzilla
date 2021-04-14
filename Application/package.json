@@ -51,7 +51,6 @@
     "styled-components": "^5.2.3",
     "terser-webpack-plugin": "^5.1.1",
     "uuid": "^8.3.2",
-    "weather-icons": "github:erikflowers/weather-icons",
     "webpack-bundle-analyzer": "^4.4.0",
     "webpack-cli": "^4.6.0"
   },

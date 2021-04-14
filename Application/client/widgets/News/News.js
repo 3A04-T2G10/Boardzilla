@@ -84,8 +84,7 @@ export const News = ({ id, articles, topic }) => {
           <br />
           <time
             dateTime={articles[pageNumber].publishedAt}
-            className="has-text-weight-light"
-          >
+            className="has-text-weight-light">
             <span className="icon">
               <FontAwesomeIcon icon={faClock} />
             </span>
@@ -140,8 +139,7 @@ export const News = ({ id, articles, topic }) => {
               <p className="level-item">
                 <button
                   className="button is-success"
-                  onClick={handleUpdateNews}
-                >
+                  onClick={handleUpdateNews}>
                   <span className="icon is-small">
                     <FontAwesomeIcon icon={faSave} />
                   </span>
@@ -150,8 +148,7 @@ export const News = ({ id, articles, topic }) => {
               <p className="level-item">
                 <button
                   className="button is-warning has-text-centered"
-                  onClick={cancelEdit}
-                >
+                  onClick={cancelEdit}>
                   <span className="icon is-small">
                     <FontAwesomeIcon icon={faBan} />
                   </span>
@@ -162,8 +159,7 @@ export const News = ({ id, articles, topic }) => {
             <p className="level-item">
               <button
                 className="button is-dark has-text-centered"
-                onClick={editNews}
-              >
+                onClick={editNews}>
                 <span className="icon is-small">
                   <FontAwesomeIcon icon={faPencilAlt} />
                 </span>
@@ -173,8 +169,7 @@ export const News = ({ id, articles, topic }) => {
           <p className="level-item">
             <button
               className="button is-danger is-outlined has-text-centered"
-              onClick={openModal}
-            >
+              onClick={openModal}>
               <span className="icon is-small">
                 <FontAwesomeIcon icon={faTimes} />
               </span>

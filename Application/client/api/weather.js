@@ -21,7 +21,7 @@ export const putWeatherLayout = (data) =>
     .then(handleSuccess)
     .catch(handleError);
 
-export const deleteNews = (data) =>
+export const deleteWeather = (data) =>
   request
     .delete("/api/weather")
     .send(data)
