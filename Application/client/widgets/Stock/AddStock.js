@@ -13,6 +13,7 @@ export default function AddStock({ closeModal, widgetCount, x, y, updateList }) 
       widgetCount();
       dispatch(attemptAddStock(symbol, x, y)).then(updateList);
       setSymbol("");
+      closeModal();
     }
   };
 

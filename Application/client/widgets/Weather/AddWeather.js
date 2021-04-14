@@ -17,6 +17,7 @@ export default function AddWeather({ closeModal, widgetCount, x, y, updateList }
       setCity("");
       setStateName("");
       setCountry("");
+      closeModal();
     }
   };
 

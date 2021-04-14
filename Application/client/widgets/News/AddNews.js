@@ -12,6 +12,7 @@ export default function AddNews({ closeModal, widgetCount, x, y, updateList}) {
       widgetCount();
       dispatch(attemptAddNews(topic, x, y)).then(updateList);
       setTopic("");
+      closeModal();
     }
   };
 

@@ -12,7 +12,7 @@ import { attemptUpdateSticky, attemptDeleteSticky } from "_thunks/stickies"; //
 
 import ConfirmModal from "_components/ConfirmModal";
 
-export default function Sticky({id, text, color, textColor}) {
+export default function Sticky({id, text, color, textColor, remove}) {
   const dispatch = useDispatch();
 
   const [currentText, setCurrentText] = useState(text);
@@ -42,7 +42,7 @@ export default function Sticky({id, text, color, textColor}) {
     }
   };
 
-  const deleteSticky = () => dispatch(attemptDeleteSticky(id));
+  const deleteSticky = () => {remove(id); dispatch(attemptDeleteSticky(id))};
   const updateColor = (e) => setCurrentColor(e.target.value);
   const updateTextColor = (e) => setCurrentTextColor(e.target.value);
   return (

@@ -12,7 +12,7 @@ import ConfirmModal from "_components/ConfirmModal";
 import { CurrentWeather } from "./CurrentWeather";
 import { HourlyWeather } from "./HourlyWeather";
 import { DailyWeather } from "./DailyWeather";
-export const Weather = ({ id, place, current, hourly, daily, alert }) => {
+export const Weather = ({ id, place, current, hourly, daily, alert, remove }) => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
@@ -31,7 +31,7 @@ export const Weather = ({ id, place, current, hourly, daily, alert }) => {
     setStateName("");
   };
 
-  const deleteWeather = () => dispatch(attemptDeleteWeather(id));
+  const deleteWeather = () => {remove(id); dispatch(attemptDeleteWeather(id))};
 
   const handleUpdateWeather = () => {
     if (city && city.length > 1) {

@@ -17,7 +17,7 @@ export default function AddSticky({ closeModal, widgetCount, x, y, updateList}) 
       setText("");
       setColor("#ffffff");
       setTextColor("#000000");
-      
+      closeModal();
     }
   };
 

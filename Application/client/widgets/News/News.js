@@ -15,7 +15,7 @@ import { attemptDeleteNews } from "_thunks/news";
 import { attemptUpdateNews } from "_thunks/news";
 import ConfirmModal from "_components/ConfirmModal";
 
-export const News = ({ id, articles, topic }) => {
+export const News = ({ id, articles, topic, remove}) => {
   const dispatch = useDispatch();
 
   const [pageNumber, setPageNumber] = useState(0);
@@ -31,7 +31,7 @@ export const News = ({ id, articles, topic }) => {
     setEdit(false);
     setCurrentTopic(topic);
   };
-  const deleteNews = () => dispatch(attemptDeleteNews(id));
+  const deleteNews = () => {remove(id);dispatch(attemptDeleteNews(id))};
   const handleUpdateNews = () => {
     if (currentTopic && currentTopic !== topic) {
       dispatch(attemptUpdateNews(id, currentTopic)).then(() => setEdit(false));

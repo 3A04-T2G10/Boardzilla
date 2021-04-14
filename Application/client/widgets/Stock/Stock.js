@@ -15,7 +15,7 @@ import { attemptDeleteStock } from "_thunks/stocks";
 import { attemptUpdateStock } from "_thunks/stocks";
 import ConfirmModal from "_components/ConfirmModal";
 
-export const Stock = ({ id, dailyData, symbol }) => {
+export const Stock = ({ id, dailyData, symbol, remove }) => {
   const dispatch = useDispatch();
   const [currentSymbol, setCurrentSymbol] = useState(symbol);
   const [edit, setEdit] = useState(false);
@@ -29,7 +29,7 @@ export const Stock = ({ id, dailyData, symbol }) => {
     setEdit(false);
     setCurrentSymbol(symbol);
   };
-  const deleteStock = () => dispatch(attemptDeleteStock(id));
+  const deleteStock = () =>  {remove(id);dispatch(attemptDeleteStock(id))};
   const handleUpdateStock = () => {
     if (currentSymbol && currentSymbol !== symbol) {
       dispatch(attemptUpdateStock(id, currentSymbol)).then(() =>

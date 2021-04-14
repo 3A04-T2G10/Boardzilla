@@ -277,6 +277,13 @@ export const WidgetList = () => {
     setAdded(!added);
   });
 
+  const remove = useCallback((id) => {
+    const updatedList = layouts.filter( removed => {
+      return removed.i !== id;
+  });
+
+  setLayouts(updatedList);
+  });
 
     return (
       !loading && (
@@ -328,7 +335,7 @@ export const WidgetList = () => {
   
   */}
             <div className="level-left">
-              <p className="level-item">
+              {/* <p className="level-item">
                 <strong>
                   <a>All</a>
                 </strong>
@@ -347,7 +354,8 @@ export const WidgetList = () => {
               </p>
               <p className="level-item">
                 <a>Calendars</a>
-              </p>
+              </p> */}
+              <p>Your Widgets</p>
             </div>
 
             {/* <!-- Right side --> */}
@@ -407,10 +415,10 @@ export const WidgetList = () => {
             }}
             key={widgetLayout.i} 
             data-grid={widgetLayout}>
-            {sticky && <Sticky key={sticky.id} {...sticky} />}
-            {stock && <Stock key={stock.id} {...stock} />}
-            {newNews && <News key={newNews.id} {...newNews} />}
-            {newWeather && <Weather key={newWeather.id} {...newWeather} />}
+            {sticky && <Sticky key={sticky.id} remove={remove} {...sticky} />}
+            {stock && <Stock key={stock.id} remove={remove} {...stock} />}
+            {newNews && <News key={newNews.id} remove={remove} {...newNews} />}
+            {newWeather && <Weather key={newWeather.id} remove={remove} {...newWeather} />}
             </div>
             )
           })}
