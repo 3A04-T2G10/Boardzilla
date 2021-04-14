@@ -1,0 +1,28 @@
+@import 'bulma-config';
+@import '~bulma';
+
+@import 'variables';
+@import 'general';
+@import 'modifiers';
+@import 'components';
+
+@import 'main';
+@import 'navigation';
+@import 'footer';
+@import 'lost';
+
+@import 'welcome';
+@import 'login';
+@import 'register';
+
+@import 'home';
+@import 'todo';
+@import 'settings';
+
+@import 'widgetList';
+@import 'news';
+
+@import 'calendar';
+
+@import 'weather-icons-wind.min';
+@import 'weather-icons.min';
