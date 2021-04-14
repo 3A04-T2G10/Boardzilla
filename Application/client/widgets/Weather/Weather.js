@@ -40,6 +40,7 @@ export const Weather = ({
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
   const [country, setCountry] = useState("");
+  const [weatherScreen, setWeatherScreen] = useState("current");
   //widget.place
   const [edit, setEdit] = useState(false);
   const [confirm, setConfirm] = useState(false);
@@ -66,27 +67,9 @@ export const Weather = ({
       <p className="is-size-3 has-text-weight-bold has-text-centered">
         {place || "place"}
       </p>
-      <div className="has-text-centered is-flex is-justify-content-center is-align-items-center is-flex-grow-1">
-        <span className="is-size-2 pr-3">{`${current.temp.toFixed(0)}°C`}</span>
-        <span style={{ fontSize: "5em" }}>
-          <i
-            className={
-              icons[
-                `${
-                  current.icon.endsWith("d") ? "day " : "night "
-                }${current.iconId.toString()}`
-              ] || ""
-            }
-          />
-        </span>
-      </div>
-      <p className="is-size-5 has-text-weight-norma' has-text-centered">{`Feels like ${current.feelsLike.toFixed(
-        0
-      )}°C`}</p>
-      <p className="is-size-4 has-text-weight-semibold has-text-centered">
-        {current.description.toUpperCase()}
-      </p>
 
+      {/* {weatherScreen === "current" && 
+      ( */}
       {/* <div className="level-item has-text-centered">
           <p className="heading">
             <span className="icon is-small">
@@ -104,85 +87,146 @@ export const Weather = ({
           </p>
           <p className="title">{current.low}</p>
         </div>*/}
+      {weatherScreen === "current" && (
+        <>
+          <div className="has-text-centered is-flex is-justify-content-center is-align-items-center is-flex-grow-1">
+            <span className="is-size-2 pr-3">{`${current.temp.toFixed(
+              0
+            )}°C`}</span>
+            <span style={{ fontSize: "5em" }}>
+              <i
+                className={
+                  icons[
+                    `${
+                      current.icon.endsWith("d") ? "day " : "night "
+                    }${current.iconId.toString()}`
+                  ] || ""
+                }
+              />
+            </span>
+          </div>
+          <p className="is-size-5 has-text-weight-norma' has-text-centered">{`Feels like ${current.feelsLike.toFixed(
+            0
+          )}°C`}</p>
+          <p className="is-size-4 has-text-weight-semibold has-text-centered">
+            {current.description.toUpperCase()}
+          </p>
 
-      <div className="columns has-text-centered is-mobile">
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-humidity" />
-              </span>
-              humidity
-            </p>
-            <p className="title">{current.humidity}</p>
-          </div>
-        </div>
+          <div className="columns has-text-centered is-mobile pt-2">
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-humidity" />
+                  </span>
+                  humidity
+                </p>
+                <p className="title">{current.humidity}</p>
+              </div>
+            </div>
 
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-strong-wind" />
-              </span>
-              Wind Speed
-            </p>
-            <p className="title">{(current.windSpd * 3.6).toFixed(1)}</p>
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-strong-wind" />
+                  </span>
+                  Wind Speed
+                </p>
+                <p className="title">{`${(current.windSpd * 3.6).toFixed(
+                  1
+                )} km/h`}</p>
+              </div>
+            </div>
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-sunrise" />
+                  </span>
+                  sunrise
+                </p>
+                <p className="title">
+                  {new Date(current.sunrise * 1000).toLocaleTimeString()}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-sunrise" />
-              </span>
-              sunrise
-            </p>
-            <p className="title">
-              {new Date(current.sunrise * 1000).toLocaleTimeString()}
-            </p>
+
+          <div className="columns has-text-centered is-mobile">
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-barometer" />
+                  </span>
+                  pressure
+                </p>
+                <p className="title">{current.pressure}</p>
+              </div>
+            </div>
+
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-hot" />
+                  </span>
+                  UV index
+                </p>
+                <p className="title">{current.uvi}</p>
+              </div>
+            </div>
+
+            <div className="column">
+              <div>
+                <p className="heading">
+                  <span>
+                    <i className="wi wi-sunset" />
+                  </span>
+                  sunset
+                </p>
+                <p className="title">
+                  {new Date(current.sunset * 1000).toLocaleTimeString()}
+                </p>
+              </div>
+            </div>
           </div>
-        </div>
+        </>
+      )}
+
+      <div className="tabs is-centered">
+        <ul>
+          <li
+            className={weatherScreen === "current" ? "is-active" : ""}
+            onClick={() => setWeatherScreen("current")}>
+            <a>Current</a>
+          </li>
+          <li
+            className={weatherScreen === "hourly" ? "is-active" : ""}
+            onClick={() => setWeatherScreen("hourly")}>
+            <a>Hourly</a>
+          </li>
+          <li
+            className={weatherScreen === "daily" ? "is-active" : ""}
+            onClick={() => setWeatherScreen("daily")}>
+            <a>Daily</a>
+          </li>
+        </ul>
       </div>
-
-      <div className="columns has-text-centered is-mobile">
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-barometer" />
-              </span>
-              pressure
+      {alert && alert.eventName && (
+        <section className="hero is-warning">
+          <div className="hero-body">
+            <p className="title">{alert.eventName}</p>
+            <p className="subtitle">
+              {`Starting: ${new Date(alert.start * 1000).toLocaleTimeString()}`}
             </p>
-            <p className="title">{current.pressure}</p>
-          </div>
-        </div>
-
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-hot" />
-              </span>
-              UV index
-            </p>
-            <p className="title">{current.uvi}</p>
-          </div>
-        </div>
-
-        <div className="column">
-          <div>
-            <p className="heading">
-              <span>
-                <i className="wi wi-sunset" />
-              </span>
-              sunset
-            </p>
-            <p className="title">
-              {new Date(current.sunset * 1000).toLocaleTimeString()}
+            <p className="subtitle">
+              {`Ending: ${new Date(alert.end * 1000).toLocaleTimeString()}`}
             </p>
           </div>
-        </div>
-      </div>
+        </section>
+      )}
       <ConfirmModal
         confirm={confirm}
         closeModal={closeModal}
