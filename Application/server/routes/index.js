@@ -8,6 +8,7 @@ const stickies = require("./stickies");
 const news = require("./news");
 const stocks = require("./stocks");
 const weather = require("./weather");
+const events = require("./events");
 const router = express.Router();
 
 router.use("/api/auth", auth);
@@ -17,6 +18,7 @@ router.use("/api/stickies", stickies);
 router.use("/api/news", news);
 router.use("/api/stocks", stocks);
 router.use("/api/weather", weather);
+router.use("/api/events", events);
 
 router.get("/api/tags", (req, res) => {
   res.send([

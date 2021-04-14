@@ -19,21 +19,13 @@ const userSchema = new Schema({
   last_name: { type: String, maxlength: 20 },
   created_at: { type: Date, default: Date.now, immutable: true },
   updated_at: { type: Date },
+  calendarPos: {
+    x: { type: Number },
+    y: { type: Number },
+    width: { type: Number },
+    height: { type: Number },
+  },
 });
-
-// if (process.env.NODE_ENV !== "test") {
-//   MongooseAutoIncrementID.initialise("counters");
-
-//   userSchema.plugin(MongooseAutoIncrementID.plugin, {
-//     modelName: "User",
-//     field: "user",
-//     incrementBy: 1,
-//     startAt: 1,
-//     unique: true,
-//     nextCount: false,
-//     resetCount: false,
-//   });
-// }
 
 userSchema.virtual("full_name").get(function () {
   if (this.first_name && this.last_name) {

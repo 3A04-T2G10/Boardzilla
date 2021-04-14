@@ -37,6 +37,7 @@
     "ramda": "^0.27.1",
     "react": "^17.0.2",
     "react-beautiful-dnd": "^13.1.0",
+    "react-calendar": "^3.3.1",
     "react-dom": "^17.0.2",
     "react-notifications-component": "^3.1.0",
     "react-plotly.js": "^2.5.1",

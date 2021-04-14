@@ -17,3 +17,8 @@ export const SET_WEATHER = "SET_WEATHER";
 export const ADD_WEATHER = "ADD_WEATHER";
 export const UPDATE_WEATHER = "UPDATE_WEATHER";
 export const REMOVE_WEATHER = "REMOVE_WEATHER";
+
+export const SET_EVENTS = "SET_EVENTS";
+export const ADD_EVENT = "ADD_EVENT";
+export const UPDATE_EVENT = "UPDATE_EVENT";
+export const REMOVE_EVENT = "REMOVE_EVENT";

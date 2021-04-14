@@ -21,6 +21,7 @@ import NewsPage from "_pages/NewsPage";
 import Navbar from "_components/Navbar/Navbar";
 import Footer from "_components/Footer";
 import StockPage from "_pages/StockPage";
+import Cal from "_pages/Cal";
 
 function App({ location }) {
   const dispatch = useDispatch();
@@ -50,8 +51,8 @@ function App({ location }) {
             <Route path="/weather" component={WeatherPage} />
             <Route path="/stock" component={StockPage} />
             <Route path="/news" component={NewsPage} />
+            <Route path="/calendar" component={Cal} />
             {/* <Route path="/home" component={Home} /> */}
-            {/* <Route path="/todo" component={TodoPage} /> */}
             {/* <Route path="/settings" component={SettingsPage} />
             <Route path="*" component={LostPage} /> */}
           </Switch>

@@ -250,8 +250,8 @@ router.put("/layout", requireAuth, (req, res) => {
     if (err) {
       res.status(400).send({ message: "Update widget failed", err });
     } else {
-      widget.x = req.body.x || widget.x;
-      widget.y = req.body.y || widget.y;
+      widget.x = req.body.x || 0;
+      widget.y = req.body.y || 0;
       widget.width = req.body.width || widget.width;
       widget.height = req.body.height || widget.height;
 

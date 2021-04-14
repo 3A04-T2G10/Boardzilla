@@ -86,36 +86,37 @@ export default function RightNav({ open, setOpen, pathname }) {
     <Ul open={open} style={{ cursor: `${!user ? "not-allowed" : "pointer"}` }}>
       <li
         // className={`${isStickies ? "active" : ""}`}
-        onClick={() => dispatch(push(auth ? "/stickies" : "/"))}
-      >
+        onClick={() => dispatch(push(auth ? "/stickies" : "/"))}>
         Stickies
       </li>
 
       <li
         // className={`${isStickies ? "active" : ""}`}
-        onClick={() => dispatch(push(auth ? "/stock" : "/"))}
-      >
+        onClick={() => dispatch(push(auth ? "/stock" : "/"))}>
         Stock
       </li>
 
       <li
         // className={`${isStickies ? "active" : ""}`}
-        onClick={() => dispatch(push(auth ? "/weather" : "/"))}
-      >
+        onClick={() => dispatch(push(auth ? "/weather" : "/"))}>
         Weather
       </li>
 
       <li
         // className={`${isStickies ? "active" : ""}`}
-        onClick={() => dispatch(push(auth ? "/news" : "/"))}
-      >
+        onClick={() => dispatch(push(auth ? "/news" : "/"))}>
         News
       </li>
 
       <li
         // className={`${isStickies ? "active" : ""}`}
-        onClick={() => dispatch(push("/"))}
-      >
+        onClick={() => dispatch(push(auth ? "/calendar" : "/"))}>
+        Calendar
+      </li>
+
+      <li
+        // className={`${isStickies ? "active" : ""}`}
+        onClick={() => dispatch(push("/"))}>
         Home
       </li>
       {/*
@@ -148,8 +149,7 @@ export default function RightNav({ open, setOpen, pathname }) {
             onClick={() => {
               dispatch(push("/login"));
               setOpen(!open);
-            }}
-          >
+            }}>
             Login
           </a>
           <a
@@ -157,8 +157,7 @@ export default function RightNav({ open, setOpen, pathname }) {
             onClick={() => {
               dispatch(push("/register"));
               setOpen(!open);
-            }}
-          >
+            }}>
             Sign Up
           </a>
         </>
@@ -167,8 +166,7 @@ export default function RightNav({ open, setOpen, pathname }) {
         <a
           onClick={logout}
           onKeyPress={logout}
-          className="button is-info is-light"
-        >
+          className="button is-info is-light">
           Log out
         </a>
       )}
