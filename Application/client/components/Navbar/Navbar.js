@@ -27,9 +27,7 @@ export default function Navbar({ pathname }) {
   return (
     <Nav>
       <div className="logo">
-        <a href="#">
-          {/* <img src="logo.png" width="183" height="20" alt="logo"/> */}
-        </a>
+        <img src="/images/logo-light.png" width="183" height="20" alt="logo" />
       </div>
       <Burger pathname={pathname} />
     </Nav>

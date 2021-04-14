@@ -2,6 +2,7 @@ import { snakeToCamelCase } from "_utils/snakeToCC";
 import { store as RNC } from "react-notifications-component";
 
 import { getUser, putUser, putUserPassword } from "_api/user";
+import { putCalendarLayout } from "_api/events";
 import { updateUser } from "_actions/user";
 
 import { dispatchError } from "_utils/api";
@@ -50,6 +51,16 @@ export const attemptUpdatePassword = (passwordInfo) => (dispatch) =>
         },
       });
 
+      return data;
+    })
+    .catch(dispatchError(dispatch));
+
+export const attemptUpdateCalendarLayout = (id, x, y, width, height) => (
+  dispatch
+) =>
+  putCalendarLayout({ id, x, y, width, height })
+    .then((data) => {
+      dispatch(updateUser(snakeToCamelCase(data.user)));
       return data;
     })
     .catch(dispatchError(dispatch));

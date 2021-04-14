@@ -4,6 +4,7 @@ const Sticky = require("./Sticky");
 const News = require("./News");
 const Stock = require("./Stock");
 const Weather = require("./Weather");
+const Event = require("./Event");
 module.exports = {
   Session,
   User,
@@ -11,4 +12,5 @@ module.exports = {
   News,
   Stock,
   Weather,
+  Event,
 };

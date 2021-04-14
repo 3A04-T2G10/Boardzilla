@@ -53,12 +53,34 @@ router.put("/", requireAuth, (req, res) => {
       if (err) {
         res.status(400).send({ err, message: "Error updating user" });
       }
-      res
-        .status(200)
-        .send({
-          message: "User successfully updated",
-          user: user.hidePassword(),
-        });
+      res.status(200).send({
+        message: "User successfully updated",
+        user: user.hidePassword(),
+      });
+    }
+  );
+});
+
+router.put("/calendar", requireAuth, (req, res) => {
+  User.findByIdAndUpdate(
+    { _id: req.user._id },
+    {
+      calendarPos: {
+        x: req.body.x || 0,
+        y: req.body.y || 0,
+        width: req.body.width || 300,
+        height: req.body.height || 300,
+      },
+    },
+    { new: true },
+    (err, user) => {
+      if (err) {
+        res.status(400).send({ err, message: "Error updating calendar" });
+      }
+      res.status(200).send({
+        message: "calendar successfully updated",
+        user: user.hidePassword(),
+      });
     }
   );
 });

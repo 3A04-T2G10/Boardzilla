@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import Plot from "react-plotly.js";
+// import Plot from "react-plotly.js";
+import Chart from "react-apexcharts";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
 import { faBan } from "@fortawesome/free-solid-svg-icons/faBan";
@@ -41,7 +42,52 @@ export const Stock = ({ id, dailyData, symbol, remove }) => {
   return dailyData && dailyData.dateTime && dailyData.dateTime.length > 1 ? (
     <div className={`card mb-3 px-2 height-100`}>
       <div className="content has-text-centered height-calc2">
-        <Plot
+        <Chart
+          series={[
+            {
+              data: dailyData.dateTime.map((x, i) => [
+                x,
+                [
+                  dailyData.open[i],
+                  dailyData.high[i],
+                  dailyData.low[i],
+                  dailyData.close[i],
+                ],
+              ]),
+            },
+          ]}
+          width={"100%"}
+          height={"90%"}
+          options={{
+            chart: {
+              type: "candlestick",
+            },
+            title: {
+              text: symbol,
+              align: "center",
+            },
+            xaxis: {
+              type: "datetime",
+            },
+            yaxis: {
+              tooltip: {
+                enabled: true,
+              },
+            },
+            candlestick: {
+              colors: {
+                upward: "#00b16a",
+                downward: "#f03434",
+              },
+              wick: {
+                useFillColor: true,
+              },
+            },
+          }}
+          type="candlestick"
+        />
+
+        {/* <Plot
           data={[
             {
               x: dailyData.dateTime,
@@ -73,7 +119,7 @@ export const Stock = ({ id, dailyData, symbol, remove }) => {
               autorange: true,
             },
           }}
-        />
+        /> */}
         <div className="level">
           <div className="level-item has-text-centered">
             <div>
