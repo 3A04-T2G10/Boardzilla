@@ -36,6 +36,12 @@ export const Cal = () => {
       setAdd(false);
     }
   };
+
+  const cancelAddEvent = () => {
+    setText("");
+    setAdd(false);
+  };
+
   useEffect(() => {
     if (R.isEmpty(user)) {
       dispatch(push("/login"));
@@ -81,7 +87,12 @@ export const Cal = () => {
                 value={text}
                 onChange={(e) => setText(e.target.value)}
               />
-              <button className="button is-dark" onClick={handleAddEvent}>
+              <button
+                className="button is-dark is-outlined m-3"
+                onClick={cancelAddEvent}>
+                Cancel
+              </button>
+              <button className="button is-dark m-3" onClick={handleAddEvent}>
                 Add Event
               </button>
             </div>
