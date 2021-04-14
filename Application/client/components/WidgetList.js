@@ -1,22 +1,25 @@
-import React,  { useState, useEffect , useCallback} from "react";
-import {Responsive, WidthProvider } from 'react-grid-layout';
+import React, { useState, useEffect, useCallback } from "react";
+import { Responsive, WidthProvider } from "react-grid-layout";
 const ResponsiveReactGridLayout = WidthProvider(Responsive);
-import { useDispatch, useSelector }from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { push } from "connected-react-router";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
 import Stock from "_widgets/Stock/Stock";
 import News from "_widgets/News/News";
 import Weather from "_widgets/Weather/Weather";
-import Cal from "_pages/Cal"
-import {attemptGetEvents} from "_thunks/events";
-import {attemptUpdateCalendarLayout} from "_thunks/user";
+import Cal from "_pages/Cal";
+import { attemptGetEvents } from "_thunks/events";
+import { attemptUpdateCalendarLayout } from "_thunks/user";
 import { attemptGetWeather, attemptUpdateWeatherLayout } from "_thunks/weather";
 import { attemptGetNews, attemptUpdateNewsLayout } from "_thunks/news";
-import { attemptGetStickies, attemptUpdateStickyLayout } from "_thunks/stickies";
+import {
+  attemptGetStickies,
+  attemptUpdateStickyLayout,
+} from "_thunks/stickies";
 import { attemptGetStocks, attemptUpdateStockLayout } from "_thunks/stocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
+import { faPlus } from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
 import AddStickyModal from "_widgets/StickyNotes/AddStickyModal";
 import AddNewsModal from "_widgets/News/AddNewsModal";
@@ -45,11 +48,19 @@ export const WidgetList = () => {
 
   const setAllLayouts = useCallback(() => {
     const allLayouts = [];
-    allLayouts.push(user.calendarPos && {i: user.id, x : user.calendarPos.x || 0, y : user.calendarPos.y || 0, 
-      w : user.calendarPos.width || 4, h : user.calendarPos.height || 6, minH: 6, minW: 4} || {i: user.id, x :  0, y : 0, 
-        w : 4, h : 6, minH: 6, minW: 4});
+    allLayouts.push(
+      (user.calendarPos && {
+        i: user.id,
+        x: user.calendarPos.x || 0,
+        y: user.calendarPos.y || 0,
+        w: user.calendarPos.width || 4,
+        h: user.calendarPos.height || 6,
+        minH: 6,
+        minW: 4,
+      }) || { i: user.id, x: 0, y: 0, w: 4, h: 6, minH: 6, minW: 4 }
+    );
 
-    stickies.map(sticky => {
+    stickies.map((sticky) => {
       const newWidget = {
         i: sticky.id,
         x: sticky.x, // 3 is the multiplier
@@ -57,117 +68,110 @@ export const WidgetList = () => {
         w: sticky.width,
         h: sticky.height,
         minH: 2,
-        minW: 4
-        };
-      
-      allLayouts.push(newWidget);
-      }
-  )
-  
-  stocks.map(stock=> {
-    const newWidget = {
-      i: stock.id,
-      x: stock.x, // 3 is the multiplier
-      y: stock.y, // puts it at the bottom
-      w: stock.width,
-      h: stock.height,
-      minH: 4,
-      minW: 8
+        minW: 4,
       };
-    
-    allLayouts.push(newWidget);
-    }
-  )
-  news.map(news=> {
-    const newWidget = {
-      i: news.id,
-      x: news.x, // 3 is the multiplier
-      y: news.y, // puts it at the bottom
-      w: news.width,
-      h: news.height,
-      minH: 6,
-      minW: 8
-      };
-    
-    allLayouts.push(newWidget);
-    }
-  )
 
-  weather.map(weather => {
-    const newWidget = {
-      i: weather.id,
-      x: weather.x, // 3 is the multiplier
-      y: weather.y, // puts it at the bottom
-      w: weather.width,
-      h: weather.height,
-      minH: 5,
-      minW: 8
+      allLayouts.push(newWidget);
+    });
+
+    stocks.map((stock) => {
+      const newWidget = {
+        i: stock.id,
+        x: stock.x, // 3 is the multiplier
+        y: stock.y, // puts it at the bottom
+        w: stock.width,
+        h: stock.height,
+        minH: 4,
+        minW: 8,
       };
-    
-    allLayouts.push(newWidget);
-    }
-  )
-      setLayouts(allLayouts);
+
+      allLayouts.push(newWidget);
+    });
+    news.map((news) => {
+      const newWidget = {
+        i: news.id,
+        x: news.x, // 3 is the multiplier
+        y: news.y, // puts it at the bottom
+        w: news.width,
+        h: news.height,
+        minH: 6,
+        minW: 8,
+      };
+
+      allLayouts.push(newWidget);
+    });
+
+    weather.map((weather) => {
+      const newWidget = {
+        i: weather.id,
+        x: weather.x, // 3 is the multiplier
+        y: weather.y, // puts it at the bottom
+        w: weather.width,
+        h: weather.height,
+        minH: 4,
+        minW: 8,
+      };
+
+      allLayouts.push(newWidget);
+    });
+    setLayouts(allLayouts);
   });
-  
 
   useEffect(() => {
-    if (newWidgetType === "Sticky" && stickies.length > 0){
-    const newWidget = {
-      i: stickies[stickies.length-1].id,
-      x: stickies[stickies.length-1].x, // 3 is the multiplier
-      y: stickies[stickies.length-1].y, // puts it at the bottom
-      w: stickies[stickies.length-1].width,
-      h: stickies[stickies.length-1].height,
-      minH: 2,
-      minW: 4
+    if (newWidgetType === "Sticky" && stickies.length > 0) {
+      const newWidget = {
+        i: stickies[stickies.length - 1].id,
+        x: stickies[stickies.length - 1].x, // 3 is the multiplier
+        y: stickies[stickies.length - 1].y, // puts it at the bottom
+        w: stickies[stickies.length - 1].width,
+        h: stickies[stickies.length - 1].height,
+        minH: 2,
+        minW: 4,
       };
       const allLayouts = Array.from(layouts);
       allLayouts.push(newWidget);
       setLayouts(allLayouts);
-    } else if (newWidgetType=== "Stocks" && stocks.length > 0) {
+    } else if (newWidgetType === "Stock" && stocks.length > 0) {
       const newWidget = {
-        i: stocks[stocks.length-1].id,
-        x: stocks[stocks.length-1].x, // 3 is the multiplier
-        y: stocks[stocks.length-1].y, // puts it at the bottom
-        w: stocks[stocks.length-1].width,
-        h: stocks[stocks.length-1].height,
+        i: stocks[stocks.length - 1].id,
+        x: stocks[stocks.length - 1].x, // 3 is the multiplier
+        y: stocks[stocks.length - 1].y, // puts it at the bottom
+        w: stocks[stocks.length - 1].width,
+        h: stocks[stocks.length - 1].height,
         minH: 4,
-        minW: 8
-        };
-        const allLayouts = Array.from(layouts);
-        allLayouts.push(newWidget);
-        setLayouts(allLayouts);
-    }
-    else if (newWidgetType === "News" && news.length > 0) {
+        minW: 8,
+      };
+      const allLayouts = Array.from(layouts);
+      allLayouts.push(newWidget);
+      setLayouts(allLayouts);
+    } else if (newWidgetType === "News" && news.length > 0) {
       const newWidget = {
-        i: news[news.length-1].id,
-        x: news[news.length-1].x, // 3 is the multiplier
-        y: news[news.length-1].y, // puts it at the bottom
-        w: news[news.length-1].width,
-        h: news[news.length-1].height,
+        i: news[news.length - 1].id,
+        x: news[news.length - 1].x, // 3 is the multiplier
+        y: news[news.length - 1].y, // puts it at the bottom
+        w: news[news.length - 1].width,
+        h: news[news.length - 1].height,
         minH: 6,
-        minW: 8
-        };
-        const allLayouts = Array.from(layouts);
-        allLayouts.push(newWidget);
-        setLayouts(allLayouts);
-    }
-    else if (newWidgetType === "Weather" && weather.length > 0) {
+        minW: 8,
+      };
+      const allLayouts = Array.from(layouts);
+      allLayouts.push(newWidget);
+      setLayouts(allLayouts);
+    } else if (newWidgetType === "Weather" && weather.length > 0) {
       const newWidget = {
-        i: weather[weather.length-1].id,
-        x: weather[weather.length-1].x, // 3 is the multiplier
-        y: weather[weather.length-1].y, // puts it at the bottom
-        w: weather[weather.length-1].width,
-        h: weather[weather.length-1].height,
-        minH: 5,
-        minW: 8
-        };
-        const allLayouts = Array.from(layouts);
-        allLayouts.push(newWidget);
-        setLayouts(allLayouts);
+        i: weather[weather.length - 1].id,
+        x: weather[weather.length - 1].x, // 3 is the multiplier
+        y: weather[weather.length - 1].y, // puts it at the bottom
+        w: weather[weather.length - 1].width,
+        h: weather[weather.length - 1].height,
+        minH: 4,
+        minW: 8,
+      };
+      const allLayouts = Array.from(layouts);
+      allLayouts.push(newWidget);
+      setLayouts(allLayouts);
     }
-  }, [added])
+  }, [added]);
 
   useEffect(() => {
     if (R.isEmpty(user)) {
@@ -177,34 +181,44 @@ export const WidgetList = () => {
       const stocksWidgets = dispatch(attemptGetStocks());
       const newsWidgets = dispatch(attemptGetNews());
       const weatherWidgets = dispatch(attemptGetWeather());
-      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets, weatherWidgets]).then(() => {setAllLayouts(); setLoading(false)});
+      Promise.allSettled([
+        stickyWidgets,
+        stocksWidgets,
+        newsWidgets,
+        weatherWidgets,
+      ]).then(() => {
+        setAllLayouts();
+        setLoading(false);
+      });
       // dispatch(attemptGetStocks()).then(() => {console.log(stocks); setAllLayouts(); setLoading(false); });
-      
     }
   }, []);
 
-    useEffect (() => {
-      setWidgetCounter(layouts.length);
-    }, [layouts])
+  useEffect(() => {
+    setWidgetCounter(layouts.length);
+  }, [layouts]);
 
-
-  const onLayoutChange = useCallback((layout) =>  {
-    let differentLayout = layout.filter((newLayout,index) => {
+  const onLayoutChange = useCallback((layout) => {
+    let differentLayout = layout.filter((newLayout, index) => {
       //console.log(newLayout);
-      if ((layouts[index].x !== newLayout.x) || (layouts[index].y !== newLayout.y) 
-      || (layouts[index].w !== newLayout.w) || (layouts[index].h !== newLayout.h)) {
+      if (
+        layouts[index].x !== newLayout.x ||
+        layouts[index].y !== newLayout.y ||
+        layouts[index].w !== newLayout.w ||
+        layouts[index].h !== newLayout.h
+      ) {
         return newLayout;
       }
     });
-    
+
     var updated = 0;
     console.log(differentLayout);
     const newArray = Array.from(difference);
-    differentLayout.map(newDifferentLayout => {
+    differentLayout.map((newDifferentLayout) => {
       var foundLayout = 0;
       difference.map((existingDifferentLayouts, index) => {
-        if (newDifferentLayout.i === existingDifferentLayouts.i){
-          newArray[index] = newDifferentLayout
+        if (newDifferentLayout.i === existingDifferentLayouts.i) {
+          newArray[index] = newDifferentLayout;
           foundLayout = 1;
           updated = 1;
         }
@@ -218,19 +232,17 @@ export const WidgetList = () => {
     setDifference(newArray);
 
     if (updated == 1) {
-
-    setDisabled(false);
+      setDisabled(false);
     }
 
     setLayouts(layout);
-  }
-  );
+  });
 
   const selectType = useCallback((e) => {
     setNewWidgetType(e.target.value);
   });
 
- const add = useCallback(() => {
+  const add = useCallback(() => {
     switch (newWidgetType) {
       case "Sticky":
         setAddStickyWidget(true);
@@ -250,25 +262,68 @@ export const WidgetList = () => {
   });
 
   const save = useCallback(() => {
-    difference.map(newLayout => {
+    difference.map((newLayout) => {
       console.log(newLayout);
-      if (stickies.filter(sticky => newLayout.i == sticky.id).length == 1){
-        dispatch(attemptUpdateStickyLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
-      } else if(stocks.filter(stock => newLayout.i == stock.id).length == 1) {
-        dispatch(attemptUpdateStockLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
-      } else if(news.filter(news => newLayout.i == news.id).length == 1) {
-        dispatch(attemptUpdateNewsLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
-      } else if(weather.filter(weather => newLayout.i == weather.id).length == 1) {
-        dispatch(attemptUpdateWeatherLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
-      } else if(user.id == newLayout.i) {
-        dispatch(attemptUpdateCalendarLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      if (stickies.filter((sticky) => newLayout.i == sticky.id).length == 1) {
+        dispatch(
+          attemptUpdateStickyLayout(
+            newLayout.i,
+            newLayout.x,
+            newLayout.y,
+            newLayout.w,
+            newLayout.h
+          )
+        );
+      } else if (
+        stocks.filter((stock) => newLayout.i == stock.id).length == 1
+      ) {
+        dispatch(
+          attemptUpdateStockLayout(
+            newLayout.i,
+            newLayout.x,
+            newLayout.y,
+            newLayout.w,
+            newLayout.h
+          )
+        );
+      } else if (news.filter((news) => newLayout.i == news.id).length == 1) {
+        dispatch(
+          attemptUpdateNewsLayout(
+            newLayout.i,
+            newLayout.x,
+            newLayout.y,
+            newLayout.w,
+            newLayout.h
+          )
+        );
+      } else if (
+        weather.filter((weather) => newLayout.i == weather.id).length == 1
+      ) {
+        dispatch(
+          attemptUpdateWeatherLayout(
+            newLayout.i,
+            newLayout.x,
+            newLayout.y,
+            newLayout.w,
+            newLayout.h
+          )
+        );
+      } else if (user.id == newLayout.i) {
+        dispatch(
+          attemptUpdateCalendarLayout(
+            newLayout.i,
+            newLayout.x,
+            newLayout.y,
+            newLayout.w,
+            newLayout.h
+          )
+        );
       }
-
     });
     setDifference([]);
     setDisabled(true);
-  })
- const closeModal = useCallback(() => {
+  });
+  const closeModal = useCallback(() => {
     setAddStickyWidget(false);
     setAddStockWidget(false);
     setAddNewsWidget(false);
@@ -276,11 +331,11 @@ export const WidgetList = () => {
   });
 
   const widgetCount = useCallback(() => {
-    setWidgetCounter(prevState => prevState + 1);
+    setWidgetCounter((prevState) => prevState + 1);
   });
 
   const widgetCountStock = useCallback(() => {
-    setWidgetCounter(prevState => prevState + 2);
+    setWidgetCounter((prevState) => prevState + 2);
   });
 
   const updateList = useCallback(() => {
@@ -288,15 +343,15 @@ export const WidgetList = () => {
   });
 
   const remove = useCallback((id) => {
-    const updatedList = layouts.filter( removed => {
+    const updatedList = layouts.filter((removed) => {
       return removed.i !== id;
+    });
+
+    setLayouts(updatedList);
   });
 
-  setLayouts(updatedList);
-  });
-
-    return (
-      !loading && (
+  return (
+    !loading && (
       <>
         <AddStickyModal
           open={addStickyWidget}
@@ -365,16 +420,17 @@ export const WidgetList = () => {
               <p className="level-item">
                 <a>Calendars</a>
               </p> */}
-              <p className={"has-text-weight-semibold"}>{`${user.username}'s Widgets`}</p>
+              <p
+                className={
+                  "has-text-weight-semibold"
+                }>{`${user.username}'s Widgets`}</p>
             </div>
 
             {/* <!-- Right side --> */}
             <div className="level-right">
               <div className="control mr-2">
                 <div className="select">
-                  <select
-                    onChange={selectType}
-                    value={newWidgetType}>
+                  <select onChange={selectType} value={newWidgetType}>
                     <option value="Sticky">Sticky</option>
                     <option value="News">News</option>
                     <option value="Weather">Weather</option>
@@ -384,10 +440,7 @@ export const WidgetList = () => {
               </div>
 
               <p className="level-item">
-                <button
-                  className="button is-link is-rounded"
-                  onClick={add}
-                  >
+                <button className="button is-link is-rounded" onClick={add}>
                   <span className="icon">
                     <FontAwesomeIcon icon={faPlus} />
                   </span>
@@ -397,8 +450,7 @@ export const WidgetList = () => {
                 <button
                   className="button is-link is-rounded"
                   onClick={save}
-                  disabled={disabled}
-                  >
+                  disabled={disabled}>
                   <span className="icon">
                     <FontAwesomeIcon icon={faSave} />
                   </span>
@@ -407,37 +459,52 @@ export const WidgetList = () => {
             </div>
           </div>
         </div>
-        
-        <ResponsiveReactGridLayout className="layout" onLayoutChange={onLayoutChange} >
-          
-          {layouts.map(widgetLayout => {
-            
-            const sticky = stickies.filter(sticky => sticky.id == widgetLayout.i)[0];
-            const stock = stocks.filter(stock => stock.id == widgetLayout.i)[0];
-            const newNews = news.filter(New => New.id == widgetLayout.i)[0];
-            const newWeather = weather.filter(New => New.id == widgetLayout.i)[0];
+
+        <ResponsiveReactGridLayout
+          className="layout"
+          onLayoutChange={onLayoutChange}>
+          {layouts.map((widgetLayout) => {
+            const sticky = stickies.filter(
+              (sticky) => sticky.id == widgetLayout.i
+            )[0];
+            const stock = stocks.filter(
+              (stock) => stock.id == widgetLayout.i
+            )[0];
+            const newNews = news.filter((New) => New.id == widgetLayout.i)[0];
+            const newWeather = weather.filter(
+              (New) => New.id == widgetLayout.i
+            )[0];
             //console.log(stock);
             //console.log(sticky || stock);
             return (
-            <div 
-            style={{
-              height: `100%`
-            }}
-            key={widgetLayout.i} 
-            data-grid={widgetLayout}>
-            {widgetLayout.i === user.id && <Cal key={user.id}/>}
-            {sticky && <Sticky key={sticky.id} remove={remove} {...sticky} />}
-            {stock && <Stock key={stock.id} remove={remove} {...stock} />}
-            {newNews && <News key={newNews.id} remove={remove} {...newNews} />}
-            {newWeather && <Weather key={newWeather.id} remove={remove} {...newWeather} />}
-            </div>
-            )
+              <div
+                style={{
+                  height: `100%`,
+                }}
+                key={widgetLayout.i}
+                data-grid={widgetLayout}>
+                {widgetLayout.i === user.id && <Cal key={user.id} />}
+                {sticky && (
+                  <Sticky key={sticky.id} remove={remove} {...sticky} />
+                )}
+                {stock && <Stock key={stock.id} remove={remove} {...stock} />}
+                {newNews && (
+                  <News key={newNews.id} remove={remove} {...newNews} />
+                )}
+                {newWeather && (
+                  <Weather
+                    key={newWeather.id}
+                    remove={remove}
+                    {...newWeather}
+                  />
+                )}
+              </div>
+            );
           })}
         </ResponsiveReactGridLayout>
-        
       </>
-      )
-    );
-}
+    )
+  );
+};
 
 export default WidgetList;

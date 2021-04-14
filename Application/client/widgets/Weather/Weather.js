@@ -12,7 +12,15 @@ import ConfirmModal from "_components/ConfirmModal";
 import { CurrentWeather } from "./CurrentWeather";
 import { HourlyWeather } from "./HourlyWeather";
 import { DailyWeather } from "./DailyWeather";
-export const Weather = ({ id, place, current, hourly, daily, alert, remove }) => {
+export const Weather = ({
+  id,
+  place,
+  current,
+  hourly,
+  daily,
+  alert,
+  remove,
+}) => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
@@ -31,7 +39,10 @@ export const Weather = ({ id, place, current, hourly, daily, alert, remove }) =>
     setStateName("");
   };
 
-  const deleteWeather = () => {remove(id); dispatch(attemptDeleteWeather(id))};
+  const deleteWeather = () => {
+    remove(id);
+    dispatch(attemptDeleteWeather(id));
+  };
 
   const handleUpdateWeather = () => {
     if (city && city.length > 1) {
@@ -42,39 +53,38 @@ export const Weather = ({ id, place, current, hourly, daily, alert, remove }) =>
   };
 
   return place ? (
-    <div
-      className={`card mb-3 px-2 height-100`}
-      style={{ overflowY: "scroll", overflowX: "hidden" }}>
+    <div className={`card mb-3 px-2 height-100`}>
       <div className={`height-calc4`}>
-      <p className="is-size-3 has-text-weight-bold has-text-centered">
-        {place || "place"}
-      </p>
+        <p className="is-size-3 has-text-weight-bold has-text-centered">
+          {place || "place"}
+        </p>
 
-      {weatherScreen === "current" && <CurrentWeather current={current} />}
-      {weatherScreen === "hourly" && <HourlyWeather hourly={hourly} />}
-      {weatherScreen === "daily" && <DailyWeather daily={daily} />}
-      <div className="tabs is-centered is-toggle">
-        <ul>
-          <li
-            className={weatherScreen === "current" ? "is-active" : ""}
-            onClick={() => setWeatherScreen("current")}>
-            <a>Current</a>
-          </li>
-          <li
-            className={weatherScreen === "hourly" ? "is-active" : ""}
-            onClick={() => setWeatherScreen("hourly")}>
-            <a>Hourly</a>
-          </li>
-          <li
-            className={weatherScreen === "daily" ? "is-active" : ""}
-            onClick={() => setWeatherScreen("daily")}>
-            <a>Daily</a>
-          </li>
-        </ul>
-      </div>
-      {alert && alert.eventName && (
-        <section className="hero is-warning">
-          <div className="hero-body">
+        {weatherScreen === "current" && <CurrentWeather current={current} />}
+        {weatherScreen === "hourly" && <HourlyWeather hourly={hourly} />}
+        {weatherScreen === "daily" && <DailyWeather daily={daily} />}
+        <div
+          className="tabs is-centered is-toggle"
+          style={{ overflowY: "hidden", overflowX: "hidden" }}>
+          <ul>
+            <li
+              className={weatherScreen === "current" ? "is-active" : ""}
+              onClick={() => setWeatherScreen("current")}>
+              <a>Current</a>
+            </li>
+            <li
+              className={weatherScreen === "hourly" ? "is-active" : ""}
+              onClick={() => setWeatherScreen("hourly")}>
+              <a>Hourly</a>
+            </li>
+            <li
+              className={weatherScreen === "daily" ? "is-active" : ""}
+              onClick={() => setWeatherScreen("daily")}>
+              <a>Daily</a>
+            </li>
+          </ul>
+        </div>
+        {alert && alert.eventName && (
+          <div className="has-text-centered has-text-weight-bold">
             <p className="title">{alert.eventName}</p>
             <p className="subtitle">
               {`Starting: ${new Date(alert.start * 1000).toLocaleTimeString()}`}
@@ -83,9 +93,8 @@ export const Weather = ({ id, place, current, hourly, daily, alert, remove }) =>
               {`Ending: ${new Date(alert.end * 1000).toLocaleTimeString()}`}
             </p>
           </div>
-        </section>
-      )}
-    </div>
+        )}
+      </div>
       <div className="card-footer level py-2">
         <div className="level-left">
           {edit && (

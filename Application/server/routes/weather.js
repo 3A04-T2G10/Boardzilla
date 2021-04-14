@@ -123,7 +123,7 @@ router.post("/", requireAuth, (req, res) => {
 
     req.body.user = req.user.id;
     req.body.width = req.body.width || 8;
-    req.body.height = req.body.height || 5;
+    req.body.height = req.body.height || 4;
     req.body.x = req.body.x || 0;
     req.body.y = req.body.y || 0;
     req.body.lastUpdated = new Date();

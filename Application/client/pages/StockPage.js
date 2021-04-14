@@ -26,7 +26,7 @@ export const StockPage = () => {
         <>
           <ul className="sticky-list">
             {stocks.map((widget) => (
-              <Stock key={widget.id} {...widget} />
+              <Stock key={widget.id} {...widget} remove={() => {}} />
             ))}
           </ul>
         </>

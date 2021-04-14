@@ -26,7 +26,7 @@ export const Stickies = () => {
           {/* <AddSticky /> */}
           <ul className="sticky-list">
             {stickies.map((sticky) => (
-              <Sticky key={sticky.id} {...sticky} />
+              <Sticky key={sticky.id} {...sticky} remove={() => {}} />
             ))}
           </ul>
         </>

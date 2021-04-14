@@ -26,7 +26,7 @@ export const WeatherPage = () => {
         <>
           <ul className="sticky-list">
             {weather.map((widget) => (
-              <Weather key={widget.id} {...widget} />
+              <Weather key={widget.id} {...widget} remove={() => {}} />
             ))}
           </ul>
         </>

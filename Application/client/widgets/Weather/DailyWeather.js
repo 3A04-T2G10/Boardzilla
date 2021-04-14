@@ -8,10 +8,15 @@ export const DailyWeather = ({ daily }) => {
   return (
     <>
       {daily && (
-        <div className="table-container table is-size-4 height-calc5">
+        <div
+          className="table-container table is-size-4 height-calc5"
+          style={{ overflowY: "scroll" }}>
           <table
             className="table is-scrollable has-text-centered"
-            style={{ margin: "auto", whiteSpace: "nowrap" }}>
+            style={{
+              margin: "auto",
+              whiteSpace: "nowrap",
+            }}>
             <thead>
               <tr>
                 {daily.map((day, i) => {
@@ -26,7 +31,7 @@ export const DailyWeather = ({ daily }) => {
                 })}
               </tr>
             </thead>
-            <tbody>
+            <tbody style={{ overflowY: "scroll" }}>
               <tr>
                 {daily.map((day, i) => {
                   return <td key={i}>{day.description.toUpperCase()}</td>;

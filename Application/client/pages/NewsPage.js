@@ -26,7 +26,7 @@ export const NewsPage = () => {
         <>
           <ul className="sticky-list">
             {news.map((widget) => (
-              <News key={widget.id} {...widget} />
+              <News key={widget.id} {...widget} remove={() => {}} />
             ))}
           </ul>
         </>
