@@ -7,6 +7,8 @@ import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
 import Stock from "_widgets/Stock/Stock";
 import News from "_widgets/News/News";
+import Weather from "_widgets/Weather/Weather";
+import { attemptGetWeather, attemptUpdateWeatherLayout } from "_thunks/weather";
 import { attemptGetNews, attemptUpdateNewsLayout } from "_thunks/news";
 import { attemptGetStickies, attemptUpdateStickyLayout } from "_thunks/stickies";
 import { attemptGetStocks, attemptUpdateStockLayout } from "_thunks/stocks";
@@ -32,6 +34,7 @@ export const WidgetList = () => {
   const { stocks } = useSelector(R.pick(["stocks"]));
   const { stickies } = useSelector(R.pick(["stickies"]));
   const { news } = useSelector(R.pick(["news"]));
+  const { weather } = useSelector(R.pick(["weather"]));
   const [difference, setDifference] = useState([]);
   const [disabled, setDisabled] = useState(true);
   const [added, setAdded] = useState(false);
@@ -67,7 +70,6 @@ export const WidgetList = () => {
     allLayouts.push(newWidget);
     }
   )
-  console.log(news);
   news.map(news=> {
     const newWidget = {
       i: news.id,
@@ -76,6 +78,21 @@ export const WidgetList = () => {
       w: news.width,
       h: news.height,
       minH: 6,
+      minW: 8
+      };
+    
+    allLayouts.push(newWidget);
+    }
+  )
+
+  weather.map(weather => {
+    const newWidget = {
+      i: weather.id,
+      x: weather.x, // 3 is the multiplier
+      y: weather.y, // puts it at the bottom
+      w: weather.width,
+      h: weather.height,
+      minH: 5,
       minW: 8
       };
     
@@ -128,6 +145,20 @@ export const WidgetList = () => {
         allLayouts.push(newWidget);
         setLayouts(allLayouts);
     }
+    else if (newWidgetType === "Weather" && weather.length > 0) {
+      const newWidget = {
+        i: weather[weather.length-1].id,
+        x: weather[weather.length-1].x, // 3 is the multiplier
+        y: weather[weather.length-1].y, // puts it at the bottom
+        w: weather[weather.length-1].width,
+        h: weather[weather.length-1].height,
+        minH: 5,
+        minW: 8
+        };
+        const allLayouts = Array.from(layouts);
+        allLayouts.push(newWidget);
+        setLayouts(allLayouts);
+    }
   }, [added])
 
   useEffect(() => {
@@ -137,7 +168,8 @@ export const WidgetList = () => {
       const stickyWidgets = dispatch(attemptGetStickies());
       const stocksWidgets = dispatch(attemptGetStocks());
       const newsWidgets = dispatch(attemptGetNews());
-      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets]).then(() => {setAllLayouts(); setLoading(false)});
+      const weatherWidgets = dispatch(attemptGetWeather());
+      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets, weatherWidgets]).then(() => {setAllLayouts(); setLoading(false)});
       // dispatch(attemptGetStocks()).then(() => {console.log(stocks); setAllLayouts(); setLoading(false); });
       
     }
@@ -218,6 +250,8 @@ export const WidgetList = () => {
         dispatch(attemptUpdateStockLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       } else if(news.filter(news => newLayout.i == news.id).length == 1) {
         dispatch(attemptUpdateNewsLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      } else if(weather.filter(weather => newLayout.i == weather.id).length == 1) {
+        dispatch(attemptUpdateWeatherLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       }
 
     });
@@ -363,7 +397,7 @@ export const WidgetList = () => {
             const sticky = stickies.filter(sticky => sticky.id == widgetLayout.i)[0];
             const stock = stocks.filter(stock => stock.id == widgetLayout.i)[0];
             const newNews = news.filter(New => New.id == widgetLayout.i)[0];
-            
+            const newWeather = weather.filter(New => New.id == widgetLayout.i)[0];
             //console.log(stock);
             //console.log(sticky || stock);
             return (
@@ -376,6 +410,7 @@ export const WidgetList = () => {
             {sticky && <Sticky key={sticky.id} {...sticky} />}
             {stock && <Stock key={stock.id} {...stock} />}
             {newNews && <News key={newNews.id} {...newNews} />}
+            {newWeather && <Weather key={newWeather.id} {...newWeather} />}
             </div>
             )
           })}

@@ -31,7 +31,7 @@ export const attemptGetWeather = () => (dispatch) =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptAddWeather = (city, state, country) => (dispatch) =>
+export const attemptAddWeather = (city, state, country,x ,y ) => (dispatch) =>
   postWeather({ city, state, country })
     .then((data) => {
       const item = R.omit(

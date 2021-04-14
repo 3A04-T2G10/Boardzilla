@@ -6,7 +6,7 @@ export const HourlyWeather = ({ hourly }) => {
   return (
     <>
       {hourly && (
-        <div className="table-container table">
+        <div className="table-container table height-calc5" style={{ overflowY: "scroll" }} >
           <table className="table is-scrollable" style={{ margin: "auto" }}>
             <thead>
               <tr>

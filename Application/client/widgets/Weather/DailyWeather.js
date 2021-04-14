@@ -8,7 +8,7 @@ export const DailyWeather = ({ daily }) => {
   return (
     <>
       {daily && (
-        <div className="table-container table is-size-4">
+        <div className="table-container table is-size-4 height-calc5">
           <table
             className="table is-scrollable has-text-centered"
             style={{ margin: "auto", whiteSpace: "nowrap" }}>

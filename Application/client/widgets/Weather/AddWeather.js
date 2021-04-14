@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { attemptAddWeather } from "_thunks/weather";
 import useKeyPress from "_hooks/useKeyPress";
 
-export default function AddWeather({ closeModal }) {
+export default function AddWeather({ closeModal, widgetCount, x, y, updateList }) {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
@@ -12,7 +12,8 @@ export default function AddWeather({ closeModal }) {
 
   const handleAddWeather = () => {
     if (city && city.length > 1) {
-      dispatch(attemptAddWeather(city, stateName, country));
+      widgetCount()
+      dispatch(attemptAddWeather(city, stateName, country, x, y)).then(updateList);
       setCity("");
       setStateName("");
       setCountry("");

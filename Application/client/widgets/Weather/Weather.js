@@ -43,8 +43,9 @@ export const Weather = ({ id, place, current, hourly, daily, alert }) => {
 
   return place ? (
     <div
-      className={`card mb-3 px-2`}
+      className={`card mb-3 px-2 height-100`}
       style={{ overflowY: "scroll", overflowX: "hidden" }}>
+      <div className={`height-calc4`}>
       <p className="is-size-3 has-text-weight-bold has-text-centered">
         {place || "place"}
       </p>
@@ -84,7 +85,7 @@ export const Weather = ({ id, place, current, hourly, daily, alert }) => {
           </div>
         </section>
       )}
-
+    </div>
       <div className="card-footer level py-2">
         <div className="level-left">
           {edit && (

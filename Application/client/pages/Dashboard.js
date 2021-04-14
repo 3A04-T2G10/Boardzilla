@@ -6,6 +6,7 @@ import R from "ramda";
 import { attemptGetStickies } from "_thunks/stickies";
 import { attemptGetStocks } from "_thunks/stocks";
 import { attemptGetNews } from "_thunks/news";
+import { attemptGetWeather } from "_thunks/weather";
 import WidgetList from "_components/WidgetList";
 
 export default function Dasboard() {
@@ -21,7 +22,8 @@ export default function Dasboard() {
       const stickyWidgets = dispatch(attemptGetStickies());
       const stocksWidgets = dispatch(attemptGetStocks());
       const newsWidgets = dispatch(attemptGetNews());
-      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets]).then(() => setLoading(false));
+      const weatherWidgets = dispatch(attemptGetWeather());
+      Promise.allSettled([stickyWidgets, stocksWidgets, newsWidgets, weatherWidgets]).then(() => setLoading(false));
     }
   }, []);
 
