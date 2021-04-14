@@ -68,8 +68,8 @@ router.put("/calendar", requireAuth, (req, res) => {
       calendarPos: {
         x: req.body.x || 0,
         y: req.body.y || 0,
-        width: req.body.width || 300,
-        height: req.body.height || 300,
+        width: req.body.width || 4,
+        height: req.body.height || 6,
       },
     },
     { new: true },

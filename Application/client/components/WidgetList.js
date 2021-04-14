@@ -8,6 +8,9 @@ import Sticky from "_widgets/StickyNotes/Sticky";
 import Stock from "_widgets/Stock/Stock";
 import News from "_widgets/News/News";
 import Weather from "_widgets/Weather/Weather";
+import Cal from "_pages/Cal"
+import {attemptGetEvents} from "_thunks/events";
+import {attemptUpdateCalendarLayout} from "_thunks/user";
 import { attemptGetWeather, attemptUpdateWeatherLayout } from "_thunks/weather";
 import { attemptGetNews, attemptUpdateNewsLayout } from "_thunks/news";
 import { attemptGetStickies, attemptUpdateStickyLayout } from "_thunks/stickies";
@@ -28,6 +31,7 @@ export const WidgetList = () => {
   const [addNewsWidget, setAddNewsWidget] = useState(false);
   const [addStockWidget, setAddStockWidget] = useState(false);
   const [addWeatherWidget, setAddWeatherWidget] = useState(false);
+  const [addCalendar, setAddCalendarWidget] = useState(false);
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(["user"]));
   const [loading, setLoading] = useState(true);
@@ -41,6 +45,10 @@ export const WidgetList = () => {
 
   const setAllLayouts = useCallback(() => {
     const allLayouts = [];
+    allLayouts.push(user.calendarPos && {i: user.id, x : user.calendarPos.x || 0, y : user.calendarPos.y || 0, 
+      w : user.calendarPos.width || 4, h : user.calendarPos.height || 6, minH: 6, minW: 4} || {i: user.id, x :  0, y : 0, 
+        w : 4, h : 6, minH: 6, minW: 4});
+
     stickies.map(sticky => {
       const newWidget = {
         i: sticky.id,
@@ -252,6 +260,8 @@ export const WidgetList = () => {
         dispatch(attemptUpdateNewsLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       } else if(weather.filter(weather => newLayout.i == weather.id).length == 1) {
         dispatch(attemptUpdateWeatherLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      } else if(user.id == newLayout.i) {
+        dispatch(attemptUpdateCalendarLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
       }
 
     });
@@ -355,7 +365,7 @@ export const WidgetList = () => {
               <p className="level-item">
                 <a>Calendars</a>
               </p> */}
-              <p>Your Widgets</p>
+              <p className={"has-text-weight-semibold"}>{`${user.username}'s Widgets`}</p>
             </div>
 
             {/* <!-- Right side --> */}
@@ -369,7 +379,6 @@ export const WidgetList = () => {
                     <option value="News">News</option>
                     <option value="Weather">Weather</option>
                     <option value="Stock">Stock</option>
-                    <option value="Calendar">Calendar</option>
                   </select>
                 </div>
               </div>
@@ -400,6 +409,7 @@ export const WidgetList = () => {
         </div>
         
         <ResponsiveReactGridLayout className="layout" onLayoutChange={onLayoutChange} >
+          
           {layouts.map(widgetLayout => {
             
             const sticky = stickies.filter(sticky => sticky.id == widgetLayout.i)[0];
@@ -415,6 +425,7 @@ export const WidgetList = () => {
             }}
             key={widgetLayout.i} 
             data-grid={widgetLayout}>
+            {widgetLayout.i === user.id && <Cal key={user.id}/>}
             {sticky && <Sticky key={sticky.id} remove={remove} {...sticky} />}
             {stock && <Stock key={stock.id} remove={remove} {...stock} />}
             {newNews && <News key={newNews.id} remove={remove} {...newNews} />}
