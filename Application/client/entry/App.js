@@ -7,17 +7,14 @@ import { useDispatch } from "react-redux";
 import R from "ramda";
 
 import { attemptGetUser } from "_thunks/user";
-
-// import WelcomePage from "_pages/WelcomePage";
 import Login from "_pages/Login";
 import Register from "_pages/Register";
 import Dashboard from "_pages/Dashboard";
 import Stickies from "_components/Stickies";
 import WeatherPage from "_pages/WeatherPage";
 import NewsPage from "_pages/NewsPage";
-// import TodoPage from "_pages/TodoPage";
 // import SettingsPage from "_pages/SettingsPage";
-// import LostPage from "_pages/LostPage";
+import LostPage from "_pages/LostPage";
 import Navbar from "_components/Navbar/Navbar";
 import Footer from "_components/Footer";
 import StockPage from "_pages/StockPage";
@@ -52,9 +49,9 @@ function App({ location }) {
             <Route path="/stock" component={StockPage} />
             <Route path="/news" component={NewsPage} />
             <Route path="/calendar" component={Cal} />
-            {/* <Route path="/home" component={Home} /> */}
-            {/* <Route path="/settings" component={SettingsPage} />
-            <Route path="*" component={LostPage} /> */}
+            <Route path="*" component={LostPage} />
+            {/* <Route path="/home" component={Home} />
+            <Route path="/settings" component={SettingsPage} />  */}
           </Switch>
         </div>
         <Footer />
