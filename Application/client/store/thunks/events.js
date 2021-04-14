@@ -23,7 +23,6 @@ export const attemptGetEvents = () => (dispatch) =>
 export const attemptAddEvent = (text, date) => (dispatch) =>
   postEvent({ text, date })
     .then((data) => {
-      console.log(data);
       const event = R.omit(
         ["Id"],
         R.assoc("id", data.event._id, snakeToCamelCase(data.event))
