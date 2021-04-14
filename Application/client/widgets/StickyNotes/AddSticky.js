@@ -4,7 +4,7 @@ import PropTypes from "prop-types";
 import { attemptAddSticky } from "_thunks/stickies";
 import useKeyPress from "_hooks/useKeyPress";
 
-export default function AddSticky({ closeModal }) {
+export default function AddSticky({ closeModal, widgetCount, x, y, updateList}) {
   const dispatch = useDispatch();
   const [text, setText] = useState("");
   const [color, setColor] = useState("#ffffff");
@@ -12,10 +12,12 @@ export default function AddSticky({ closeModal }) {
 
   const handleAddSticky = () => {
     if (text) {
-      dispatch(attemptAddSticky(text, color, textColor));
+      widgetCount();
+      dispatch(attemptAddSticky(text, color, textColor, x, y)).then(updateList);
       setText("");
       setColor("#ffffff");
       setTextColor("#000000");
+      
     }
   };
 
