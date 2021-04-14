@@ -1,58 +1,36 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
 import PropTypes from "prop-types";
-import Plot from "react-plotly.js";
-// import "weather-icons/css/weather-icons.css";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
 import { faBan } from "@fortawesome/free-solid-svg-icons/faBan";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons/faPencilAlt";
-import { faTemperatureHigh } from "@fortawesome/free-solid-svg-icons/faTemperatureHigh";
-import { faTemperatureLow } from "@fortawesome/free-solid-svg-icons/faTemperatureLow";
-import { attemptDeleteStock } from "_thunks/stocks";
-import { attemptUpdateStock } from "_thunks/stocks";
+import { attemptDeleteWeather } from "_thunks/weather";
+import { attemptUpdateWeather } from "_thunks/weather";
 import ConfirmModal from "_components/ConfirmModal";
-import { icons } from "./icons";
-
-export const Weather = ({
-  id,
-  place,
-  timeOffset,
-  current,
-  hourly,
-  daily,
-  alert,
-}) => {
-  // id: { $set: action.data.id },
-  //     widgetType: { $set: action.data.type },
-  //     x: { $set: action.data.x },
-  //     y: { $set: action.data.y },
-  //     width: { $set: action.data.width },
-  //     height: { $set: action.data.height },
-  //     place: { $set: action.data.place },
-  //     timeOffset: { $set: action.data.timeOffset },
-  //     current: { $set: action.data.current },
-  //     hourly: { $set: action.data.hourly },
-  //     daily: { $set: action.data.daily },
-  //     alert: { $set: action.data.alert },
+import { CurrentWeather } from "./CurrentWeather";
+import { HourlyWeather } from "./HourlyWeather";
+import { DailyWeather } from "./DailyWeather";
+export const Weather = ({ id, place, current, hourly, daily, alert }) => {
   const dispatch = useDispatch();
   const [city, setCity] = useState("");
   const [stateName, setStateName] = useState("");
   const [country, setCountry] = useState("");
   const [weatherScreen, setWeatherScreen] = useState("current");
-  //widget.place
   const [edit, setEdit] = useState(false);
   const [confirm, setConfirm] = useState(false);
 
   const openModal = () => setConfirm(true);
   const closeModal = () => setConfirm(false);
 
-  const editWeather = () => setEdit(true);
   const cancelEdit = () => {
     setEdit(false);
-    setCurrentSymbol(symbol);
+    setCity("");
+    setCountry("");
+    setStateName("");
   };
+
   const deleteWeather = () => dispatch(attemptDeleteWeather(id));
 
   const handleUpdateWeather = () => {
@@ -62,140 +40,19 @@ export const Weather = ({
       );
     }
   };
+
   return place ? (
-    <div className={`card mb-3 px-2`}>
+    <div
+      className={`card mb-3 px-2`}
+      style={{ overflowY: "scroll", overflowX: "hidden" }}>
       <p className="is-size-3 has-text-weight-bold has-text-centered">
         {place || "place"}
       </p>
 
-      {/* {weatherScreen === "current" && 
-      ( */}
-      {/* <div className="level-item has-text-centered">
-          <p className="heading">
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faTemperatureHigh} />
-            </span>
-            high
-          </p>
-          <p className="title">{current.high}</p>
-
-          <p className="heading">
-            <span className="icon is-small">
-              <FontAwesomeIcon icon={faTemperatureLow} />
-            </span>
-            low
-          </p>
-          <p className="title">{current.low}</p>
-        </div>*/}
-      {weatherScreen === "current" && (
-        <>
-          <div className="has-text-centered is-flex is-justify-content-center is-align-items-center is-flex-grow-1">
-            <span className="is-size-2 pr-3">{`${current.temp.toFixed(
-              0
-            )}°C`}</span>
-            <span style={{ fontSize: "5em" }}>
-              <i
-                className={
-                  icons[
-                    `${
-                      current.icon.endsWith("d") ? "day " : "night "
-                    }${current.iconId.toString()}`
-                  ] || ""
-                }
-              />
-            </span>
-          </div>
-          <p className="is-size-5 has-text-weight-norma' has-text-centered">{`Feels like ${current.feelsLike.toFixed(
-            0
-          )}°C`}</p>
-          <p className="is-size-4 has-text-weight-semibold has-text-centered">
-            {current.description.toUpperCase()}
-          </p>
-
-          <div className="columns has-text-centered is-mobile pt-2">
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-humidity" />
-                  </span>
-                  humidity
-                </p>
-                <p className="title">{current.humidity}</p>
-              </div>
-            </div>
-
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-strong-wind" />
-                  </span>
-                  Wind Speed
-                </p>
-                <p className="title">{`${(current.windSpd * 3.6).toFixed(
-                  1
-                )} km/h`}</p>
-              </div>
-            </div>
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-sunrise" />
-                  </span>
-                  sunrise
-                </p>
-                <p className="title">
-                  {new Date(current.sunrise * 1000).toLocaleTimeString()}
-                </p>
-              </div>
-            </div>
-          </div>
-
-          <div className="columns has-text-centered is-mobile">
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-barometer" />
-                  </span>
-                  pressure
-                </p>
-                <p className="title">{current.pressure}</p>
-              </div>
-            </div>
-
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-hot" />
-                  </span>
-                  UV index
-                </p>
-                <p className="title">{current.uvi}</p>
-              </div>
-            </div>
-
-            <div className="column">
-              <div>
-                <p className="heading">
-                  <span>
-                    <i className="wi wi-sunset" />
-                  </span>
-                  sunset
-                </p>
-                <p className="title">
-                  {new Date(current.sunset * 1000).toLocaleTimeString()}
-                </p>
-              </div>
-            </div>
-          </div>
-        </>
-      )}
-
-      <div className="tabs is-centered">
+      {weatherScreen === "current" && <CurrentWeather current={current} />}
+      {weatherScreen === "hourly" && <HourlyWeather hourly={hourly} />}
+      {weatherScreen === "daily" && <DailyWeather daily={daily} />}
+      <div className="tabs is-centered is-toggle">
         <ul>
           <li
             className={weatherScreen === "current" ? "is-active" : ""}
@@ -227,6 +84,100 @@ export const Weather = ({
           </div>
         </section>
       )}
+
+      <div className="card-footer level py-2">
+        <div className="level-left">
+          {edit && (
+            <>
+              <div className="level-item">
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="City"
+                      value={city}
+                      onChange={(e) => setCity(e.target.value)}
+                    />
+                  </p>
+                </div>
+              </div>
+
+              <div className="level-item">
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="State/Province"
+                      value={stateName}
+                      onChange={(e) => setStateName(e.target.value)}
+                    />
+                  </p>
+                </div>
+              </div>
+
+              <div className="level-item">
+                <div className="field">
+                  <p className="control">
+                    <input
+                      className="input"
+                      type="text"
+                      placeholder="Country"
+                      value={country}
+                      onChange={(e) => setCountry(e.target.value)}
+                    />
+                  </p>
+                </div>
+              </div>
+            </>
+          )}
+        </div>
+        <div className="level-right">
+          {edit ? (
+            <>
+              <p className="level-item">
+                <button
+                  className="button is-success"
+                  onClick={handleUpdateWeather}>
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faSave} />
+                  </span>
+                </button>
+              </p>
+              <p className="level-item">
+                <button
+                  className="button is-warning has-text-centered"
+                  onClick={cancelEdit}>
+                  <span className="icon is-small">
+                    <FontAwesomeIcon icon={faBan} />
+                  </span>
+                </button>
+              </p>
+            </>
+          ) : (
+            <p className="level-item">
+              <button
+                className="button is-dark has-text-centered"
+                onClick={() => setEdit(true)}>
+                <span className="icon is-small">
+                  <FontAwesomeIcon icon={faPencilAlt} />
+                </span>
+              </button>
+            </p>
+          )}
+          <p className="level-item">
+            <button
+              className="button is-danger is-outlined has-text-centered"
+              onClick={openModal}>
+              <span className="icon is-small">
+                <FontAwesomeIcon icon={faTimes} />
+              </span>
+            </button>
+          </p>
+        </div>
+      </div>
+
       <ConfirmModal
         confirm={confirm}
         closeModal={closeModal}

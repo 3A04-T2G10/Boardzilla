@@ -249,11 +249,12 @@ router.put("/", requireAuth, (req, res) => {
             widget.lng = geo_json.results[0].geometry.lng;
             widget.place = geo_json.results[0].formatted;
             return fetch(
-              `https://api.openweathermap.org/data/2.5/onecall?lat=${req.body.lat}&lon=${req.body.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`
+              `https://api.openweathermap.org/data/2.5/onecall?lat=${widget.lat}&lon=${widget.lng}&exclude=minutely&units=metric&appid=${process.env.WEATHER_KEY}`
             );
           })
           .then((res) => res.json())
           .then((json) => {
+            console.log(json);
             //db
             widget.timeOffset = json.timezone_offset;
             widget.current = {
