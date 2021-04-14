@@ -4,6 +4,7 @@ import { push } from "connected-react-router";
 import R from "ramda";
 
 import { attemptGetStickies } from "_thunks/stickies";
+import { attemptGetStocks } from "_thunks/stocks";
 import WidgetList from "_components/WidgetList";
 
 export default function Dasboard() {
@@ -15,7 +16,10 @@ export default function Dasboard() {
     if (R.isEmpty(user)) {
       dispatch(push("/login"));
     } else {
-      dispatch(attemptGetStickies()).then(() => setLoading(false));
+      // dispatch(attemptGetStickies()).then(() => setLoading(false));
+      const stickyWidgets = dispatch(attemptGetStickies());
+      const stocksWidgets = dispatch(attemptGetStocks());
+      Promise.allSettled([stickyWidgets, stocksWidgets]).then(() => setLoading(false));
     }
   }, []);
 

@@ -104,8 +104,8 @@ router.post("/", requireAuth, (req, res) => {
       .then((res) => res.json())
       .then((json) => {
         req.body.user = req.user.id;
-        req.body.width = req.body.width || 300;
-        req.body.height = req.body.height || 300;
+        req.body.width = req.body.width || 8;
+        req.body.height = req.body.height || 4;
         req.body.x = req.body.x || 0;
         req.body.y = req.body.y || 0;
 
@@ -250,8 +250,8 @@ router.put("/layout", requireAuth, (req, res) => {
     if (err) {
       res.status(400).send({ message: "Update widget failed", err });
     } else {
-      widget.x = req.body.x || widget.x;
-      widget.y = req.body.y || widget.y;
+      widget.x = req.body.x || 0;
+      widget.y = req.body.y || 0;
       widget.width = req.body.width || widget.width;
       widget.height = req.body.height || widget.height;
 

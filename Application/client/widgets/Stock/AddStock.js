@@ -4,13 +4,14 @@ import PropTypes from "prop-types";
 import { attemptAddStock } from "_thunks/stocks";
 import useKeyPress from "_hooks/useKeyPress";
 
-export default function AddStock({ closeModal }) {
+export default function AddStock({ closeModal, widgetCount, x, y, updateList }) {
   const dispatch = useDispatch();
   const [symbol, setSymbol] = useState("");
 
   const handleAddStock = () => {
     if (symbol) {
-      dispatch(attemptAddStock(symbol));
+      widgetCount();
+      dispatch(attemptAddStock(symbol, x, y)).then(updateList);
       setSymbol("");
     }
   };

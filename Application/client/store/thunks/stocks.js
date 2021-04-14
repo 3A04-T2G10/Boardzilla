@@ -26,7 +26,7 @@ export const attemptGetStocks = () => (dispatch) =>
     })
     .catch(dispatchError(dispatch));
 
-export const attemptAddStock = (symbol) => (dispatch) =>
+export const attemptAddStock = (symbol, x, y) => (dispatch) =>
   postStock({ symbol })
     .then((data) => {
       const stock = R.omit(

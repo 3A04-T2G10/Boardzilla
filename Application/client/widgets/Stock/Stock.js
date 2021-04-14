@@ -39,8 +39,8 @@ export const Stock = ({ id, dailyData, symbol }) => {
   };
 
   return dailyData && dailyData.dateTime && dailyData.dateTime.length > 1 ? (
-    <div className={`card mb-3 px-2`}>
-      <div className="content has-text-centered">
+    <div className={`card mb-3 px-2 height-100`}>
+      <div className="content has-text-centered height-calc2">
         <Plot
           data={[
             {

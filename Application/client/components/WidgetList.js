@@ -5,7 +5,9 @@ import { useDispatch, useSelector }from "react-redux";
 import { push } from "connected-react-router";
 import R from "ramda";
 import Sticky from "_widgets/StickyNotes/Sticky";
+import Stock from "_widgets/Stock/Stock";
 import { attemptGetStickies, attemptUpdateStickyLayout } from "_thunks/stickies";
+import { attemptGetStocks, attemptUpdateStockLayout } from "_thunks/stocks";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlus} from "@fortawesome/free-solid-svg-icons/faPlus";
 import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
@@ -16,7 +18,7 @@ import AddWeatherModal from "_widgets/Weather/AddWeatherModal";
 
 export const WidgetList = () => {
   const [layouts, setLayouts] = useState([]);
-  const [widgetCounter, setWidgetCounter] = useState(1);
+  const [widgetCounter, setWidgetCounter] = useState(0);
   const [newWidgetType, setNewWidgetType] = useState("Sticky");
   const [addStickyWidget, setAddStickyWidget] = useState(false);
   const [addNewsWidget, setAddNewsWidget] = useState(false);
@@ -25,6 +27,7 @@ export const WidgetList = () => {
   const dispatch = useDispatch();
   const { user } = useSelector(R.pick(["user"]));
   const [loading, setLoading] = useState(true);
+  const { stocks } = useSelector(R.pick(["stocks"]));
   const { stickies } = useSelector(R.pick(["stickies"]));
   const [difference, setDifference] = useState([]);
   const [disabled, setDisabled] = useState(true);
@@ -32,7 +35,7 @@ export const WidgetList = () => {
 
   const setAllLayouts = useCallback(() => {
     const allLayouts = [];
-    stickies.map((sticky, index) => {
+    stickies.map(sticky => {
       const newWidget = {
         i: sticky.id,
         x: sticky.x, // 3 is the multiplier
@@ -42,15 +45,31 @@ export const WidgetList = () => {
         minH: 2,
         minW: 4
         };
+      
       allLayouts.push(newWidget);
       }
+  )
+  
+  stocks.map(stock=> {
+    const newWidget = {
+      i: stock.id,
+      x: stock.x, // 3 is the multiplier
+      y: stock.y, // puts it at the bottom
+      w: stock.width,
+      h: stock.height,
+      minH: 4,
+      minW: 8
+      };
+    
+    allLayouts.push(newWidget);
+    }
   )
       setLayouts(allLayouts);
   });
   
 
   useEffect(() => {
-    if (stickies.length > 0){
+    if (newWidgetType === "Sticky" && stickies.length > 0){
     const newWidget = {
       i: stickies[stickies.length-1].id,
       x: stickies[stickies.length-1].x, // 3 is the multiplier
@@ -63,6 +82,19 @@ export const WidgetList = () => {
       const allLayouts = Array.from(layouts);
       allLayouts.push(newWidget);
       setLayouts(allLayouts);
+    } else if (newWidgetType=== "Stocks" && stocks.length > 0) {
+      const newWidget = {
+        i: stocks[stocks.length-1].id,
+        x: stocks[stocks.length-1].x, // 3 is the multiplier
+        y: stocks[stocks.length-1].y, // puts it at the bottom
+        w: stocks[stocks.length-1].width,
+        h: stocks[stocks.length-1].height,
+        minH: 4,
+        minW: 8
+        };
+        const allLayouts = Array.from(layouts);
+        allLayouts.push(newWidget);
+        setLayouts(allLayouts);
     }
   }, [added])
 
@@ -70,8 +102,10 @@ export const WidgetList = () => {
     if (R.isEmpty(user)) {
       dispatch(push("/login"));
     } else {
-      dispatch(attemptGetStickies()).then(() => setLoading(false));
-      setAllLayouts();
+      const stickyWidgets = dispatch(attemptGetStickies());
+      const stocksWidgets = dispatch(attemptGetStocks());
+      Promise.allSettled([stickyWidgets, stocksWidgets]).then(() => {setAllLayouts(); setLoading(false)});
+      // dispatch(attemptGetStocks()).then(() => {console.log(stocks); setAllLayouts(); setLoading(false); });
       
     }
   }, []);
@@ -83,7 +117,7 @@ export const WidgetList = () => {
 
   const onLayoutChange = useCallback((layout) =>  {
     let differentLayout = layout.filter((newLayout,index) => {
-      console.log(newLayout);
+      //console.log(newLayout);
       if ((layouts[index].x !== newLayout.x) || (layouts[index].y !== newLayout.y) 
       || (layouts[index].w !== newLayout.w) || (layouts[index].h !== newLayout.h)) {
         return newLayout;
@@ -91,24 +125,24 @@ export const WidgetList = () => {
     });
     
     var updated = 0;
+    console.log(differentLayout);
+    const newArray = Array.from(difference);
     differentLayout.map(newDifferentLayout => {
       var foundLayout = 0;
       difference.map((existingDifferentLayouts, index) => {
         if (newDifferentLayout.i === existingDifferentLayouts.i){
-          const newArray = Array.from(difference);
           newArray[index] = newDifferentLayout
-          setDifference(newArray);
           foundLayout = 1;
           updated = 1;
         }
       });
       if (foundLayout == 0) {
-        const newArray = Array.from(difference);
-        newArray.push(newDifferentLayout)
-        setDifference(newArray);
+        newArray.push(newDifferentLayout);
         updated = 1;
       }
     });
+
+    setDifference(newArray);
 
     if (updated == 1) {
 
@@ -145,7 +179,11 @@ export const WidgetList = () => {
   const save = useCallback(() => {
     difference.map(newLayout => {
       console.log(newLayout);
-      dispatch(attemptUpdateStickyLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      if (stickies.filter(sticky => newLayout.i == sticky.id).length == 1){
+        dispatch(attemptUpdateStickyLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      } else if(stocks.filter(stock => newLayout.i == stock.id).length == 1) {
+        dispatch(attemptUpdateStockLayout(newLayout.i, newLayout.x, newLayout.y, newLayout.w, newLayout.h));
+      }
     });
     setDifference([]);
     setDisabled(true);
@@ -159,6 +197,10 @@ export const WidgetList = () => {
 
   const widgetCount = useCallback(() => {
     setWidgetCounter(prevState => prevState + 1);
+  });
+
+  const widgetCountStock = useCallback(() => {
+    setWidgetCounter(prevState => prevState + 2);
   });
 
   const updateList = useCallback(() => {
@@ -181,16 +223,28 @@ export const WidgetList = () => {
         <AddNewsModal
           open={addNewsWidget}
           closeModal={closeModal}
+          widgetCount={widgetCount}
+          x={(widgetCounter * 4) % 12}
+          y={Math.floor((widgetCounter * 4) / 12)}
+          updateList={updateList}
         />
 
         <AddStockModal
           open={addStockWidget}
           closeModal={closeModal}
+          widgetCount={widgetCountStock}
+          x={(widgetCounter * 4) % 12}
+          y={Math.floor((widgetCounter * 4) / 12)}
+          updateList={updateList}
         />
 
         <AddWeatherModal
           open={addWeatherWidget}
           closeModal={closeModal}
+          widgetCount={widgetCount}
+          x={(widgetCounter * 4) % 12}
+          y={Math.floor((widgetCounter * 4) / 12)}
+          updateList={updateList}
         />
         <div
           style={{
@@ -269,15 +323,21 @@ export const WidgetList = () => {
         
         <ResponsiveReactGridLayout className="layout" onLayoutChange={onLayoutChange} >
           {layouts.map(widgetLayout => {
+            
             const sticky = stickies.filter(sticky => sticky.id == widgetLayout.i)[0];
+            
+             const stock = stocks.filter(stock => stock.id == widgetLayout.i)[0];
+            //console.log(stock);
+            //console.log(sticky || stock);
             return (
             <div 
             style={{
               height: `100%`
             }}
             key={widgetLayout.i} 
-            data-grid={widgetLayout}> 
-            <Sticky key={sticky.id} {...sticky} />
+            data-grid={widgetLayout}>
+            {sticky && <Sticky key={sticky.id} {...sticky} />}
+            {stock && <Stock key={stock.id} {...stock} />}
             </div>
             )
           })}
