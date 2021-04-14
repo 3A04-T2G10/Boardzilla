@@ -32,17 +32,21 @@
 // }
 import React, { useState,Component } from 'react';
 import Calendar from 'react-calendar';
-import AddEvents from './AddEvents';
+import { AddEvents } from './AddEvents';
 
 import './Sample.less';
-
+class CalEvent {
+  constructor(date,msg) {  // Constructor
+    this.date = date;
+    this.msg = msg;
+  }
+}
 function Sample() {
   //const [value, onChange] = useState(new Date());
   const [date, setDate] = useState(new Date());
   const onChange = date => {
     setDate(date);
   };
-
 
   return (
     <div className="Sample">
@@ -63,6 +67,9 @@ function Sample() {
     </div>
   );
 }
+
+
+
 export default class CalendarAPI extends Component {
   constructor(props) {
     super(props);
@@ -71,21 +78,26 @@ export default class CalendarAPI extends Component {
       eventText: undefined,
     }
   }
-  onClick = date => {
-    this.setState(({ addEvent }) => ({ addEvent: !addEvent }));
-  };
-    
+  // onClick = date => {
+  //   this.setState(({ addEvent }) => ({ addEvent: !addEvent }));
+  // };
+  handleSubmit = (event) => {
+    event.preventDefault()
+    console.log(event.target[0].value)
+    console.log(event.target.elements.eventCont.value)
+    console.log(event.target.eventCont.value)
+  }
   // handleSubmit(event) {
   //   alert('An event was added: ' + this.state.value);
   // }
-  getEvent = async e =>{
-    e.preventDefault();
-    alert('An event was added: ' + e.target.value);
+  // getEvent = async e =>{
+  //   e.preventDefault();
+  //   alert('An event was added: ' + e.target.value);
 
-    this.setState({
-      eventText: e.target.value,
-    });
-  }
+  //   this.setState({
+  //     eventText: e.target.value,
+  //   });
+  // }
     
 
     
@@ -99,7 +111,19 @@ export default class CalendarAPI extends Component {
         </label>
         <input type="submit" value="Submit" />
       </form> : null} */}
-      <AddEvents eventContent={this.getEvent} />
+      {/* <AddEvents eventContent={this.getEvent} /> */}
+      <form onSubmit={this.handleSubmit}>
+        <label>
+          Event:
+          <input
+            type="text"
+            placeholder="New Event"
+            name="eventCont"
+            ref={node => (this.inputNode = node)}
+          />
+        </label>
+        <button type="submit">Submit</button>
+      </form>
 
       <Sample/>
       Event: {this.state.eventText}
