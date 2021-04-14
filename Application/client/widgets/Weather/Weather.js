@@ -8,10 +8,8 @@ import { faSave } from "@fortawesome/free-solid-svg-icons/faSave";
 import { faBan } from "@fortawesome/free-solid-svg-icons/faBan";
 import { faTimes } from "@fortawesome/free-solid-svg-icons/faTimes";
 import { faPencilAlt } from "@fortawesome/free-solid-svg-icons/faPencilAlt";
-import { faChevronUp } from "@fortawesome/free-solid-svg-icons/faChevronUp";
-import { faChevronDown } from "@fortawesome/free-solid-svg-icons/faChevronDown";
-import { faChartBar } from "@fortawesome/free-solid-svg-icons/faChartBar";
-import { faDollarSign } from "@fortawesome/free-solid-svg-icons/faDollarSign";
+import { faTemperatureHigh } from "@fortawesome/free-solid-svg-icons/faTemperatureHigh";
+import { faTemperatureLow } from "@fortawesome/free-solid-svg-icons/faTemperatureLow";
 import { attemptDeleteStock } from "_thunks/stocks";
 import { attemptUpdateStock } from "_thunks/stocks";
 import ConfirmModal from "_components/ConfirmModal";
@@ -65,22 +63,126 @@ export const Weather = ({
   };
   return place ? (
     <div className={`card mb-3 px-2`}>
-      <div className="has-text-centered">
-        <p className="is-size-3 has-text-weight-bold p-1">{place || "place"}</p>
+      <p className="is-size-3 has-text-weight-bold has-text-centered">
+        {place || "place"}
+      </p>
+      <div className="has-text-centered is-flex is-justify-content-center is-align-items-center is-flex-grow-1">
+        <span className="is-size-2 pr-3">{`${current.temp.toFixed(0)}°C`}</span>
+        <span style={{ fontSize: "5em" }}>
+          <i
+            className={
+              icons[
+                `${
+                  current.icon.endsWith("d") ? "day " : "night "
+                }${current.iconId.toString()}`
+              ] || ""
+            }
+          />
+        </span>
       </div>
-      <p>
-        {/* <i
-          className={
-            icons[
-              `${
-                current.icon.endsWith("d") ? "day " : "night "
-              }${current.iconId.toString()}`
-            ] || ""
-          }></i> */}
-
-        <i className="wi wi-day-fog" />
+      <p className="is-size-5 has-text-weight-norma' has-text-centered">{`Feels like ${current.feelsLike.toFixed(
+        0
+      )}°C`}</p>
+      <p className="is-size-4 has-text-weight-semibold has-text-centered">
+        {current.description.toUpperCase()}
       </p>
 
+      {/* <div className="level-item has-text-centered">
+          <p className="heading">
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={faTemperatureHigh} />
+            </span>
+            high
+          </p>
+          <p className="title">{current.high}</p>
+
+          <p className="heading">
+            <span className="icon is-small">
+              <FontAwesomeIcon icon={faTemperatureLow} />
+            </span>
+            low
+          </p>
+          <p className="title">{current.low}</p>
+        </div>*/}
+
+      <div className="columns has-text-centered is-mobile">
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-humidity" />
+              </span>
+              humidity
+            </p>
+            <p className="title">{current.humidity}</p>
+          </div>
+        </div>
+
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-strong-wind" />
+              </span>
+              Wind Speed
+            </p>
+            <p className="title">{(current.windSpd * 3.6).toFixed(1)}</p>
+          </div>
+        </div>
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-sunrise" />
+              </span>
+              sunrise
+            </p>
+            <p className="title">
+              {new Date(current.sunrise * 1000).toLocaleTimeString()}
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <div className="columns has-text-centered is-mobile">
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-barometer" />
+              </span>
+              pressure
+            </p>
+            <p className="title">{current.pressure}</p>
+          </div>
+        </div>
+
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-hot" />
+              </span>
+              UV index
+            </p>
+            <p className="title">{current.uvi}</p>
+          </div>
+        </div>
+
+        <div className="column">
+          <div>
+            <p className="heading">
+              <span>
+                <i className="wi wi-sunset" />
+              </span>
+              sunset
+            </p>
+            <p className="title">
+              {new Date(current.sunset * 1000).toLocaleTimeString()}
+            </p>
+          </div>
+        </div>
+      </div>
       <ConfirmModal
         confirm={confirm}
         closeModal={closeModal}
